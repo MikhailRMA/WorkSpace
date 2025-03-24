@@ -1,18 +1,18 @@
 ### данные имеют следующую структуру:
-Схематично:
-└── data
-   ├── 2020-12-30
-   │  ├── FirstName_LastName1
-   │  │   └── data.csv
-   │  ├── FirstName_LastName2
-   │  │   └── data.csv
-   │  └── FirstName_LastName3
-   │      └── data.csv
-   └── 2020-12-31
-      ├── FirstName_LastName1
-      │   └── data.csv
-      └── FirstName_LastName5
-          └── data.csv
+Схематично:<br>
+└── data<br>
+   ├── 2020-12-30<br>
+   │  ├── FirstName_LastName1<br>
+   │  │   └── data.csv<br>
+   │  ├── FirstName_LastName2<br>
+   │  │   └── data.csv<br>
+   │  └── FirstName_LastName3<br>
+   │      └── data.csv<br>
+   └── 2020-12-31<br>
+      ├── FirstName_LastName1<br>
+      │   └── data.csv<br>
+      └── FirstName_LastName5<br>
+          └── data.csv<br>
 # Задачи
 1.	Собрать все данные из папки data в один датафрэйм, имеющий следующие столбцы: колонки из самих файлов (product_id, quantity), а также имя пользователя (name), и дата этих покупок (date), соответствует названию папки, где лежит папка с пользователем)
 2.	Выяснить, какой пользователь купил больше всего товаров. Если их несколько, то перечислите имена через запятую с пробелом и в алфавитном порядке.
