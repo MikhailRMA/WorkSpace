@@ -1,9 +1,5 @@
 # 🛒 E-commerce SQL Analysis Project
 
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue.svg)](https://www.postgresql.org/)
-[![Tableau](https://img.shields.io/badge/Tableau-Visualization-orange.svg)](https://www.tableau.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
 Полный анализ эффективности интернет-магазина с использованием SQL. Проект демонстрирует извлечение бизнес-инсайтов из сырых данных и построение интерактивного дашборда.
 
 ## 📊 Демо
