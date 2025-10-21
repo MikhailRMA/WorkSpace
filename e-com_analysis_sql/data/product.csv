@@ -1,0 +1,21 @@
+product_id,product_name,category,price
+1,iPhone 14 Pro,Electronics,999.99
+2,MacBook Air 13,Electronics,1199.99
+3,AirPods Pro,Electronics,249.99
+4,Samsung Galaxy S23,Electronics,849.99
+5,Sony WH-1000XM4,Electronics,349.99
+6,Nike Air Max 270,Shoes,150.00
+7,Adidas Ultraboost,Shoes,180.00
+8,Levi's 501 Jeans,Clothing,89.99
+9,Zara Cotton T-Shirt,Clothing,29.99
+10,H&M Hoodie,Clothing,49.99
+11,Dell XPS 13,Electronics,999.99
+12,iPad Air,Electronics,599.99
+13,Apple Watch Series 8,Electronics,399.99
+14,Canon EOS R6,Camera,2399.99
+15,Sony A7 III,Camera,1999.99
+16,Converse Chuck Taylor,Shoes,55.00
+17,Vans Old Skool,Shoes,65.00
+18,Uniqlo Jacket,Clothing,79.99
+19,The North Face Fleece,Clothing,129.99
+20,Python Crash Course,Books,39.99
