@@ -15,29 +15,56 @@
 
 ## 📁 Структура проекта
 e-com_analysis_sql/
+
 ├── data/ # Исходные данные
+
 │ ├── customers.csv
+
 │ ├── products.csv
+
 │ ├── orders.csv
+
 │ └── order_items.csv
+
 ├── scripts/
+
 │ ├── 01_create_tables # Создание БД и таблиц
+
 │ ├── 02_import_data # импорт данных
+
 │ ├── 03analysis.sql # Анализ
+
 │ └── tableau_dashboard.twb # Файл дашборда Tableau
+
 ├── results/
-│ ├── 1 revenue # Экспорт результатов
-│ ├── 2 monthly_revenue.csv # Экспорт результатов
-│ ├── 3 daily_revenue.csv # Экспорт результатов
-│ ├── 4 country_revenue.csv # Экспорт результатов
-│ ├── 5 repeat_customers.csv # Экспорт результатов
-│ ├── 6 top10_customers.csv # Экспорт результатов
-│ ├── 7 top10_product.csv # Экспорт результатов
-│ ├── 8 top_profit_product.csv # Экспорт результатов
-│ ├── 9 top_category.csv # Экспорт результатов
-│ ├── 10 avg_check.csv # Экспорт результатов
-│ └── 11 seasonality.csv # Экспорт результатов
+
+│ ├── 1_revenue.csv # Общая выручка
+
+│ ├── 2_monthly_revenue.csv # Выручка по месяцам
+
+│ ├── 3_daily_revenue.csv # Выручка по дням
+
+│ ├── 4_country_revenue.csv # Выручка по странам
+
+│ ├── 5_repeat_customers.csv # Анализ повторных покупок
+
+│ ├── 6_top10_customers.csv # Топ-10 клиентов
+
+│ ├── 7_top10_product.csv # Топ-10 товаров по продажам
+
+│ ├── 8_top_profit_product.csv # Топ товаров по прибыли
+
+│ ├── 9_top_category.csv # Топ категорий
+
+│ ├── 10_avg_check.csv # Средний чек
+
+│ └── 11_seasonality.csv # Сезонность продаж
+
 └── 
+
 │   Analytical_report.md #Аналитический отчет
+
 └── data_dictionary.md # Описание данных
+
+
 
