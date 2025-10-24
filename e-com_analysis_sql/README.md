@@ -34,8 +34,6 @@ e-com_analysis_sql/
 
 │ ├── 03analysis.sql # Анализ
 
-│ └── tableau_dashboard.twb # Файл дашборда Tableau
-
 ├── results/
 
 │ ├── 1_revenue.csv # Общая выручка
