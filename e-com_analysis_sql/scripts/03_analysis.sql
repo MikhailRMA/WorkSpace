@@ -65,7 +65,9 @@ SELECT
     c.name,
     c.country,
     COUNT(o.order_id) as Количесво_заказов,
-    SUM(o.revenue) as Общая_выручка
+    SUM(o.revenue) as Общая_выручка,
+	ROUND((SUM(o.revenue) / SUM(SUM(o.revenue)) OVER()) * 100, 2) as Доля_от_общей_выручки_в_процентах,
+    RANK() OVER (ORDER BY SUM(o.revenue) DESC) as Ранг_по_выручке
 FROM customers c
 JOIN orders o USING (customer_id)
 GROUP BY c.customer_id, c.name, c.country
