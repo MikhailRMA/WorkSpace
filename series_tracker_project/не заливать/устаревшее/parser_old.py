@@ -1,0 +1,180 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
+from bs4 import BeautifulSoup
+import pandas as pd
+import time 
+import re
+
+def final_series_parser():
+    """Финальная версия парсера с исправлениями"""
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
+    
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=options)
+    
+    try:
+        url = "https://kino.mail.ru/series/soon/2025/10/"
+        print(f"Открываем страницу: {url}")
+        driver.get(url)
+        
+        # Ждем загрузки блоков с сериалами
+        print("Ожидаем загрузки блоков с сериалами...")
+        wait = WebDriverWait(driver, 15)
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.p-teaser-event')))
+        time.sleep(3)
+        
+        # Получаем HTML страницы
+        page_html = driver.page_source
+        soup = BeautifulSoup(page_html, 'html.parser')
+        
+        # Ищем ВСЕ блоки с сериалами
+        series_blocks = soup.find_all('div', class_='p-teaser-event')
+        print(f"Найдено блоков с сериалами: {len(series_blocks)}")
+        
+        series_data = []
+        
+        for i, block in enumerate(series_blocks):
+            try:
+                print(f"Обрабатываем сериал {i+1}...")
+                
+                # 1. НАЗВАНИЕ СЕРИАЛА
+                title_elem = block.find('a', class_='link-holder')
+                title = title_elem.text.strip() if title_elem else "Неизвестно"
+                
+                # 2. ССЫЛКА НА СЕРИАЛ
+                link = "https://kino.mail.ru" + title_elem['href'] if title_elem else ""
+                
+                # 3. РЕЙТИНГИ (ТОЛЬКО rating_kino_mail и rating_imdb)
+                rating_kino_mail = "0"  # Переименовано из rating_kino
+                rating_imdb = "0"
+                
+                # Ищем блок с рейтингами
+                rates_block = block.find('div', class_='p-rates__rating-kino')
+                if rates_block:
+                    # Рейтинг КиноПоиск (переименован в rating_kino_mail)
+                    rating_elem = rates_block.find('span', class_='p-rates__rating-value')
+                    if rating_elem:
+                        rating_kino_mail = rating_elem.text.strip()
+                
+                # Рейтинг IMDb
+                imdb_block = block.find('div', class_='p-rates__rating-imdb')
+                if imdb_block:
+                    imdb_text = imdb_block.get_text()
+                    imdb_match = re.search(r'IMDb\s*(\d+\.\d+|\d+)', imdb_text)
+                    rating_imdb = imdb_match.group(1) if imdb_match else "0"
+                
+                # 4. СТРАНА, ГОД, ПРОДОЛЖИТЕЛЬНОСТЬ, ВОЗРАСТНОЕ ОГРАНИЧЕНИЕ
+                country = "Неизвестно"
+                year = "2025"
+                duration = "Неизвестно"
+                age_limit = "Неизвестно"
+                
+                color_black_block = block.find('div', class_='color_black')
+                if color_black_block:
+                    # Получаем весь текст блока для анализа
+                    full_text = color_black_block.get_text()
+                    
+                    # Ищем все элементы в блоке
+                    all_links = color_black_block.find_all('a')
+                    
+                    # Страна - первая ссылка
+                    if len(all_links) > 0:
+                        country = all_links[0].text.strip()
+                    
+                    # Год - вторая ссылка (если есть)
+                    if len(all_links) > 1:
+                        year = all_links[1].text.strip()
+                    
+                    # ПРОДОЛЖИТЕЛЬНОСТЬ
+                    duration_span = color_black_block.find('span', class_='link__text')
+                    if duration_span:
+                        duration = duration_span.text.strip()
+                    else:
+                        duration_match = re.search(r'(\d+\s*мин\.?)', full_text)
+                        if duration_match:
+                            duration = duration_match.group(1)
+                    
+                    # ВОЗРАСТНОЕ ОГРАНИЧЕНИЕ
+                    age_elem = color_black_block.find('span', class_='label_restrict')
+                    if age_elem:
+                        age_limit = age_elem.text.strip()
+                    else:
+                        age_match = re.search(r'(\d{2}\+)', full_text)
+                        if age_match:
+                            age_limit = age_match.group(1)
+                
+                # 5. ДАТА ВЫХОДА
+                release_date = "2025-10-01"
+                date_block = block.find('div', class_='margin_bottom_5 color_gray')
+                if date_block:
+                    date_elem = date_block.find('strong')
+                    if date_elem:
+                        date_text = date_elem.text.strip()
+                        date_match = re.search(r'(\d{1,2})', date_text)
+                        if date_match:
+                            day = date_match.group(1).zfill(2)
+                            release_date = f"2025-10-{day}"
+                
+                # 6. СЕЗОН (ТОЛЬКО НОМЕР СЕЗОНА, БЕЗ СЕРИЙ) - ИСПРАВЛЕНО
+                season = "1"  # По умолчанию
+                if date_block:
+                    season_text = date_block.get_text()
+                    # Ищем только номер сезона (например: "1 сезон" -> "1")
+                    season_match = re.search(r'(\d+)\s*сезон', season_text)
+                    if season_match:
+                        season = season_match.group(1)
+                
+                # 7. ЖАНРЫ
+                genres = []
+                genre_links = block.find_all('a', class_='badge')
+                for genre_link in genre_links:
+                    genre_text = genre_link.text.strip()
+                    if genre_text and genre_text not in genres:
+                        genres.append(genre_text)
+                
+                genre = ', '.join(genres) if genres else "Неизвестно"
+                
+                # Формируем данные с финальными исправлениями
+                series_info = {
+                    'title': title,
+                    'link': link,
+                    'country': country,
+                    'year': year,
+                    'release_date': release_date,
+                    'season': season,  # Только номер сезона
+                    # platform УДАЛЕН - больше не парсим
+                    'rating_kino_mail': float(rating_kino_mail) if rating_kino_mail.replace('.', '').isdigit() else 0.0,  # Переименован
+                    'rating_imdb': float(rating_imdb) if rating_imdb.replace('.', '').isdigit() else 0.0,
+                    # votes УДАЛЕН - больше не парсим
+                    'genre': genre,
+                    'duration': duration,
+                    'age_limit': age_limit,
+                    'parsed_at': pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S')
+                }
+                
+                series_data.append(series_info)
+                print(f"✅ {i+1}. {title}")
+                print(f"   Страна: {country}, Год: {year}, Сезон: {season}")
+                print(f"   Продолжительность: {duration}, Возраст: {age_limit}")
+                print(f"   Рейтинг KinoMail: {rating_kino_mail}, IMDb: {rating_imdb}")
+                print(f"   Жанр: {genre}")
+                
+            except Exception as e:
+                print(f"❌ Ошибка с сериалом {i+1}: {e}")
+                continue
+        
+        return series_data
+        
+    except Exception as e:
+        print(f"Ошибка парсинга: {e}")
+        return []
+    finally:
+        driver.quit()

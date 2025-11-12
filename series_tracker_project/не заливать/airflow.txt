@@ -1,0 +1,13 @@
+Connection Id: postgres_series
+
+Connection Type: Postgres
+
+Host: series_tracker_project-postgres-1
+
+Schema: series_tracker
+
+Login: postgres
+
+Password: postgres или password
+
+Port: 5432
