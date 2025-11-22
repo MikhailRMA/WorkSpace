@@ -16,7 +16,7 @@
 ## 📊 Демо
 
 
-**Интерактивный дашборд:** [ Screenshot dasbord Datalens](https://public.tableau.com/app/profile/petr.count/viz/E-com_17609722447200/KPIDashboard)
+**Интерактивный дашборд:** [ Screenshot dasbord Datalens](https://public.tableau.com/app/profile/petr.count/viz/E-com_17609722447200/KPIDashboard](https://github.com/MikhailRMA/WorkSpace/blob/main/Extractor-SKU-Data-Analysis/dashboard/screenshot.jpg)
 
 ## 🛠 Технологии анализа
 - **Python 3.13**
