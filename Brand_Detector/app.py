@@ -4,16 +4,147 @@ import re
 import json
 import io
 from datetime import datetime
-import plotly.express as px
-import plotly.graph_objects as go
 
 # Настройка страницы
 st.set_page_config(
-    page_title="Brand Detector",
+    page_title="Brand Detector - OZON Style",
     page_icon="🛍️",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="wide"
 )
+
+# CSS стили OZON
+def apply_ozon_style():
+    st.markdown("""
+    <style>
+        .main, .stApp {
+            background-color: #1A1A1A !important;
+            color: white !important;
+        }
+        .stTextInput, .stTextArea, .stNumberInput, .stSelectbox {
+            color: var(--ozon-text) !important;
+        }
+        .stTextInput label, .stTextArea label, .stNumberInput label, .stSelectbox label {
+            color: white !important;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: white !important;
+        }
+        .main .block-container {
+            background-color: #1A1A1A !important;
+            color: white !important;
+        }
+        .main-header {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #005BFF, #FF6B00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        .main-subtitle {
+            text-align: center;
+            color: #B3B3B3;
+            margin-bottom: 2rem;
+        }
+        .section-header {
+            background: linear-gradient(135deg, #005BFF, #004ACC);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: 900;
+        }
+        .ozon-card {
+            background: #2D2D2D;
+            padding: 1.2rem;
+            border-radius: 8px;
+            border: 1px solid #404040;
+            margin: 0.8rem 0;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .ozon-card:hover {
+            box-shadow: 0 4px 20px rgba(0, 91, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            gap: 0.5rem;
+        }
+        .card-icon {
+            font-size: 1.3em;
+            color: #005BFF;
+        }
+        .card-title {
+            margin: 0;
+            color: #005BFF;
+            font-weight: 600;
+        }
+        .ozon-status {
+            background: #2D2D2D;
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin: 0.5rem 0;
+            border-left: 4px solid #005BFF;
+            color: white;
+        }
+        .ozon-status strong {
+            color: #005BFF;
+        }
+        .stButton button {
+            background: linear-gradient(135deg, #005BFF, #004ACC);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        .stButton button:hover {
+            background: linear-gradient(135deg, #004ACC, #005BFF);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 91, 255, 0.2);
+        }
+        .ozon-alert-success {
+            background: #2D2D2D !important;
+            border-left: 4px solid #005BFF !important;
+            color: #FFFFFF !important;
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+        }
+        .ozon-alert-success strong {
+            color: #FFFFFF !important;
+        }
+        .ozon-sidebar-header {
+            background: linear-gradient(135deg, #005BFF, #004ACC);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .sidebar-title {
+            color: white;
+            margin: 0;
+            font-size: 2rem !important;
+            font-weight: 900;
+        }
+        .uploaded-file-info {
+            background: #2D2D2D;
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            border-left: 4px solid #005BFF;
+        }
+    </style>
+    """, unsafe_allow_html=True)
 
 class BrandDetector:
     def __init__(self):
@@ -22,7 +153,6 @@ class BrandDetector:
         self.performance_metrics = {}
         
     def load_default_brands(self):
-        """Загрузка стандартного словаря брендов"""
         self.brand_dict = {
             "Nike": ["nike", "найк", "nike air", "air max"],
             "Adidas": ["adidas", "адидас", "adidas originals", "superstar"],
@@ -31,11 +161,12 @@ class BrandDetector:
             "Sony": ["sony", "сони", "playstation", "xperia"],
             "Xiaomi": ["xiaomi", "ксиаоми", "redmi", "mi", "poco"],
             "Lenovo": ["lenovo", "леново", "thinkpad", "ideapad"],
-            # Добавьте больше брендов по необходимости
+            "HP": ["hp", "hewlett packard", "hp pavilion"],
+            "Dell": ["dell", "делл", "inspiron", "xps"],
+            "Asus": ["asus", "асус", "rog", "zenbook"]
         }
     
     def find_brand(self, text, log_match=False, row_idx=None):
-        """Поиск бренда в тексте с логированием"""
         text = str(text).lower()
         found_brand = None
         matched_keyword = None
@@ -43,7 +174,6 @@ class BrandDetector:
         for brand, keywords in self.brand_dict.items():
             for keyword in keywords:
                 keyword_lower = keyword.lower()
-                # Используем регулярные выражения для поиска целых слов
                 if re.search(r'\b' + re.escape(keyword_lower) + r'\b', text):
                     found_brand = brand
                     matched_keyword = keyword
@@ -63,23 +193,19 @@ class BrandDetector:
         return found_brand
     
     def fill_brands(self, df, log_matches=True):
-        """Заполнение брендов с логированием"""
         result_df = df.copy()
         processed_count = 0
         
         for idx in result_df.index:
             original_brand = result_df.loc[idx, 'бренд']
             
-            # Пропускаем если бренд уже заполнен
             if pd.notna(original_brand) and str(original_brand).strip():
                 continue
                 
-            # Объединяем название и описание для поиска
             name_text = str(result_df.loc[idx, 'название'])
             desc_text = str(result_df.loc[idx, 'описание'])
             combined_text = f"{name_text} {desc_text}"
             
-            # Ищем бренд
             brand = self.find_brand(combined_text, log_matches, idx)
             if brand:
                 result_df.loc[idx, 'бренд'] = brand
@@ -91,7 +217,6 @@ class BrandDetector:
         return result_df
     
     def calculate_quality_metrics(self, original_df, processed_df):
-        """Расчет метрик качества"""
         original_filled = original_df['бренд'].notna().sum()
         processed_filled = processed_df['бренд'].notna().sum()
         new_filled = processed_filled - original_filled
@@ -107,128 +232,268 @@ class BrandDetector:
         return metrics
 
 def init_session_state():
-    """Инициализация состояния сессии"""
     if 'detector' not in st.session_state:
         st.session_state.detector = BrandDetector()
         st.session_state.detector.load_default_brands()
+    if 'uploaded_data' not in st.session_state:
+        st.session_state.uploaded_data = None
     if 'processed_data' not in st.session_state:
         st.session_state.processed_data = None
-    if 'original_data' not in st.session_state:
-        st.session_state.original_data = None
+    if 'uploaded_filename' not in st.session_state:
+        st.session_state.uploaded_filename = None
+    if 'show_results' not in st.session_state:
+        st.session_state.show_results = False
+
+def clear_session_data():
+    """Очистка данных сессии"""
+    st.session_state.uploaded_data = None
+    st.session_state.processed_data = None
+    st.session_state.uploaded_filename = None
+    st.session_state.show_results = False
+    if 'detector' in st.session_state:
+        st.session_state.detector.logs = []
+
+def show_instructions():
+    """Показ инструкций для пользователя"""
+    st.markdown('<div class="section-header">📋 Как работает приложение</div>', unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.markdown("""
+        <div class="ozon-card">
+            <div class="card-header">
+                <span class="card-icon">1️⃣</span>
+                <h3 class="card-title">Загрузка данных</h3>
+            </div>
+            <p>Загрузите Excel или CSV файл с колонками:</p>
+            <ul>
+                <li><strong>название</strong> - название товара</li>
+                <li><strong>описание</strong> - описание товара</li>
+                <li><strong>бренд</strong> - бренд (может быть пустым)</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="ozon-card">
+            <div class="card-header">
+                <span class="card-icon">2️⃣</span>
+                <h3 class="card-title">Автоматическое определение</h3>
+            </div>
+            <p>Приложение анализирует текст и находит упоминания брендов по ключевым словам:</p>
+            <ul>
+                <li>Ищет в названии и описании</li>
+                <li>Использует интеллектуальный поиск</li>
+                <li>Учитывает различные написания</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col3:
+        st.markdown("""
+        <div class="ozon-card">
+            <div class="card-header">
+                <span class="card-icon">3️⃣</span>
+                <h3 class="card-title">Результаты и аналитика</h3>
+            </div>
+            <p>Получите готовые данные с заполненными брендами:</p>
+            <ul>
+                <li>Скачайте обработанный файл</li>
+                <li>Просмотрите аналитику эффективности</li>
+                <li>Настройте словарь под ваши нужды</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
 
 def main_page():
     """Главная страница - загрузка и обработка данных"""
-    st.title("🛍️ Автоматическое определение брендов")
-    st.write("Загрузите ваш Excel файл для автоматического заполнения брендов")
     
-    uploaded_file = st.file_uploader("Выберите файл", type=['xlsx', 'xls', 'csv'])
+    # Заголовок и инструкции
+    st.markdown('<h1 class="main-header">🛍️ Brand Detector</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="main-subtitle">Автоматическое определение брендов в товарных данных • Стиль OZON</p>', unsafe_allow_html=True)
     
-    if uploaded_file:
-        # Загрузка данных
-        try:
-            if uploaded_file.name.endswith('.csv'):
-                df = pd.read_csv(uploaded_file)
-            else:
-                df = pd.read_excel(uploaded_file)
-            
-            st.session_state.original_data = df.copy()
-            
-            # Проверка необходимых колонок
-            required_columns = ['название', 'описание', 'бренд']
-            missing_columns = [col for col in required_columns if col not in df.columns]
-            
-            if missing_columns:
-                st.error(f"В файле отсутствуют необходимые колонки: {', '.join(missing_columns)}")
-                return
-            
-            st.subheader("Предпросмотр данных")
-            st.dataframe(df.head(), use_container_width=True)
-            
-            # Статистика до обработки
-            show_data_quality_report(df, "До обработки")
-            
-            # Обработка
-            col1, col2, col3 = st.columns([1, 2, 1])
-            with col2:
-                if st.button("🚀 Заполнить бренды автоматически", type="primary", use_container_width=True):
-                    with st.spinner("Обрабатываю данные..."):
-                        # Сбрасываем логи перед новой обработкой
-                        st.session_state.detector.logs = []
-                        
-                        processed_df = st.session_state.detector.fill_brands(df)
-                        metrics = st.session_state.detector.calculate_quality_metrics(
-                            st.session_state.original_data, processed_df
-                        )
-                        
-                        st.session_state.processed_data = processed_df
-                        
-                        st.success("Обработка завершена!")
-            
-            # Результаты после обработки
-            if st.session_state.processed_data is not None:
-                st.subheader("Результаты обработки")
-                
-                col1, col2 = st.columns(2)
-                
-                with col1:
-                    show_data_quality_report(st.session_state.processed_data, "После обработки")
-                
-                with col2:
-                    show_improvement_metrics()
-                
-                st.subheader("Обработанные данные")
-                st.dataframe(st.session_state.processed_data.head(10), use_container_width=True)
-                
-                # Скачивание результата
-                download_section()
-                        
-        except Exception as e:
-            st.error(f"Ошибка при загрузке файла: {str(e)}")
+    show_instructions()
+    
+    # Если уже есть загруженные данные, показываем их
+    if st.session_state.uploaded_data is not None:
+        show_existing_data()
+    else:
+        show_file_uploader()
+    
+    # Если есть обработанные данные, показываем результаты
+    if st.session_state.show_results and st.session_state.processed_data is not None:
+        show_results()
 
-def show_data_quality_report(df, title):
-    """Показ отчета о качестве данных"""
-    total_rows = len(df)
-    filled_brands = df['бренд'].notna().sum()
-    coverage = (filled_brands / total_rows) * 100
+def show_file_uploader():
+    """Показ загрузчика файлов"""
+    st.markdown('<div class="section-header">📁 Загрузка данных</div>', unsafe_allow_html=True)
     
-    st.metric(
-        label=f"{title} - Заполнено брендов",
-        value=f"{filled_brands}/{total_rows}",
-        delta=f"{coverage:.1f}%"
+    uploaded_file = st.file_uploader(
+        "Выберите Excel или CSV файл", 
+        type=['xlsx', 'xls', 'csv'],
+        help="Файл должен содержать колонки: название, описание, бренд"
     )
     
-    # Топ брендов
-    if filled_brands > 0:
-        brand_counts = df['бренд'].value_counts().head(5)
-        st.write("**Топ-5 брендов:**")
-        for brand, count in brand_counts.items():
-            if pd.notna(brand):
-                st.write(f"- {brand}: {count}")
+    if uploaded_file:
+        process_uploaded_file(uploaded_file)
 
-def show_improvement_metrics():
-    """Показ метрик улучшения"""
-    metrics = st.session_state.detector.performance_metrics
+def process_uploaded_file(uploaded_file):
+    """Обработка загруженного файла"""
+    try:
+        # Загрузка файла
+        if uploaded_file.name.endswith('.csv'):
+            df = pd.read_csv(uploaded_file)
+        else:
+            df = pd.read_excel(uploaded_file)
+        
+        # Сохраняем данные в сессии
+        st.session_state.uploaded_data = df
+        st.session_state.uploaded_filename = uploaded_file.name
+        st.session_state.processed_data = None
+        st.session_state.show_results = False
+        
+        # Показываем данные
+        show_data_preview(df)
+        
+    except Exception as e:
+        st.error(f"❌ Ошибка при загрузке файла: {str(e)}")
+
+def show_existing_data():
+    """Показ уже загруженных данных"""
+    st.markdown('<div class="section-header">📁 Загруженные данные</div>', unsafe_allow_html=True)
     
-    if 'improvement' in metrics:
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.metric(
-                label="Новых брендов заполнено",
-                value=metrics['improvement'],
-                delta=f"{metrics['improvement_percentage']:.1f}%"
-            )
-        
-        with col2:
-            st.metric(
-                label="Общее покрытие",
-                value=f"{metrics['new_coverage']:.1f}%",
-                delta=f"+{metrics['improvement_percentage']:.1f}%"
-            )
+    st.markdown(f"""
+    <div class="uploaded-file-info">
+        <strong>Текущий файл:</strong> {st.session_state.uploaded_filename}<br>
+        <strong>Записей:</strong> {len(st.session_state.uploaded_data)}
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Кнопка для загрузки нового файла
+    if st.button("📁 Загрузить другой файл"):
+        clear_session_data()
+        st.rerun()
+    
+    # Показываем превью данных
+    show_data_preview(st.session_state.uploaded_data)
+    
+    # Обработка
+    st.markdown('<div class="section-header">⚡ Обработка данных</div>', unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("🚀 Заполнить бренды автоматически", use_container_width=True):
+            with st.spinner("🔍 Анализирую данные..."):
+                # Сбрасываем логи перед новой обработкой
+                st.session_state.detector.logs = []
+                
+                processed_df = st.session_state.detector.fill_brands(st.session_state.uploaded_data)
+                metrics = st.session_state.detector.calculate_quality_metrics(
+                    st.session_state.uploaded_data, processed_df
+                )
+                
+                st.session_state.processed_data = processed_df
+                st.session_state.show_results = True
+                
+                st.markdown(f"""
+                <div class="ozon-alert-success">
+                    <strong>✅ Обработка завершена успешно!</strong><br>
+                    Заполнено {metrics['improvement']} новых брендов<br>
+                    Общее покрытие: {metrics['new_coverage']:.1f}%
+                </div>
+                """, unsafe_allow_html=True)
+                st.rerun()
 
-def download_section():
-    """Секция скачивания результатов"""
-    st.subheader("Скачать результаты")
+def show_data_preview(df):
+    """Показ превью данных и статистики"""
+    # Предпросмотр данных
+    st.markdown("### 👀 Предпросмотр данных")
+    st.dataframe(df.head(), use_container_width=True)
+    
+    # Статистика
+    st.markdown("### 📊 Статистика данных")
+    col1, col2, col3 = st.columns(3)
+    
+    total_rows = len(df)
+    filled_brands = df['бренд'].notna().sum()
+    empty_brands = total_rows - filled_brands
+    coverage = (filled_brands / total_rows) * 100
+    
+    with col1:
+        st.metric("Всего записей", total_rows)
+    with col2:
+        st.metric("Заполнено брендов", filled_brands)
+    with col3:
+        st.metric("Пустых брендов", empty_brands)
+
+def show_results():
+    """Показ результатов обработки"""
+    processed_df = st.session_state.processed_data
+    original_df = st.session_state.uploaded_data
+    
+    st.markdown('<div class="section-header">📈 Результаты обработки</div>', unsafe_allow_html=True)
+    
+    # Вычисляем метрики
+    total_processed = len(processed_df)
+    filled_processed = processed_df['бренд'].notna().sum()
+    
+    if original_df is not None:
+        filled_original = original_df['бренд'].notna().sum()
+        new_filled = filled_processed - filled_original
+        coverage_before = (filled_original / total_processed) * 100
+    else:
+        new_filled = st.session_state.detector.performance_metrics.get('processed_rows', 0)
+        coverage_before = 0
+    
+    coverage_after = (filled_processed / total_processed) * 100
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown(f"""
+        <div class="ozon-card">
+            <div class="card-header">
+                <span class="card-icon">📊</span>
+                <h3 class="card-title">Итоговая статистика</h3>
+            </div>
+            <div class="ozon-status">
+                <strong>Всего записей:</strong> {total_processed}<br>
+                <strong>Заполнено брендов:</strong> {filled_processed}<br>
+                <strong>Покрытие данных:</strong> {coverage_after:.1f}%<br>
+                <strong>Улучшение:</strong> +{coverage_after - coverage_before:.1f}%
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        # Топ брендов
+        if filled_processed > 0:
+            brand_counts = processed_df['бренд'].value_counts().head(5)
+            brands_html = ""
+            for brand, count in brand_counts.items():
+                if pd.notna(brand):
+                    brands_html += f"<strong>{brand}:</strong> {count} записей<br>"
+            
+            st.markdown(f"""
+            <div class="ozon-card">
+                <div class="card-header">
+                    <span class="card-icon">🏆</span>
+                    <h3 class="card-title">Топ-5 брендов</h3>
+                </div>
+                <div class="ozon-status">
+                    {brands_html}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    # Предпросмотр обработанных данных
+    st.markdown("### 👁️ Предпросмотр обработанных данных")
+    st.dataframe(st.session_state.processed_data.head(10), use_container_width=True)
+    
+    # Скачивание результата
+    st.markdown('<div class="section-header">💾 Скачать результаты</div>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     
@@ -240,7 +505,7 @@ def download_section():
         output.seek(0)
         
         st.download_button(
-            label="📥 Скачать Excel",
+            label="📥 Скачать Excel файл",
             data=output,
             file_name=f"обработанные_данные_{datetime.now().strftime('%Y%m%d_%H%M')}.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -251,7 +516,7 @@ def download_section():
         # Скачивание CSV
         csv_data = st.session_state.processed_data.to_csv(index=False, encoding='utf-8-sig')
         st.download_button(
-            label="📥 Скачать CSV",
+            label="📥 Скачать CSV файл",
             data=csv_data,
             file_name=f"обработанные_данные_{datetime.now().strftime('%Y%m%d_%H%M')}.csv",
             mime="text/csv",
@@ -260,15 +525,52 @@ def download_section():
 
 def dictionary_management():
     """Управление словарем брендов"""
-    st.title("📚 Управление словарем брендов")
+    st.markdown('<div class="section-header">📚 Управление словарем брендов</div>', unsafe_allow_html=True)
     
     detector = st.session_state.detector
     
+    # Информация о словаре
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        total_brands = len(detector.brand_dict)
+        total_keywords = sum(len(keywords) for keywords in detector.brand_dict.values())
+        
+        st.markdown(f"""
+        <div class="ozon-card">
+            <div class="card-header">
+                <span class="card-icon">📊</span>
+                <h3 class="card-title">Статистика словаря</h3>
+            </div>
+            <div class="ozon-status">
+                <strong>Брендов в словаре:</strong> {total_brands}<br>
+                <strong>Всего ключевых слов:</strong> {total_keywords}<br>
+                <strong>Среднее слов на бренд:</strong> {total_keywords/total_brands:.1f}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("""
+        <div class="ozon-card">
+            <div class="card-header">
+                <span class="card-icon">💡</span>
+                <h3 class="card-title">Советы по настройке</h3>
+            </div>
+            <div class="ozon-status">
+                • Добавляйте различные написания<br>
+                • Включайте популярные модели<br>
+                • Используйте транслит и синонимы<br>
+                • Тестируйте на реальных данных
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    
     # Текущий словарь
-    st.subheader("Текущий словарь брендов")
+    st.markdown("### 🏷️ Текущий словарь брендов")
     
     if not detector.brand_dict:
-        st.info("Словарь брендов пуст. Добавьте первый бренд.")
+        st.info("ℹ️ Словарь брендов пуст. Добавьте первый бренд.")
     else:
         # Отображение в виде таблицы для редактирования
         brand_data = []
@@ -283,7 +585,7 @@ def dictionary_management():
         st.dataframe(df_brands, use_container_width=True)
     
     # Добавление/редактирование брендов
-    st.subheader("Добавить или изменить бренд")
+    st.markdown("### ✏️ Добавить или изменить бренд")
     
     col1, col2 = st.columns([1, 2])
     
@@ -303,10 +605,10 @@ def dictionary_management():
             if brand_name and keywords_input:
                 keywords = [k.strip() for k in keywords_input.split(',')]
                 detector.brand_dict[brand_name] = keywords
-                st.success(f"Бренд '{brand_name}' добавлен!")
+                st.success(f"✅ Бренд '{brand_name}' добавлен!")
                 st.rerun()
             else:
-                st.warning("Заполните название бренда и ключевые слова")
+                st.warning("⚠️ Заполните название бренда и ключевые слова")
     
     with col2:
         if st.button("🔄 Обновить бренд", use_container_width=True):
@@ -314,24 +616,24 @@ def dictionary_management():
                 if brand_name in detector.brand_dict:
                     keywords = [k.strip() for k in keywords_input.split(',')]
                     detector.brand_dict[brand_name] = keywords
-                    st.success(f"Бренд '{brand_name}' обновлен!")
+                    st.success(f"✅ Бренд '{brand_name}' обновлен!")
                     st.rerun()
                 else:
-                    st.warning(f"Бренд '{brand_name}' не найден в словаре")
+                    st.warning(f"⚠️ Бренд '{brand_name}' не найден в словаре")
             else:
-                st.warning("Заполните название бренда и ключевые слова")
+                st.warning("⚠️ Заполните название бренда и ключевые слова")
     
     with col3:
         if st.button("🗑️ Удалить бренд", use_container_width=True):
             if brand_name and brand_name in detector.brand_dict:
                 del detector.brand_dict[brand_name]
-                st.success(f"Бренд '{brand_name}' удален!")
+                st.success(f"✅ Бренд '{brand_name}' удален!")
                 st.rerun()
             else:
-                st.warning("Введите название существующего бренда")
+                st.warning("⚠️ Введите название существующего бренда")
     
     # Импорт/экспорт словаря
-    st.subheader("Импорт/экспорт словаря")
+    st.markdown("### 🔄 Импорт/экспорт словаря")
     
     col1, col2 = st.columns(2)
     
@@ -353,23 +655,30 @@ def dictionary_management():
             try:
                 imported_dict = json.load(uploaded_dict)
                 detector.brand_dict.update(imported_dict)
-                st.success("Словарь успешно импортирован!")
+                st.success("✅ Словарь успешно импортирован!")
                 st.rerun()
             except Exception as e:
-                st.error(f"Ошибка при импорте: {str(e)}")
+                st.error(f"❌ Ошибка при импорте: {str(e)}")
 
 def analytics_and_logs():
     """Аналитика и логирование"""
-    st.title("📊 Аналитика и логирование")
+    st.markdown('<div class="section-header">📊 Аналитика и логирование</div>', unsafe_allow_html=True)
     
     detector = st.session_state.detector
     
     if not detector.logs:
-        st.info("Логи обработки пока отсутствуют. Обработайте данные на главной странице.")
+        st.info("""
+        ℹ️ **Логи обработки пока отсутствуют.** 
+        
+        Для получения аналитики:
+        1. Перейдите на главную страницу
+        2. Загрузите файл с данными  
+        3. Запустите обработку брендов
+        """)
         return
     
     # Метрики производительности
-    st.subheader("Метрики обработки")
+    st.markdown("### 📈 Метрики обработки")
     
     if detector.performance_metrics:
         col1, col2, col3, col4 = st.columns(4)
@@ -387,7 +696,7 @@ def analytics_and_logs():
             st.metric("Всего логов", len(detector.logs))
     
     # Визуализация сработавших ключевых слов
-    st.subheader("Эффективность ключевых слов")
+    st.markdown("### 🔍 Эффективность ключевых слов")
     
     if detector.logs:
         # Анализ логов
@@ -395,29 +704,21 @@ def analytics_and_logs():
         keyword_usage = log_df['keyword'].value_counts().reset_index()
         keyword_usage.columns = ['keyword', 'count']
         
-        # График использования ключевых слов
-        fig = px.bar(
-            keyword_usage.head(10),
-            x='keyword',
-            y='count',
-            title="Топ-10 самых частых ключевых слов"
-        )
-        st.plotly_chart(fig, use_container_width=True)
+        # Таблица использования ключевых слов
+        if not keyword_usage.empty:
+            st.markdown("#### Топ-10 самых частых ключевых слов")
+            st.dataframe(keyword_usage.head(10), use_container_width=True)
         
         # Распределение по брендам
         brand_usage = log_df['brand'].value_counts().reset_index()
         brand_usage.columns = ['brand', 'count']
         
-        fig2 = px.pie(
-            brand_usage,
-            values='count',
-            names='brand',
-            title="Распределение найденных брендов"
-        )
-        st.plotly_chart(fig2, use_container_width=True)
+        if not brand_usage.empty:
+            st.markdown("#### Распределение найденных брендов")
+            st.dataframe(brand_usage, use_container_width=True)
     
     # Детальные логи
-    st.subheader("Детальные логи обработки")
+    st.markdown("### 📝 Детальные логи обработки")
     
     log_df = pd.DataFrame(detector.logs)
     if not log_df.empty:
@@ -426,7 +727,7 @@ def analytics_and_logs():
                     use_container_width=True)
         
         # Поиск по логам
-        search_term = st.text_input("Поиск по логам")
+        search_term = st.text_input("🔍 Поиск по логам (бренд, ключевое слово, текст)")
         if search_term:
             filtered_logs = log_df[
                 log_df['brand'].str.contains(search_term, case=False, na=False) |
@@ -438,30 +739,62 @@ def analytics_and_logs():
 
 def main():
     """Главная функция приложения"""
+    # Применяем стили OZON
+    apply_ozon_style()
+    
+    # Инициализация состояния
     init_session_state()
     
     # Боковая панель навигации
     with st.sidebar:
-        st.title("🛍️ Brand Detector")
+        st.markdown("""
+        <div class="ozon-sidebar-header">
+            <h1 class="sidebar-title">🛍️</h1>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="ozon-card">
+            <h3 class="card-title">Brand Detector</h3>
+            <p>Автоматическое определение брендов в товарных данных</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
         st.write("---")
         
         page = st.radio(
             "Навигация",
-            ["Главная", "Управление словарем", "Аналитика и логи"],
-            icons=["🏠", "📚", "📊"]
+            ["Главная", "Управление словарем", "Аналитика и логи"]
         )
         
         st.write("---")
-        st.write("**Статистика:**")
         
+        # Статистика в сайдбаре
         detector = st.session_state.detector
-        st.write(f"Брендов в словаре: {len(detector.brand_dict)}")
         
-        total_keywords = sum(len(keywords) for keywords in detector.brand_dict.values())
-        st.write(f"Ключевых слов: {total_keywords}")
+        # Информация о загруженном файле
+        if st.session_state.uploaded_filename:
+            st.markdown(f"""
+            <div class="uploaded-file-info">
+                <strong>📁 Загруженный файл:</strong><br>
+                {st.session_state.uploaded_filename}<br>
+                <small>Записей: {len(st.session_state.uploaded_data) if st.session_state.uploaded_data is not None else 0}</small>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if st.button("🗑️ Очистить данные"):
+                clear_session_data()
+                st.rerun()
         
-        if detector.logs:
-            st.write(f"Логов обработки: {len(detector.logs)}")
+        # Общая статистика
+        st.markdown(f"""
+        <div class="ozon-status">
+            <strong>Статистика:</strong><br>
+            Брендов: {len(detector.brand_dict)}<br>
+            Ключевых слов: {sum(len(keywords) for keywords in detector.brand_dict.values())}<br>
+            Логов: {len(detector.logs)}
+        </div>
+        """, unsafe_allow_html=True)
     
     # Отображение выбранной страницы
     if page == "Главная":
