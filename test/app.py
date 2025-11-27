@@ -127,11 +127,10 @@ if st.button("🧪 Запустить все тесты Selenium"):
 
 st.write("## 3. Альтернативное решение")
 
-st.write("""
-Если Selenium не работает, рассмотрите эти альтернативы:
+st.write("Если Selenium не работает, рассмотрите эти альтернативы:")
 
-### 🔄 Playwright
-```python
+st.write("### 🔄 Playwright")
+st.code("""
 import asyncio
 from playwright.async_api import async_playwright
 
@@ -146,3 +145,53 @@ async def scrape():
 
 # Запуск
 result = asyncio.run(scrape())
+""")
+
+st.write("### 📡 Requests + BeautifulSoup")
+st.code("""
+import requests
+from bs4 import BeautifulSoup
+
+response = requests.get("https://example.com")
+soup = BeautifulSoup(response.content, 'html.parser')
+# Парсинг данных...
+""")
+
+st.write("### 🌐 API запросы")
+st.write("Если сайт предоставляет API - это самый надежный способ.")
+
+if st.button("🚀 Быстрый тест Playwright"):
+    try:
+        import asyncio
+        from playwright.async_api import async_playwright
+        
+        async def test_playwright():
+            async with async_playwright() as p:
+                browser = await p.chromium.launch(headless=True)
+                page = await browser.new_page()
+                await page.goto("https://httpbin.org/html")
+                title = await page.title()
+                await browser.close()
+                return title
+        
+        title = asyncio.run(test_playwright())
+        st.success(f"✅ Playwright работает: {title}")
+        
+    except Exception as e:
+        st.error(f"❌ Playwright не работает: {e}")
+
+st.write("## 4. Информация для отладки")
+
+st.write(f"**Python путь:** {sys.executable}")
+st.write(f"**Рабочая директория:** {os.getcwd()}")
+st.write(f"**Платформа:** {sys.platform}")
+st.write(f"**Версия Python:** {sys.version}")
+
+# Показываем установленные пакеты
+try:
+    result = subprocess.run([sys.executable, "-m", "pip", "list"], 
+                          capture_output=True, text=True)
+    with st.expander("Установленные пакеты"):
+        st.text(result.stdout)
+except:
+    pass
