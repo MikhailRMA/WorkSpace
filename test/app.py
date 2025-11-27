@@ -1,81 +1,54 @@
 import streamlit as st
-import asyncio
-import requests
-from bs4 import BeautifulSoup
+import time
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
 
-st.set_page_config(page_title="Web Scraping в Streamlit Cloud", layout="wide")
+st.set_page_config(page_title="Selenium в Streamlit Cloud", layout="wide")
 
-def setup_playwright():
-    """Установка Playwright браузеров"""
-    import subprocess
-    import sys
+st.title("🚀 Рабочий Selenium в Streamlit Cloud")
+st.write("Адаптированная версия на основе рабочего примера")
+
+@st.cache_resource
+def get_driver():
+    """Инициализация драйвера с правильными настройками для Streamlit Cloud"""
+    options = Options()
     
-    # Устанавливаем браузеры для Playwright
-    try:
-        subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], 
-                      capture_output=True, check=True)
-        return True
-    except Exception as e:
-        st.error(f"Ошибка установки браузеров: {e}")
-        return False
+    # Критически важные настройки для Streamlit Cloud
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--remote-debugging-port=9222")
+    options.add_argument("--window-size=1920,1080")
+    
+    # Используем Chromium через webdriver-manager
+    service = Service(
+        ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+    )
+    
+    driver = webdriver.Chrome(service=service, options=options)
+    return driver
 
-async def test_playwright():
-    """Тест Playwright"""
+def test_basic_navigation():
+    """Тест базовой навигации"""
     try:
-        from playwright.async_api import async_playwright
+        driver = get_driver()
         
-        st.write("**1. Запуск Playwright...**")
-        async with async_playwright() as p:
-            st.write("**2. Запуск браузера...**")
-            browser = await p.chromium.launch(headless=True)
-            
-            st.write("**3. Создание страницы...**")
-            page = await browser.new_page()
-            
-            st.write("**4. Навигация...**")
-            await page.goto("https://httpbin.org/html", timeout=30000)
-            
-            st.write("**5. Получение содержимого...**")
-            title = await page.title()
-            st.success(f"✅ Заголовок: {title}")
-            
-            # Получаем HTML и парсим BeautifulSoup
-            content = await page.content()
-            soup = BeautifulSoup(content, 'html.parser')
-            h1_text = soup.find('h1').text
-            st.success(f"✅ Найден элемент: {h1_text}")
-            
-            st.write("**6. Создание скриншота...**")
-            await page.screenshot(path="playwright_success.png")
-            st.image("playwright_success.png", caption="Скриншот Playwright")
-            
-            await browser.close()
-            return True
-            
-    except Exception as e:
-        st.error(f"❌ Ошибка Playwright: {e}")
-        return False
-
-def test_requests_beautifulsoup():
-    """Тест Requests + BeautifulSoup"""
-    try:
-        st.write("**1. Отправка запроса...**")
-        response = requests.get("https://httpbin.org/html", timeout=10)
-        response.raise_for_status()
+        st.write("### 1. Тест загрузки страницы")
+        driver.get("https://httpbin.org/html")
+        st.success(f"✅ Страница загружена: {driver.title}")
         
-        st.write("**2. Парсинг HTML...**")
-        soup = BeautifulSoup(response.content, 'html.parser')
+        st.write("### 2. Тест поиска элементов")
+        h1_element = driver.find_element(By.TAG_NAME, "h1")
+        st.success(f"✅ Найден H1: {h1_element.text}")
         
-        st.write("**3. Извлечение данных...**")
-        title = soup.title.string if soup.title else "No title"
-        h1_text = soup.find('h1').text
-        
-        st.success(f"✅ Заголовок: {title}")
-        st.success(f"✅ H1: {h1_text}")
-        
-        # Показываем часть HTML
-        st.write("**4. Пример HTML:**")
-        st.code(str(soup.find('body'))[:500] + "...", language='html')
+        st.write("### 3. Тест выполнения JavaScript")
+        current_url = driver.execute_script("return window.location.href;")
+        st.success(f"✅ JavaScript выполнен: {current_url}")
         
         return True
         
@@ -83,87 +56,127 @@ def test_requests_beautifulsoup():
         st.error(f"❌ Ошибка: {e}")
         return False
 
-def main():
-    st.title("🌐 Рабочие решения для Streamlit Cloud")
+def test_advanced_features():
+    """Тест расширенных функций"""
+    try:
+        driver = get_driver()
+        
+        st.write("### 4. Тест взаимодействия с формами")
+        driver.get("https://httpbin.org/forms/post")
+        
+        # Находим и заполняем поле
+        input_field = driver.find_element(By.NAME, "custname")
+        input_field.send_keys("Test User")
+        st.success("✅ Поле формы заполнено")
+        
+        st.write("### 5. Тест скриншота")
+        driver.save_screenshot("selenium_test.png")
+        st.image("selenium_test.png", caption="Скриншот страницы")
+        
+        return True
+        
+    except Exception as e:
+        st.error(f"❌ Ошибка: {e}")
+        return False
+
+def test_real_website():
+    """Тест на реальном сайте"""
+    try:
+        driver = get_driver()
+        
+        st.write("### 6. Тест на реальном сайте")
+        driver.get("https://httpbin.org/")
+        
+        # Находим несколько элементов
+        links = driver.find_elements(By.TAG_NAME, "a")
+        st.success(f"✅ Найдено ссылок: {len(links)}")
+        
+        # Показываем некоторые ссылки
+        link_texts = [link.text for link in links[:5] if link.text]
+        st.write("Примеры ссылок:", link_texts)
+        
+        return True
+        
+    except Exception as e:
+        st.error(f"❌ Ошибка: {e}")
+        return False
+
+# Основной интерфейс
+st.write("## 🧪 Выберите тесты для запуска")
+
+if st.button("🚀 Запустить все тесты"):
+    with st.spinner("Выполнение тестов..."):
+        results = []
+        
+        results.append(test_basic_navigation())
+        time.sleep(2)  # Пауза между тестами
+        
+        results.append(test_advanced_features())
+        time.sleep(2)
+        
+        results.append(test_real_website())
+        
+        if all(results):
+            st.balloons()
+            st.success("🎉 Все тесты пройдены успешно!")
+        else:
+            st.error("❌ Некоторые тесты не пройдены")
+
+if st.button("🧪 Базовый тест"):
+    with st.spinner("Запуск базового теста..."):
+        if test_basic_navigation():
+            st.success("✅ Базовый тест пройден!")
+        else:
+            st.error("❌ Базовый тест не пройден")
+
+if st.button("📄 Показать код драйвера"):
+    st.code("""
+@st.cache_resource
+def get_driver():
+    options = Options()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
     
-    st.write("""
-    Selenium не работает в Streamlit Cloud из-за отсутствия системных браузеров.
-    Вот рабочие альтернативы:
+    service = Service(
+        ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+    )
+    
+    return webdriver.Chrome(service=service, options=options)
     """)
-    
-    # Requests + BeautifulSoup
-    st.write("## 🚀 Вариант 1: Requests + BeautifulSoup")
-    st.write("**Идеально для статических сайтов**")
-    
-    if st.button("🧪 Запустить тест Requests + BeautifulSoup"):
-        with st.spinner("Тестирование..."):
-            if test_requests_beautifulsoup():
-                st.success("🎉 Requests + BeautifulSoup работает отлично!")
-                st.balloons()
-    
-    # Playwright
-    st.write("## 🔄 Вариант 2: Playwright")
-    st.write("**Для динамических сайтов с JavaScript**")
-    
-    if st.button("🧪 Запустить тест Playwright"):
-        with st.spinner("Установка и тестирование Playwright... Это займет ~1 минуту"):
-            if setup_playwright():
-                # Запускаем асинхронную функцию
-                import asyncio
-                success = asyncio.run(test_playwright())
-                if success:
-                    st.success("🎉 Playwright работает отлично!")
-                    st.balloons()
-    
-    # Сравнение методов
-    st.write("## 📊 Сравнение методов")
-    
-    comparison_data = {
-        "Метод": ["Requests + BeautifulSoup", "Playwright", "Selenium"],
-        "Поддержка JavaScript": ["❌ Нет", "✅ Полная", "✅ Полная"],
-        "Скорость": ["✅ Быстро", "⚠ Средняя", "⚠ Медленная"],
-        "Стабильность в Cloud": ["✅ Отличная", "✅ Хорошая", "❌ Не работает"],
-        "Сложность": ["✅ Низкая", "⚠ Средняя", "⚠ Высокая"]
-    }
-    
-    st.table(comparison_data)
-    
-    # Примеры использования
-    st.write("## 💡 Примеры кода")
-    
-    with st.expander("Requests + BeautifulSoup пример"):
-        st.code("""
-import requests
-from bs4 import BeautifulSoup
 
-# Простой парсинг
-response = requests.get("https://example.com")
-soup = BeautifulSoup(response.content, 'html.parser')
-
-# Извлечение данных
-title = soup.title.text
-links = [a['href'] for a in soup.find_all('a', href=True)]
-        """)
+# Информация о среде
+with st.expander("🔧 Информация о настройке"):
+    st.write("""
+    **Ключевые моменты для работы Selenium в Streamlit Cloud:**
     
-    with st.expander("Playwright пример"):
-        st.code("""
-import asyncio
-from playwright.async_api import async_playwright
+    1. **packages.txt** должен содержать:
+       ```
+       chromium
+       chromium-driver
+       ```
+    
+    2. **requirements.txt** должен содержать:
+       ```
+       streamlit
+       seleniumbase
+       webdriver-manager
+       ```
+    
+    3. **Использовать ChromeType.CHROMIUM** в webdriver-manager
+    
+    4. **Правильные аргументы Chrome:**
+       - `--headless`
+       - `--no-sandbox` 
+       - `--disable-dev-shm-usage`
+       - `--disable-gpu`
+    
+    5. **@st.cache_resource** для переиспользования драйвера
+    """)
 
-async def scrape_dynamic_page():
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
-        page = await browser.new_page()
-        
-        await page.goto("https://example.com")
-        content = await page.content()
-        
-        await browser.close()
-        return content
-
-# Запуск
-result = asyncio.run(scrape_dynamic_page())
-        """)
-
-if __name__ == "__main__":
-    main()
+st.write("---")
+st.write("Если этот вариант не работает, убедитесь что:")
+st.write("1. Файлы `packages.txt` и `requirements.txt` загружены в корень репозитория")
+st.write("2. Приложение перезапущено в Streamlit Cloud")
+st.write("3. В логах нет ошибок установки зависимостей")
