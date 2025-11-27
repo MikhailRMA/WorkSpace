@@ -8,7 +8,7 @@ from datetime import datetime
 # Настройка страницы
 st.set_page_config(
     page_title="Brand Detector - OZON Style",
-    page_icon="🛍️",
+    page_icon="https://cdn1.ozone.ru/s3/common-image-storage/bx/tag-logo-blue_m.png",
     layout="wide"
 )
 
@@ -123,12 +123,20 @@ def apply_ozon_style():
             color: #FFFFFF !important;
         }
         .ozon-sidebar-header {
-            background: linear-gradient(135deg, #005BFF, #004ACC);
+            background: url('https://brandlab.ozon.ru/images/tild6365-6165-4064-b161-626431393363__pattern_bg-1.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             color: white;
             padding: 1.5rem;
             border-radius: 8px;
             margin-bottom: 1rem;
             text-align: center;
+            position: relative;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .sidebar-title {
             color: white;
@@ -143,6 +151,19 @@ def apply_ozon_style():
             margin: 0.5rem 0;
             border-left: 4px solid #005BFF;
         }
+        .step-number {
+            background: #005BFF;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
     </style>
     """, unsafe_allow_html=True)
 
@@ -266,12 +287,13 @@ def show_instructions():
                 <span class="card-icon">1️⃣</span>
                 <h3 class="card-title">Загрузка данных</h3>
             </div>
-            <p>Загрузите Excel или CSV файл с колонками:</p>
+            <p>Загрузите Excel или CSV файл с обязательными колонками:</p>
             <ul>
                 <li><strong>название</strong> - название товара</li>
                 <li><strong>описание</strong> - описание товара</li>
                 <li><strong>бренд</strong> - бренд (может быть пустым)</li>
             </ul>
+            <p><em>просто переименуйте ваши столбцы и загрузите файл, порядок размещения неважен</em></p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -288,6 +310,7 @@ def show_instructions():
                 <li>Использует интеллектуальный поиск</li>
                 <li>Учитывает различные написания</li>
             </ul>
+            <em>Перед работой добавьте в словарь ваш Бренд и его возможные вариации написания в столбцах(название, описание)</em>
         </div>
         """, unsafe_allow_html=True)
     
@@ -304,17 +327,111 @@ def show_instructions():
                 <li>Просмотрите аналитику эффективности</li>
                 <li>Настройте словарь под ваши нужды</li>
             </ul>
+            <em>Экспортируйте словарь перед закрытием страницы, чтобы в новой сессии импортировать его, если предстоит работать с теми же брендами. На данный момент в базе не сохраняются автоматически ваши словари</em>
         </div>
         """, unsafe_allow_html=True)
+
+def show_example_section():
+    """Показ примера использования в спойлере"""
+    with st.expander("📋 **Пример использования (раскройте для просмотра)**", expanded=False):
+        st.markdown("""
+        ### 🎯 Как это работает на практике
+        
+        **Всего 3 простых шага:**
+        """)
+        
+        # Шаг 1
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            st.markdown('<div class="step-number">1</div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown("""
+            **Добавьте бренды в словарь**
+            - Перейдите во вкладку "Управление словарем"
+            - Добавьте ваш бренд и ключевые слова
+            - Например: `Lacoste`, `lacoste`, `лакост`, `крокодил`
+            """)
+        
+        # Шаг 2
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            st.markdown('<div class="step-number">2</div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown("""
+            **Загрузите файл и обработайте**
+            - Загрузите CSV/Excel файл с колонками: название, описание, бренд
+            - Нажмите кнопку "Заполнить бренды автоматически"
+            """)
+        
+        # Шаг 3
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            st.markdown('<div class="step-number">3</div>', unsafe_allow_html=True)
+        with col2:
+            st.markdown("""
+            **Скачайте результаты**
+            - Получите обработанный файл с заполненными брендами
+            - Скачайте в формате Excel или CSV
+            """)
+        
+        st.markdown("---")
+        
+        # Пример таблиц
+        st.markdown("### 📊 Пример преобразования данных")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("#### **До обработки**")
+            example_before = pd.DataFrame({
+                'название': [
+                    'Кроссовки Nike Air Max', 
+                    'Смартфон Samsung Galaxy', 
+                    'Ноутбук Apple MacBook'
+                ],
+                'описание': [
+                    'Спортивные кроссовки для бега', 
+                    'Новый флагман с камерой 108 Мп', 
+                    '13 дюймов, процессор M2'
+                ],
+                'бренд': ['', '', '']
+            })
+            st.dataframe(example_before, use_container_width=True)
+        
+        with col2:
+            st.markdown("#### **После обработки**")
+            example_after = pd.DataFrame({
+                'название': [
+                    'Кроссовки Nike Air Max', 
+                    'Смартфон Samsung Galaxy', 
+                    'Ноутбук Apple MacBook'
+                ],
+                'описание': [
+                    'Спортивные кроссовки для бега', 
+                    'Новый флагман с камерой 108 Мп', 
+                    '13 дюймов, процессор M2'
+                ],
+                'бренд': ['Nike', 'Samsung', 'Apple']
+            })
+            st.dataframe(example_after, use_container_width=True)
+        
+        st.markdown("""
+        ---
+        **💡 Совет:** Приложение автоматически найдет упоминания брендов в тексте 
+        и заполнит пустые ячейки в столбце "бренд"
+        """)
 
 def main_page():
     """Главная страница - загрузка и обработка данных"""
     
     # Заголовок и инструкции
-    st.markdown('<h1 class="main-header">🛍️ Brand Detector</h1>', unsafe_allow_html=True)
-    st.markdown('<p class="main-subtitle">Автоматическое определение брендов в товарных данных • Стиль OZON</p>', unsafe_allow_html=True)
+    st.markdown('<div style="display: flex; align-items: center; justify-content: center; gap: 12px;"><img src="https://cdn1.ozone.ru/s3/common-image-storage/bx/kettlebell-logo-blue_m.png" alt="Коробка Ozon" style="height: 80px; width: 80px; object-fit: contain;"><h1 style="color: #005BFF; font-size: 2.5rem; text-align: center; font-weight: 800; margin: 0; line-height: 1;">OZON Brand Detector</h1></div>', unsafe_allow_html=True)
+    st.markdown('<p class="main-subtitle">Автоматическое определение брендов в товарных данных</p>', unsafe_allow_html=True)
     
     show_instructions()
+    
+    # Добавляем пример использования
+    show_example_section()
     
     # Если уже есть загруженные данные, показываем их
     if st.session_state.uploaded_data is not None:
@@ -568,7 +685,8 @@ def dictionary_management():
     
     # Текущий словарь
     st.markdown("### 🏷️ Текущий словарь брендов")
-    
+    st.markdown("""    <div><p>Экспортируйте словарь перед закрытием страницы, чтобы в новой сессии импортировать его, если предстоит работать с теми же брендами. На данный момент в базе не сохраняются автоматически ваши словари</p></div> """, unsafe_allow_html=True)
+    st.markdown(""" <div><em>Если хотите, чтобы ваш словарь был в приложении или просто готовы поделиться с коллегами, присылайте файл словаря на почту mroshchupkin@ozon.ru с указанием темы письма "Словарь брендов"</em> </div>""", unsafe_allow_html=True)
     if not detector.brand_dict:
         st.info("ℹ️ Словарь брендов пуст. Добавьте первый бренд.")
     else:
@@ -748,15 +866,14 @@ def main():
     # Боковая панель навигации
     with st.sidebar:
         st.markdown("""
-        <div class="ozon-sidebar-header">
-            <h1 class="sidebar-title">🛍️</h1>
+        <div class="ozon-sidebar-header" >
+            <h1 class="sidebar-title">Brand Detector</h1>
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown("""
         <div class="ozon-card">
-            <h3 class="card-title">Brand Detector</h3>
-            <p>Автоматическое определение брендов в товарных данных</p>
+        <p>Автоматическое определение и запись брендов в товарных данных</p>
         </div>
         """, unsafe_allow_html=True)
         
