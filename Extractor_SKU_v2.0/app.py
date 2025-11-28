@@ -26,74 +26,92 @@ try:
 except ImportError as e:
     SELENIUM_STATUS = f"❌ Selenium недоступен: {e}"
 
-def install_chrome_in_replit():
-    """Устанавливает Chrome в Replit"""
-    try:
-        # Устанавливаем Chrome в Replit
-        os.system("apt-get update")
-        os.system("apt-get install -y wget")
-        os.system("wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb")
-        os.system("dpkg -i google-chrome-stable_current_amd64.deb")
-        os.system("apt-get install -y -f")
-        os.system("apt-get install -y chromium-chromedriver")
-        return True
-    except Exception as e:
-        st.error(f"Ошибка установки Chrome: {e}")
-        return False
+import random
 
-@st.cache_resource
-def setup_driver():
-    """Настройка ChromeDriver для Replit"""
+def create_driver():
+    """Создает новый экземпляр ChromeDriver для Replit с улучшенной защитой от обнаружения"""
     if not SELENIUM_AVAILABLE:
         return None
     
     try:
         chrome_options = Options()
         
-        # Опции для Replit
+        # Базовые опции для Replit
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--window-size=1920,1080")
-        chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
         
-        # В Replit используем системный Chrome
-        chrome_options.binary_location = "/usr/bin/google-chrome"
+        # Опции для обхода обнаружения автоматизации
+        chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+        chrome_options.add_argument("--disable-infobars")
+        chrome_options.add_argument("--disable-extensions")
+        chrome_options.add_argument("--disable-popup-blocking")
+        chrome_options.add_argument("--ignore-certificate-errors")
+        chrome_options.add_argument("--disable-web-security")
+        chrome_options.add_argument("--allow-running-insecure-content")
         
-        # Пробуем разные пути к chromedriver
-        chromedriver_paths = [
-            "/usr/bin/chromedriver",
-            "/usr/local/bin/chromedriver",
-            "/usr/lib/chromium-browser/chromedriver"
+        # Реалистичный User-Agent
+        user_agents = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
         ]
+        chrome_options.add_argument(f"--user-agent={random.choice(user_agents)}")
         
-        driver = None
-        for path in chromedriver_paths:
-            try:
-                if os.path.exists(path):
-                    driver = webdriver.Chrome(executable_path=path, options=chrome_options)
-                    st.success(f"✅ ChromeDriver найден: {path}")
-                    break
-            except:
-                continue
+        # Экспериментальные настройки для обхода обнаружения
+        chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        chrome_options.add_experimental_option("useAutomationExtension", False)
         
-        if not driver:
-            # Если не нашли chromedriver, пробуем без указания пути
+        # Дополнительные настройки
+        prefs = {
+            "profile.default_content_setting_values.notifications": 2,
+            "credentials_enable_service": False,
+            "profile.password_manager_enabled": False
+        }
+        chrome_options.add_experimental_option("prefs", prefs)
+        
+        # Используем chromium из Nix в Replit
+        import shutil
+        chromium_path = shutil.which("chromium")
+        if chromium_path:
+            chrome_options.binary_location = chromium_path
+        
+        # Используем Service для настройки chromedriver
+        from selenium.webdriver.chrome.service import Service
+        chromedriver_path = shutil.which("chromedriver")
+        
+        if chromedriver_path:
+            service = Service(executable_path=chromedriver_path)
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+        else:
             driver = webdriver.Chrome(options=chrome_options)
+        
+        # Убираем признаки автоматизации через JavaScript
+        driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+            "source": """
+                Object.defineProperty(navigator, 'webdriver', {
+                    get: () => undefined
+                });
+                Object.defineProperty(navigator, 'languages', {
+                    get: () => ['ru-RU', 'ru', 'en-US', 'en']
+                });
+                Object.defineProperty(navigator, 'plugins', {
+                    get: () => [1, 2, 3, 4, 5]
+                });
+            """
+        })
         
         return driver
         
     except Exception as e:
         st.error(f"Ошибка настройки ChromeDriver: {e}")
-        
-        # Пробуем установить Chrome
-        st.info("🔄 Пробуем установить Chrome...")
-        if install_chrome_in_replit():
-            return setup_driver()
         return None
 
 # =============================================
-# ВАШ ОРИГИНАЛЬНЫЙ CSS
+# CSS
 # =============================================
 
 # Настройка страницы
@@ -499,32 +517,34 @@ def extract_sku_from_text(text):
     except Exception as e:
         raise Exception(f"Ошибка при извлечении SKU: {str(e)}")
 
-def extract_sku_from_short_url(url):
-    """Извлекает SKU из короткой ссылки OZON через Selenium"""
-    if not SELENIUM_AVAILABLE:
-        raise Exception("Selenium недоступен")
-    
-    driver = setup_driver()
-    if not driver:
-        raise Exception("Не удалось инициализировать ChromeDriver")
-    
+def extract_sku_with_driver(driver, url):
+    """Извлекает SKU из короткой ссылки OZON используя существующий driver"""
     try:
         st.info(f"🔄 Обрабатываем: {url}")
+        
+        # Добавляем случайную задержку перед запросом (имитация человека)
+        time.sleep(random.uniform(1.5, 3.0))
         
         # Переходим по ссылке
         driver.get(url)
         
         # Ждем загрузки страницы
-        WebDriverWait(driver, 15).until(
+        WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.TAG_NAME, "body"))
         )
         
         # Даем время на выполнение JavaScript и редиректы
-        time.sleep(3)
+        time.sleep(random.uniform(3.0, 5.0))
         
         # Получаем текущий URL после редиректов
         current_url = driver.current_url
         st.info(f"📋 Финальный URL: {current_url}")
+        
+        # Проверяем, не заблокировали ли нас
+        page_source = driver.page_source
+        if "Доступ ограничен" in page_source or "fab_chlg" in page_source:
+            st.warning("⚠️ OZON заблокировал доступ (антибот защита). Попробуйте позже или используйте другой метод.")
+            return None
         
         # Ищем SKU в URL по стандартным правилам
         sku_match = re.search(r'-(\d{9,10})/', current_url)
@@ -533,14 +553,25 @@ def extract_sku_from_short_url(url):
             st.success(f"✅ Найден SKU: {sku}")
             return sku
         
-        # Дополнительные методы поиска SKU
-        page_source = driver.page_source
+        # Ищем SKU в URL другим паттерном (product/...)
+        sku_match2 = re.search(r'/product/[^/]+-(\d{9,10})(?:/|$|\?)', current_url)
+        if sku_match2:
+            sku = sku_match2.group(1)
+            st.success(f"✅ Найден SKU: {sku}")
+            return sku
         
         # Ищем в JSON-LD
-        json_match = re.search(r'"sku":"(\d{9,10})"', page_source)
+        json_match = re.search(r'"sku"\s*:\s*"(\d{9,10})"', page_source)
         if json_match:
             sku = json_match.group(1)
             st.success(f"✅ Найден SKU в JSON: {sku}")
+            return sku
+        
+        # Ищем в data-атрибутах
+        data_match = re.search(r'data-sku="(\d{9,10})"', page_source)
+        if data_match:
+            sku = data_match.group(1)
+            st.success(f"✅ Найден SKU в атрибутах: {sku}")
             return sku
             
         st.warning("❌ SKU не найден на странице")
@@ -549,71 +580,76 @@ def extract_sku_from_short_url(url):
     except Exception as e:
         st.error(f"❌ Ошибка при обработке {url}: {str(e)}")
         return None
-    finally:
-        if driver:
-            driver.quit()
 
 def process_short_urls(urls_text):
     """Обрабатывает короткие ссылки и извлекает SKU"""
     if not SELENIUM_AVAILABLE:
         return [], "Selenium недоступен. Функция извлечения из коротких ссылок отключена."
     
-    driver = setup_driver()
+    # Создаем один driver для всех ссылок
+    driver = create_driver()
     if not driver:
         return [], "ChromeDriver не инициализирован. Пожалуйста, подождите или перезагрузите приложение."
     
-    # Извлекаем ссылки из текста
-    url_pattern = r'https?://[^\s]+'
-    urls = re.findall(url_pattern, urls_text)
-    
-    # Фильтруем только короткие ссылки OZON
-    short_urls = [url for url in urls if 'ozon.ru/t/' in url or 'ozon.com/t/' in url]
-    
-    if not short_urls:
-        return [], "Не найдено коротких ссылок OZON (формат: https://ozon.ru/t/...)"
-    
-    results = []
-    success_count = 0
-    error_count = 0
-    
-    # Прогресс бар
-    progress_bar = st.progress(0)
-    status_text = st.empty()
-    
-    # Обрабатываем ссылки последовательно
-    for i, url in enumerate(short_urls):
-        status_text.text(f"Обрабатывается {i+1}/{len(short_urls)}: {url}")
-        progress_bar.progress((i) / len(short_urls))
+    try:
+        # Извлекаем ссылки из текста
+        url_pattern = r'https?://[^\s]+'
+        urls = re.findall(url_pattern, urls_text)
         
-        try:
-            sku = extract_sku_from_short_url(url)
-            if sku:
-                results.append(sku)
-                success_count += 1
-            else:
+        # Фильтруем только короткие ссылки OZON
+        short_urls = [url for url in urls if 'ozon.ru/t/' in url or 'ozon.com/t/' in url]
+        
+        if not short_urls:
+            return [], "Не найдено коротких ссылок OZON (формат: https://ozon.ru/t/...)"
+        
+        results = []
+        success_count = 0
+        error_count = 0
+        
+        # Прогресс бар
+        progress_bar = st.progress(0)
+        status_text = st.empty()
+        
+        # Обрабатываем ссылки последовательно с одним driver
+        for i, url in enumerate(short_urls):
+            status_text.text(f"Обрабатывается {i+1}/{len(short_urls)}: {url}")
+            progress_bar.progress((i) / len(short_urls))
+            
+            try:
+                sku = extract_sku_with_driver(driver, url)
+                if sku:
+                    results.append(sku)
+                    success_count += 1
+                else:
+                    error_count += 1
+            except Exception as e:
                 error_count += 1
-        except Exception as e:
-            error_count += 1
-            st.error(f"❌ Ошибка для {url}: {str(e)}")
+                st.error(f"❌ Ошибка для {url}: {str(e)}")
+            
+            # Обновляем прогресс
+            progress_bar.progress((i + 1) / len(short_urls))
+            
+            # Случайная пауза между запросами для имитации человека
+            if i < len(short_urls) - 1:
+                time.sleep(random.uniform(3.0, 6.0))
         
-        # Обновляем прогресс
-        progress_bar.progress((i + 1) / len(short_urls))
+        progress_bar.empty()
+        status_text.empty()
         
-        # Пауза между запросами
-        time.sleep(2)
+        message = f"Обработано {len(short_urls)} ссылок: ✅ {success_count} успешно, ❌ {error_count} ошибок"
+        return results, message
     
-    progress_bar.empty()
-    status_text.empty()
-    
-    message = f"Обработано {len(short_urls)} ссылок: ✅ {success_count} успешно, ❌ {error_count} ошибок"
-    return results, message
+    finally:
+        # Закрываем driver после обработки всех ссылок
+        if driver:
+            driver.quit()
 
 def test_selenium():
     """Тестирует работоспособность Selenium"""
     if not SELENIUM_AVAILABLE:
         return False, "Selenium не установлен"
     
-    driver = setup_driver()
+    driver = create_driver()
     if not driver:
         return False, "Не удалось инициализировать ChromeDriver"
     
@@ -770,10 +806,9 @@ def main():
         """, unsafe_allow_html=True)
         
         # Карточка "Статус Selenium"
-        driver = setup_driver()
-        status_color = "text-success" if driver else "text-warning"
-        status_icon = "✅" if driver else "🔄"
-        status_text = "Готов к работе" if driver else "Загрузка..."
+        status_color = "text-success" if SELENIUM_AVAILABLE else "text-warning"
+        status_icon = "✅" if SELENIUM_AVAILABLE else "❌"
+        status_text = "Готов к работе" if SELENIUM_AVAILABLE else "Недоступен"
         
         st.markdown(f"""
         <div class="ozon-card ozon-fade-in">
@@ -796,14 +831,6 @@ def main():
                     st.success(message)
                 else:
                     st.error(message)
-        
-        # Кнопка установки Chrome (только если нужно)
-        if not driver and st.button("🔄 Установить Chrome", use_container_width=True):
-            with st.spinner("Устанавливаем Chrome..."):
-                if install_chrome_in_replit():
-                    st.success("✅ Chrome установлен! Перезагрузите приложение.")
-                else:
-                    st.error("❌ Ошибка установки Chrome")
         
         st.markdown("---")
         st.markdown("""
