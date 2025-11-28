@@ -1,169 +1,197 @@
 import streamlit as st
 import os
 import sys
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
+import subprocess
 
-st.set_page_config(page_title="Selenium Test - Streamlit Cloud", layout="wide")
+st.set_page_config(page_title="Selenium Diagnostics", layout="wide")
 
-def setup_selenium_streamlit_cloud():
-    """Настройка Selenium для Streamlit Cloud"""
-    chrome_options = Options()
-    
-    # Конфигурация для Streamlit Cloud
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--remote-debugging-port=9222")
-    chrome_options.add_argument("--window-size=1920,1080")
-    
-    # В Streamlit Cloud Chrome/Chromium обычно доступен здесь
-    chrome_options.binary_location = "/usr/bin/chromium"
-    
-    return chrome_options
+st.title("🔧 Полная диагностика Selenium в Streamlit Cloud")
 
-def main():
-    st.title("🌐 Selenium в Streamlit Cloud")
-    st.write("Тестирование работы Selenium в облачной среде Streamlit")
+# Проверка системы
+st.write("## 1. Проверка системы")
+
+def check_system_dependencies():
+    """Проверка системных зависимостей"""
+    st.write("### Проверка библиотек и пакетов:")
     
-    # Информация о среде
-    with st.expander("Информация о среде выполнения"):
-        st.write(f"**Python:** {sys.executable}")
-        st.write(f"**Рабочая директория:** {os.getcwd()}")
+    libs_to_check = [
+        "/usr/bin/chromium",
+        "/usr/bin/chromium-browser", 
+        "/usr/bin/chromedriver",
+        "/usr/lib/x86_64-linux-gnu/libnss3.so",
+        "/usr/lib/x86_64-linux-gnu/libatk-1.0.so",
+        "/usr/lib/x86_64-linux-gnu/libgconf-2.so"
+    ]
+    
+    for lib in libs_to_check:
+        exists = os.path.exists(lib)
+        status = "✅" if exists else "❌"
+        st.write(f"{status} {lib}")
+
+def check_ldd():
+    """Проверка зависимостей через ldd"""
+    try:
+        st.write("### Проверка зависимостей chromedriver:")
+        result = subprocess.run(["ldd", "/usr/bin/chromedriver"], 
+                              capture_output=True, text=True)
+        if result.returncode == 0:
+            st.text_area("Зависимости chromedriver:", result.stdout, height=200)
+        else:
+            st.error("Не удалось проверить зависимости chromedriver")
+    except Exception as e:
+        st.error(f"Ошибка проверки зависимостей: {e}")
+
+# Запускаем диагностику
+check_system_dependencies()
+check_ldd()
+
+st.write("## 2. Тест Selenium с разными конфигурациями")
+
+def test_selenium_variant(variant_name, setup_function):
+    """Тестирование разных вариантов настройки Selenium"""
+    st.write(f"### {variant_name}")
+    
+    try:
+        driver = setup_function()
+        driver.get("https://httpbin.org/html")
+        title = driver.title
+        st.success(f"✅ {variant_name} работает: {title}")
+        driver.quit()
+        return True
+    except Exception as e:
+        st.error(f"❌ {variant_name} не работает: {str(e)}")
+        return False
+
+# Вариант 1: Базовый с Chromium
+def setup_basic_chromium():
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.chrome.service import Service
+    from webdriver_manager.chrome import ChromeDriverManager
+    from webdriver_manager.core.os_manager import ChromeType
+    
+    options = Options()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    
+    service = Service(
+        ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+    )
+    
+    return webdriver.Chrome(service=service, options=options)
+
+# Вариант 2: С явным указанием пути к chromium
+def setup_explicit_chromium():
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    from selenium.webdriver.chrome.service import Service
+    
+    options = Options()
+    options.binary_location = "/usr/bin/chromium"
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--remote-debugging-port=9222")
+    
+    service = Service("/usr/bin/chromedriver")
+    return webdriver.Chrome(service=service, options=options)
+
+# Вариант 3: Минимальная конфигурация
+def setup_minimal():
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+    
+    options = Options()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    
+    # Пробуем использовать системный chromedriver
+    return webdriver.Chrome(options=options)
+
+# Запуск тестов
+if st.button("🧪 Запустить все тесты Selenium"):
+    results = []
+    
+    with st.spinner("Тестирование..."):
+        results.append(test_selenium_variant("Базовый Chromium", setup_basic_chromium))
+        results.append(test_selenium_variant("Явный путь к Chromium", setup_explicit_chromium))
+        results.append(test_selenium_variant("Минимальная конфигурация", setup_minimal))
+    
+    if any(results):
+        st.success("🎉 Хотя бы один тест прошел!")
+    else:
+        st.error("❌ Все тесты не прошли")
+
+st.write("## 3. Альтернативное решение")
+
+st.write("Если Selenium не работает, рассмотрите эти альтернативы:")
+
+st.write("### 🔄 Playwright")
+st.code("""
+import asyncio
+from playwright.async_api import async_playwright
+
+async def scrape():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page()
+        await page.goto("https://example.com")
+        content = await page.content()
+        await browser.close()
+        return content
+
+# Запуск
+result = asyncio.run(scrape())
+""")
+
+st.write("### 📡 Requests + BeautifulSoup")
+st.code("""
+import requests
+from bs4 import BeautifulSoup
+
+response = requests.get("https://example.com")
+soup = BeautifulSoup(response.content, 'html.parser')
+# Парсинг данных...
+""")
+
+st.write("### 🌐 API запросы")
+st.write("Если сайт предоставляет API - это самый надежный способ.")
+
+if st.button("🚀 Быстрый тест Playwright"):
+    try:
+        import asyncio
+        from playwright.async_api import async_playwright
         
-        # Проверка наличия Chromium
-        chromium_paths = [
-            "/usr/bin/chromium",
-            "/usr/bin/chromium-browser",
-            "/usr/bin/google-chrome"
-        ]
+        async def test_playwright():
+            async with async_playwright() as p:
+                browser = await p.chromium.launch(headless=True)
+                page = await browser.new_page()
+                await page.goto("https://httpbin.org/html")
+                title = await page.title()
+                await browser.close()
+                return title
         
-        for path in chromium_paths:
-            exists = os.path.exists(path)
-            status = "✅" if exists else "❌"
-            st.write(f"{status} {path}: {'существует' if exists else 'не найден'}")
-    
-    # Тест Selenium
-    st.write("## 🧪 Тест Selenium")
-    
-    if st.button("🚀 Запустить тест Selenium"):
-        with st.spinner("Выполнение теста..."):
-            try:
-                # Настройка Selenium
-                chrome_options = setup_selenium_streamlit_cloud()
-                
-                st.write("**1. Инициализация ChromeDriver...**")
-                
-                # В Streamlit Cloud используем системный chromedriver
-                from selenium.webdriver.chrome.service import Service
-                service = Service("/usr/bin/chromedriver")
-                driver = webdriver.Chrome(service=service, options=chrome_options)
-                
-                st.success("✅ ChromeDriver инициализирован")
-                
-                # Тест 1: Базовая навигация
-                st.write("**2. Тест навигации...**")
-                test_url = "https://httpbin.org/html"
-                driver.get(test_url)
-                st.success(f"✅ Страница загружена: `{driver.title}`")
-                
-                # Тест 2: Поиск элементов
-                st.write("**3. Тест поиска элементов...**")
-                h1_element = driver.find_element(By.TAG_NAME, "h1")
-                st.success(f"✅ Элемент найден: `{h1_element.text}`")
-                
-                # Тест 3: JavaScript выполнение
-                st.write("**4. Тест выполнения JavaScript...**")
-                current_url = driver.execute_script("return window.location.href;")
-                st.success(f"✅ JavaScript выполнен: `{current_url}`")
-                
-                # Тест 4: Скриншот
-                st.write("**5. Создание скриншота...**")
-                screenshot_path = "selenium_test_streamlit_cloud.png"
-                driver.save_screenshot(screenshot_path)
-                
-                if os.path.exists(screenshot_path):
-                    st.image(screenshot_path, caption="Скриншот тестовой страницы")
-                    st.success("✅ Скриншот создан")
-                else:
-                    st.warning("⚠ Скриншот не создан")
-                
-                # Завершение
-                driver.quit()
-                st.success("🎉 ВСЕ ТЕСТЫ ПРОЙДЕНЫ! Selenium работает в Streamlit Cloud!")
-                
-            except Exception as e:
-                st.error(f"❌ Ошибка: {str(e)}")
-                
-                # Расширенная диагностика
-                st.write("## 🔧 Диагностика проблемы")
-                
-                # Проверка версии Chromium
-                try:
-                    import subprocess
-                    result = subprocess.run(["/usr/bin/chromium", "--version"], 
-                                          capture_output=True, text=True)
-                    if result.returncode == 0:
-                        st.write(f"**Версия Chromium:** {result.stdout.strip()}")
-                    else:
-                        st.error("Chromium не доступен")
-                except:
-                    st.error("Не удалось проверить версию Chromium")
-                
-                # Проверка ChromeDriver
-                try:
-                    result = subprocess.run(["/usr/bin/chromedriver", "--version"], 
-                                          capture_output=True, text=True)
-                    if result.returncode == 0:
-                        st.write(f"**Версия ChromeDriver:** {result.stdout.strip()}")
-                    else:
-                        st.error("ChromeDriver не доступен")
-                except:
-                    st.error("Не удалось проверить версию ChromeDriver")
-                
-                st.info("""
-                **Решение для Streamlit Cloud:**
-                1. Убедитесь, что в `packages.txt` указаны:
-                   ```
-                   chromium
-                   chromium-chromedriver
-                   ```
-                2. В `requirements.txt` указаны:
-                   ```
-                   selenium>=4.38.0
-                   streamlit>=1.28.0
-                   ```
-                3. Перезапустите приложение в Streamlit Cloud
-                """)
+        title = asyncio.run(test_playwright())
+        st.success(f"✅ Playwright работает: {title}")
+        
+    except Exception as e:
+        st.error(f"❌ Playwright не работает: {e}")
 
-    # Альтернативный тест с webdriver-manager
-    st.write("## 🔄 Альтернативный тест (с webdriver-manager)")
-    
-    if st.button("🔄 Запустить тест с webdriver-manager"):
-        with st.spinner("Запуск альтернативного теста..."):
-            try:
-                from webdriver_manager.chrome import ChromeDriverManager
-                from selenium.webdriver.chrome.service import Service
-                
-                chrome_options = Options()
-                chrome_options.add_argument("--headless")
-                chrome_options.add_argument("--no-sandbox")
-                chrome_options.add_argument("--disable-dev-shm-usage")
-                
-                # Используем webdriver-manager для автоматической установки драйвера
-                service = Service(ChromeDriverManager().install())
-                driver = webdriver.Chrome(service=service, options=chrome_options)
-                
-                driver.get("https://httpbin.org/html")
-                st.success(f"✅ Альтернативный тест: `{driver.title}`")
-                
-                driver.quit()
-                st.success("✅ Альтернативный тест пройден!")
-                
-            except Exception as e:
-                st.error(f"❌ Альтернативный тест не удался: {e}")
+st.write("## 4. Информация для отладки")
 
-if __name__ == "__main__":
-    main()
+st.write(f"**Python путь:** {sys.executable}")
+st.write(f"**Рабочая директория:** {os.getcwd()}")
+st.write(f"**Платформа:** {sys.platform}")
+st.write(f"**Версия Python:** {sys.version}")
+
+# Показываем установленные пакеты
+try:
+    result = subprocess.run([sys.executable, "-m", "pip", "list"], 
+                          capture_output=True, text=True)
+    with st.expander("Установленные пакеты"):
+        st.text(result.stdout)
+except:
+    pass
