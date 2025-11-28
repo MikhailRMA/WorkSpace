@@ -43,7 +43,7 @@
 - ChromeDriver
 
 **Infrastructure:**
-- Railway (хостинг)
+- Replit (хостинг)
 - Streamlit (веб-интерфейс)
 
 ## 📁 Структура проекта
