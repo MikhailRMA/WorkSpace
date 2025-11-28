@@ -163,7 +163,6 @@ def apply_ozon_style():
             margin-right: 10px;
             font-weight: bold;
         }
-        
     </style>
     """, unsafe_allow_html=True)
 
@@ -294,6 +293,7 @@ def show_instructions():
                 <li><strong>бренд</strong> - бренд (может быть пустым)</li>
             </ul>
             <p><em>просто переименуйте ваши столбцы и загрузите файл, порядок размещения неважен</em></p>
+           
         </div>
         """, unsafe_allow_html=True)
     
@@ -310,6 +310,7 @@ def show_instructions():
                 <li>Использует интеллектуальный поиск</li>
                 <li>Учитывает различные написания</li>
             </ul>
+            <em>Перед работой добавьте в словарь ваш Бренд и его возможные вариации написания в столбцах(название, описание)</em>
             <em>Перед работой добавьте в словарь ваш Бренд и его возможные вариации написания в столбцах(название, описание)</em>
         </div>
         """, unsafe_allow_html=True)
@@ -866,8 +867,8 @@ def main():
     # Боковая панель навигации
     with st.sidebar:
         st.markdown("""
-        <div class="ozon-sidebar-header" >
-            <h1 class="sidebar-title">Brand Detector</h1>
+        <div class="ozon-sidebar-header">
+            <h1 class="sidebar-title">🛍️</h1>
         </div>
         """, unsafe_allow_html=True)
         
