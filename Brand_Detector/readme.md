@@ -78,10 +78,15 @@
 Словарь брендов настраивается в формате:
 
 json
+
 {
+
   "Nike": ["nike", "найк", "nike air", "air max"],
+  
   "Samsung": ["samsung", "самсунг", "galaxy", "note"],
+  
   "Apple": ["apple", "эпл", "iphone", "macbook"]
+  
 }
 
 #### Советы по настройке:
