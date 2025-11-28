@@ -9,7 +9,8 @@ from datetime import datetime
 st.set_page_config(
     page_title="Brand Detector - OZON Style",
     page_icon="https://cdn1.ozone.ru/s3/common-image-storage/bx/tag-logo-blue_m.png",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 # CSS стили OZON
@@ -263,6 +264,8 @@ def init_session_state():
         st.session_state.uploaded_filename = None
     if 'show_results' not in st.session_state:
         st.session_state.show_results = False
+    if 'file_processed' not in st.session_state:
+        st.session_state.file_processed = False
 
 def clear_session_data():
     """Очистка данных сессии"""
@@ -270,6 +273,7 @@ def clear_session_data():
     st.session_state.processed_data = None
     st.session_state.uploaded_filename = None
     st.session_state.show_results = False
+    st.session_state.file_processed = False
     if 'detector' in st.session_state:
         st.session_state.detector.logs = []
 
@@ -428,9 +432,10 @@ def process_uploaded_file(uploaded_file):
         st.session_state.uploaded_filename = uploaded_file.name
         st.session_state.processed_data = None
         st.session_state.show_results = False
+        st.session_state.file_processed = True
         
-        # Показываем данные
-        show_data_preview(df)
+        # Принудительный перезапуск для отображения кнопки обработки
+        st.rerun()
         
     except Exception as e:
         st.error(f"❌ Ошибка при загрузке файла: {str(e)}")
@@ -459,7 +464,7 @@ def show_existing_data():
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        if st.button("🚀 Заполнить бренды автоматически", use_container_width=True):
+        if st.button("🚀 Заполнить бренды автоматически", use_container_width=True, key="process_button"):
             with st.spinner("🔍 Анализирую данные..."):
                 # Сбрасываем логи перед новой обработкой
                 st.session_state.detector.logs = []
@@ -472,13 +477,7 @@ def show_existing_data():
                 st.session_state.processed_data = processed_df
                 st.session_state.show_results = True
                 
-                st.markdown(f"""
-                <div class="ozon-alert-success">
-                    <strong>✅ Обработка завершена успешно!</strong><br>
-                    Заполнено {metrics['improvement']} новых брендов<br>
-                    Общее покрытие: {metrics['new_coverage']:.1f}%
-                </div>
-                """, unsafe_allow_html=True)
+                # Принудительный перезапуск для отображения результатов
                 st.rerun()
 
 def show_data_preview(df):
@@ -505,6 +504,9 @@ def show_data_preview(df):
 
 def show_results():
     """Показ результатов обработки"""
+    if st.session_state.processed_data is None or not st.session_state.show_results:
+        return
+        
     processed_df = st.session_state.processed_data
     original_df = st.session_state.uploaded_data
     
