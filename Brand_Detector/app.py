@@ -1794,17 +1794,11 @@ def main():
     with st.sidebar:
         st.markdown("""
         <div class="ozon-sidebar-header" >
-            <h1 class="sidebar-title">Brand Detector</h1>
+            <h1 class="sidebar-title">Информация</h1>
         </div>
         """, unsafe_allow_html=True)
         
-        st.markdown("""
-        <div class="ozon-card">
-        <p>Автоматическое определение и запись брендов в товарных данных</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.write("---")
+       
         
         page = st.radio(
             "Навигация",
@@ -1837,6 +1831,13 @@ def main():
             Брендов: {len(detector.brand_dict)}<br>
             Ключевых слов: {sum(len(keywords) for keywords in detector.brand_dict.values())}<br>
             Логов: {len(detector.logs)}
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("---")
+        st.markdown("""
+        <div class="text-center" style="color: var(--ozon-text-muted); padding: 1rem;">
+            <p>With ❤️ by <strong>mroshchupkin and DS</strong></p>
         </div>
         """, unsafe_allow_html=True)
     
