@@ -24,7 +24,7 @@
 
 ## Результаты
 Основные результаты проекта представлены в виде:
-- [Интерактивного дашборда](https://datalens.yandex/xfklgfsw2kv8i))
+- [Интерактивного дашборда](https://datalens.yandex/xfklgfsw2kv8i)
 - [Отчета/Презентации](https://github.com/MikhailRMA/WorkSpace/blob/main/Analisys_seller_mp_oz/presentation/Rezultaty-kompleksnogo-analiza.pdf) с выводами и рекомендациями
 
 ### Ключевые выводы:
