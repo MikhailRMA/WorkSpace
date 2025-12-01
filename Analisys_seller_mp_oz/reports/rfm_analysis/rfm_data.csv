@@ -1,0 +1,862 @@
+customer_id,recency,frequency,monetary,R_Score,F_Score,M_Score,RFM_Score,RFM_Sum,segment,tier
+10052142,179,1,2880,1,1,1,111,3,At Risk,Bronze
+10060494,11,4,20720,5,2,4,524,11,High Value New Customers,Gold
+10145273,8,5,17450,5,3,4,534,12,Loyal Customers,Platinum
+10226963,135,1,9180,2,1,3,213,6,213,Silver
+10425403,10,2,7000,5,1,2,512,8,New Customers,Silver
+10678165,174,2,6980,1,1,2,112,4,At Risk,Bronze
+10769708,110,1,5580,2,1,2,212,5,At Risk,Bronze
+10991330,133,2,5200,2,1,2,212,5,At Risk,Bronze
+11000967,181,2,10248,1,1,3,113,5,113,Bronze
+11135499,135,2,11960,2,1,3,213,6,213,Silver
+11146662,185,2,2000,1,1,1,111,3,At Risk,Bronze
+11165756,54,2,12980,3,1,4,314,8,314,Silver
+11351952,57,3,6000,3,2,2,322,7,Potential Loyalists,Silver
+11460725,77,2,15160,3,1,4,314,8,314,Silver
+11476432,237,1,6380,1,1,2,112,4,At Risk,Bronze
+11575539,29,5,27500,4,3,5,435,12,Loyal Customers,Platinum
+11615968,220,1,1460,1,1,1,111,3,At Risk,Bronze
+11723919,130,4,12720,2,2,4,224,8,Cannot Lose Them,Silver
+11732154,248,1,4980,1,1,1,111,3,At Risk,Bronze
+11854043,101,1,1900,2,1,1,211,4,At Risk,Bronze
+11935679,178,3,19740,1,2,4,124,7,Cannot Lose Them,Silver
+12001967,80,3,8700,3,2,3,323,8,Potential Loyalists,Silver
+12105804,76,3,23484,3,2,5,325,10,325,Gold
+12133233,83,3,12300,3,2,4,324,9,324,Gold
+12157882,33,4,6400,4,2,2,422,8,New Customers,Silver
+12197069,208,1,6380,1,1,2,112,4,At Risk,Bronze
+12307278,49,4,30088,4,2,5,425,11,High Value New Customers,Gold
+12494667,20,3,8940,5,2,3,523,10,New Customers,Gold
+12636113,232,1,1000,1,1,1,111,3,At Risk,Bronze
+12665141,82,4,22320,3,2,5,325,10,325,Gold
+12743240,213,1,2490,1,1,1,111,3,At Risk,Bronze
+12911883,103,4,2720,2,2,1,221,5,At Risk,Bronze
+12919215,265,1,1320,1,1,1,111,3,At Risk,Bronze
+13307981,60,4,10800,3,2,3,323,8,Potential Loyalists,Silver
+13391135,157,2,6980,1,1,2,112,4,At Risk,Bronze
+13393820,123,1,5180,2,1,2,212,5,At Risk,Bronze
+13544308,30,3,32640,4,2,5,425,11,High Value New Customers,Gold
+13642174,149,2,11000,1,1,3,113,5,113,Bronze
+13687354,37,4,19960,4,2,4,424,10,High Value New Customers,Gold
+13735368,149,3,10470,1,2,3,123,6,123,Silver
+13739750,105,4,24360,2,2,5,225,9,Cannot Lose Them,Gold
+13837776,122,2,1800,2,1,1,211,4,At Risk,Bronze
+14268446,56,3,33300,3,2,5,325,10,325,Gold
+14299738,57,2,14760,3,1,4,314,8,314,Silver
+14715236,82,3,19740,3,2,4,324,9,324,Gold
+14737689,3,2,20760,5,1,4,514,10,High Value New Customers,Gold
+14773482,80,5,29950,3,3,5,335,11,Loyal Customers,Gold
+14809114,116,1,2980,2,1,1,211,4,At Risk,Bronze
+14926551,17,5,29950,5,3,5,535,13,Loyal Customers,Platinum
+14955118,230,1,3450,1,1,1,111,3,At Risk,Bronze
+15211947,105,1,6738,2,1,2,212,5,At Risk,Bronze
+15266766,63,3,10470,3,2,3,323,8,Potential Loyalists,Silver
+15413660,155,1,4980,1,1,1,111,3,At Risk,Bronze
+15511860,111,2,9980,2,1,3,213,6,213,Silver
+15551074,18,3,14100,5,2,4,524,11,High Value New Customers,Gold
+15752189,34,6,30600,4,3,5,435,12,Loyal Customers,Platinum
+16006909,159,2,12360,1,1,4,114,6,Cannot Lose Them,Silver
+16225379,158,2,12380,1,1,4,114,6,Cannot Lose Them,Silver
+16238464,179,1,3380,1,1,1,111,3,At Risk,Bronze
+16278472,45,4,28720,4,2,5,425,11,High Value New Customers,Gold
+16337630,8,5,20500,5,3,4,534,12,Loyal Customers,Platinum
+16408664,90,1,11100,2,1,3,213,6,213,Silver
+16502779,12,3,9750,5,2,3,523,10,New Customers,Gold
+16616230,35,1,4990,4,1,1,411,6,New Customers,Silver
+16837385,20,5,37900,5,3,5,535,13,Loyal Customers,Platinum
+16975545,62,1,4900,3,1,1,311,5,Potential Loyalists,Bronze
+17280340,12,4,17200,5,2,4,524,11,High Value New Customers,Gold
+17430134,56,2,13180,3,1,4,314,8,314,Silver
+17625450,101,4,22320,2,2,5,225,9,Cannot Lose Them,Gold
+17897185,72,3,14970,3,2,4,324,9,324,Gold
+17932091,59,3,10470,3,2,3,323,8,Potential Loyalists,Silver
+17961013,225,3,10470,1,2,3,123,6,123,Silver
+18140841,56,5,24900,3,3,5,335,11,Loyal Customers,Gold
+18156492,10,4,23920,5,2,5,525,12,High Value New Customers,Platinum
+18386274,258,1,2900,1,1,1,111,3,At Risk,Bronze
+18398142,205,2,13160,1,1,4,114,6,Cannot Lose Them,Silver
+18488674,41,5,17450,4,3,4,434,11,Loyal Customers,Gold
+18519010,31,3,19740,4,2,4,424,10,High Value New Customers,Gold
+18885984,53,4,24800,3,2,5,325,10,325,Gold
+18893470,262,1,2780,1,1,1,111,3,At Risk,Bronze
+18952810,25,2,22200,4,1,5,415,10,High Value New Customers,Gold
+19259686,62,5,20000,3,3,4,334,10,Loyal Customers,Gold
+19287744,119,1,11100,2,1,3,213,6,213,Silver
+19331204,11,2,10200,5,1,3,513,9,New Customers,Gold
+19765974,6,2,5960,5,1,2,512,8,New Customers,Silver
+19770679,45,5,39140,4,3,5,435,12,Loyal Customers,Platinum
+19861565,54,4,26320,3,2,5,325,10,325,Gold
+19928290,13,3,10800,5,2,3,523,10,New Customers,Gold
+19963943,64,3,4200,3,2,1,321,6,Potential Loyalists,Silver
+19979580,178,1,6490,1,1,2,112,4,At Risk,Bronze
+19979751,103,1,6050,2,1,2,212,5,At Risk,Bronze
+19991230,85,2,10760,3,1,3,313,7,Potential Loyalists,Silver
+20387700,101,3,20940,2,2,4,224,8,Cannot Lose Them,Silver
+20450748,7,3,33300,5,2,5,525,12,High Value New Customers,Platinum
+20586151,3,4,27960,5,2,5,525,12,High Value New Customers,Platinum
+20762733,5,2,3100,5,1,1,511,7,New Customers,Silver
+20765137,138,4,6320,2,2,2,222,6,About To Sleep,Silver
+20862535,90,3,16740,2,2,4,224,8,Cannot Lose Them,Silver
+20929551,122,2,2900,2,1,1,211,4,At Risk,Bronze
+21059414,261,1,2100,1,1,1,111,3,At Risk,Bronze
+21090709,138,1,1540,2,1,1,211,4,At Risk,Bronze
+21167732,8,2,19960,5,1,4,514,10,High Value New Customers,Gold
+21200354,157,1,5990,1,1,2,112,4,At Risk,Bronze
+21286645,135,1,2200,2,1,1,211,4,At Risk,Bronze
+21410336,213,1,2780,1,1,1,111,3,At Risk,Bronze
+21656338,80,3,15300,3,2,4,324,9,324,Gold
+21673576,108,1,11100,2,1,3,213,6,213,Silver
+21820132,12,2,22200,5,1,5,515,11,High Value New Customers,Gold
+21837136,29,3,6900,4,2,2,422,8,New Customers,Silver
+21929427,10,3,14970,5,2,4,524,11,High Value New Customers,Gold
+21970497,29,2,7828,4,1,2,412,7,New Customers,Silver
+22020509,131,1,1490,2,1,1,211,4,At Risk,Bronze
+22078766,100,1,7500,2,1,2,212,5,At Risk,Bronze
+22172016,91,2,12400,2,1,4,214,7,Cannot Lose Them,Silver
+22258405,65,3,10470,3,2,3,323,8,Potential Loyalists,Silver
+22270955,14,5,14900,5,3,4,534,12,Loyal Customers,Platinum
+22599508,70,1,7180,3,1,2,312,6,Potential Loyalists,Silver
+22705435,80,2,13160,3,1,4,314,8,314,Silver
+22843017,223,1,6090,1,1,2,112,4,At Risk,Bronze
+22878176,232,2,13160,1,1,4,114,6,Cannot Lose Them,Silver
+22934764,66,2,2840,3,1,1,311,5,Potential Loyalists,Bronze
+23021957,70,3,3000,3,2,1,321,6,Potential Loyalists,Silver
+23245835,24,2,5960,4,1,2,412,7,New Customers,Silver
+23392944,254,2,13180,1,1,4,114,6,Cannot Lose Them,Silver
+23429358,209,2,22200,1,1,5,115,7,Cannot Lose Them,Silver
+24046960,13,3,8940,5,2,3,523,10,New Customers,Gold
+24115955,132,1,5180,2,1,2,212,5,At Risk,Bronze
+24148272,51,3,10470,3,2,3,323,8,Potential Loyalists,Silver
+24165881,206,1,5580,1,1,2,112,4,At Risk,Bronze
+24499014,6,3,9540,5,2,3,523,10,New Customers,Gold
+24553956,27,5,23900,4,3,5,435,12,Loyal Customers,Platinum
+24565729,42,3,27540,4,2,5,425,11,High Value New Customers,Gold
+24644733,67,2,6954,3,1,2,312,6,Potential Loyalists,Silver
+24653069,113,2,9960,2,1,3,213,6,213,Silver
+24666903,6,3,10140,5,2,3,523,10,New Customers,Gold
+24763399,50,2,22200,3,1,5,315,9,315,Gold
+24789210,74,2,13160,3,1,4,314,8,314,Silver
+24862643,49,5,36900,4,3,5,435,12,Loyal Customers,Platinum
+25273810,78,3,8940,3,2,3,323,8,Potential Loyalists,Silver
+25324439,19,4,8000,5,2,2,522,9,New Customers,Gold
+25673692,14,3,25500,5,2,5,525,12,High Value New Customers,Platinum
+25688149,91,5,36500,2,3,5,235,10,235,Gold
+25990523,44,3,2040,4,2,1,421,7,New Customers,Silver
+25995510,54,4,18400,3,2,4,324,9,324,Gold
+26194974,14,7,23660,5,4,5,545,14,Champions,Platinum
+26479913,61,2,14360,3,1,4,314,8,314,Silver
+26483342,109,3,14940,2,2,4,224,8,Cannot Lose Them,Silver
+26492031,16,5,9000,5,3,3,533,11,Loyal Customers,Gold
+26492321,69,5,11500,3,3,3,333,9,Loyal Customers,Gold
+26561997,131,2,13160,2,1,4,214,7,Cannot Lose Them,Silver
+26669048,41,1,11990,4,1,3,413,8,New Customers,Silver
+26677770,103,5,18500,2,3,4,234,9,234,Gold
+26726668,85,2,6360,3,1,2,312,6,Potential Loyalists,Silver
+26751676,51,3,10500,3,2,3,323,8,Potential Loyalists,Silver
+26802010,25,6,25200,4,3,5,435,12,Loyal Customers,Platinum
+26878119,102,3,12540,2,2,4,224,8,Cannot Lose Them,Silver
+27378295,81,3,2700,3,2,1,321,6,Potential Loyalists,Silver
+27451798,246,1,1580,1,1,1,111,3,At Risk,Bronze
+27500707,57,3,5670,3,2,2,322,7,Potential Loyalists,Silver
+27574394,111,4,8000,2,2,2,222,6,About To Sleep,Silver
+27622520,111,4,13960,2,2,4,224,8,Cannot Lose Them,Silver
+27685318,27,1,5300,4,1,2,412,7,New Customers,Silver
+27730464,85,3,21540,3,2,4,324,9,324,Gold
+27922657,24,2,11556,4,1,3,413,8,New Customers,Silver
+27995241,12,5,12450,5,3,4,534,12,Loyal Customers,Platinum
+28074469,18,5,24950,5,3,5,535,13,Loyal Customers,Platinum
+28202461,31,2,9960,4,1,3,413,8,New Customers,Silver
+28227796,31,4,20800,4,2,4,424,10,High Value New Customers,Gold
+28310439,4,2,5580,5,1,2,512,8,New Customers,Silver
+28393426,62,1,2490,3,1,1,311,5,Potential Loyalists,Bronze
+28410571,2,1,3490,5,1,1,511,7,New Customers,Silver
+28525798,123,5,30250,2,3,5,235,10,235,Gold
+28559790,219,1,2700,1,1,1,111,3,At Risk,Bronze
+28610359,52,1,3162,3,1,1,311,5,Potential Loyalists,Bronze
+28647941,68,1,1390,3,1,1,311,5,Potential Loyalists,Bronze
+28663473,123,1,720,2,1,1,211,4,At Risk,Bronze
+28732161,158,3,1470,1,2,1,121,4,At Risk,Bronze
+28865428,107,2,3800,2,1,1,211,4,At Risk,Bronze
+28866848,10,2,5960,5,1,2,512,8,New Customers,Silver
+28964554,71,4,10800,3,2,3,323,8,Potential Loyalists,Silver
+29055787,132,5,35900,2,3,5,235,10,235,Gold
+29108949,163,2,13980,1,1,4,114,6,Cannot Lose Them,Silver
+29143377,18,5,1900,5,3,1,531,9,New Customers,Gold
+29195433,99,4,11920,2,2,3,223,7,About To Sleep,Silver
+29302655,28,5,15500,4,3,4,434,11,Loyal Customers,Gold
+29400855,229,2,13160,1,1,4,114,6,Cannot Lose Them,Silver
+29540923,20,4,20720,5,2,4,524,11,High Value New Customers,Gold
+29875570,2,7,4620,5,4,1,541,10,541,Gold
+30038596,56,1,2150,3,1,1,311,5,Potential Loyalists,Bronze
+30155466,3,5,27900,5,3,5,535,13,Loyal Customers,Platinum
+30184321,251,2,5560,1,1,2,112,4,At Risk,Bronze
+30321714,49,2,22000,4,1,5,415,10,High Value New Customers,Gold
+30465096,218,1,4980,1,1,1,111,3,At Risk,Bronze
+30512809,54,2,5380,3,1,2,312,6,Potential Loyalists,Silver
+31270055,191,1,7180,1,1,2,112,4,At Risk,Bronze
+31302298,123,2,9960,2,1,3,213,6,213,Silver
+31684574,66,4,10360,3,2,3,323,8,Potential Loyalists,Silver
+31743322,256,1,11100,1,1,3,113,5,113,Bronze
+31817974,10,3,4350,5,2,1,521,8,New Customers,Silver
+31882676,93,2,9960,2,1,3,213,6,213,Silver
+31910726,236,1,5700,1,1,2,112,4,At Risk,Bronze
+31965024,52,1,6980,3,1,2,312,6,Potential Loyalists,Silver
+32067104,66,4,29200,3,2,5,325,10,325,Gold
+32156174,43,3,5850,4,2,2,422,8,New Customers,Silver
+32219595,107,4,8800,2,2,3,223,7,About To Sleep,Silver
+32484702,116,4,29200,2,2,5,225,9,Cannot Lose Them,Gold
+32639679,177,3,20970,1,2,4,124,7,Cannot Lose Them,Silver
+32712151,91,2,11960,2,1,3,213,6,213,Silver
+32717202,15,3,6960,5,2,2,522,9,New Customers,Gold
+32826828,13,5,34950,5,3,5,535,13,Loyal Customers,Platinum
+32897454,221,2,9960,1,1,3,113,5,113,Bronze
+32921978,137,5,35900,2,3,5,235,10,235,Gold
+32997683,10,5,13900,5,3,4,534,12,Loyal Customers,Platinum
+33150933,136,2,11160,2,1,3,213,6,213,Silver
+33191023,56,4,20720,3,2,4,324,9,324,Gold
+33336859,28,5,30000,4,3,5,435,12,Loyal Customers,Platinum
+33346489,9,3,3180,5,2,1,521,8,New Customers,Silver
+33351587,20,3,29940,5,2,5,525,12,High Value New Customers,Platinum
+33567369,45,2,4980,4,1,1,411,6,New Customers,Silver
+33739806,22,3,3000,4,2,1,421,7,New Customers,Silver
+33746541,56,1,2750,3,1,1,311,5,Potential Loyalists,Bronze
+33846396,48,3,9870,4,2,3,423,9,New Customers,Gold
+33858877,258,1,6990,1,1,2,112,4,At Risk,Bronze
+33871669,243,1,4980,1,1,1,111,3,At Risk,Bronze
+33947909,43,3,18000,4,2,4,424,10,High Value New Customers,Gold
+33958975,72,2,9980,3,1,3,313,7,Potential Loyalists,Silver
+34088668,44,2,15160,4,1,4,414,9,High Value New Customers,Gold
+34175452,71,1,4400,3,1,1,311,5,Potential Loyalists,Bronze
+34456061,70,1,4980,3,1,1,311,5,Potential Loyalists,Bronze
+34469882,59,2,4900,3,1,1,311,5,Potential Loyalists,Bronze
+34502560,168,1,7828,1,1,2,112,4,At Risk,Bronze
+34508876,192,1,5580,1,1,2,112,4,At Risk,Bronze
+34539743,33,3,8970,4,2,3,423,9,New Customers,Gold
+34643765,28,6,41880,4,3,5,435,12,Loyal Customers,Platinum
+34657339,8,6,33000,5,3,5,535,13,Loyal Customers,Platinum
+34751007,60,3,5940,3,2,2,322,7,Potential Loyalists,Silver
+34800221,79,3,3360,3,2,1,321,6,Potential Loyalists,Silver
+34965828,50,1,3368,3,1,1,311,5,Potential Loyalists,Bronze
+35024002,5,1,3100,5,1,1,511,7,New Customers,Silver
+35056511,152,2,2400,1,1,1,111,3,At Risk,Bronze
+35122854,58,4,22000,3,2,5,325,10,325,Gold
+35214367,73,4,39960,3,2,5,325,10,325,Gold
+35421823,10,3,2580,5,2,1,521,8,New Customers,Silver
+35501394,190,1,2890,1,1,1,111,3,At Risk,Bronze
+35600902,176,2,15000,1,1,4,114,6,Cannot Lose Them,Silver
+35605795,76,2,4400,3,1,1,311,5,Potential Loyalists,Bronze
+35690160,74,3,16944,3,2,4,324,9,324,Gold
+35738540,145,3,16500,2,2,4,224,8,Cannot Lose Them,Silver
+35771482,172,1,6638,1,1,2,112,4,At Risk,Bronze
+35892837,99,2,22000,2,1,5,215,8,Cannot Lose Them,Silver
+35905708,116,1,5500,2,1,2,212,5,At Risk,Bronze
+36225094,116,1,5980,2,1,2,212,5,At Risk,Bronze
+36414021,2,2,22000,5,1,5,515,11,High Value New Customers,Gold
+36496711,161,3,20208,1,2,4,124,7,Cannot Lose Them,Silver
+36508832,6,2,5780,5,1,2,512,8,New Customers,Silver
+36571012,13,5,6450,5,3,2,532,10,New Customers,Gold
+36659027,70,1,5300,3,1,2,312,6,Potential Loyalists,Silver
+36763385,26,3,17970,4,2,4,424,10,High Value New Customers,Gold
+36814941,95,1,5500,2,1,2,212,5,At Risk,Bronze
+36890351,19,2,10360,5,1,3,513,9,New Customers,Gold
+36919791,5,3,5400,5,2,2,522,9,New Customers,Gold
+37130177,111,2,5160,2,1,2,212,5,At Risk,Bronze
+37203467,1,2,13160,5,1,4,514,10,High Value New Customers,Gold
+37293235,114,2,6180,2,1,2,212,5,At Risk,Bronze
+37316597,50,1,3180,3,1,1,311,5,Potential Loyalists,Bronze
+37600233,165,2,1960,1,1,1,111,3,At Risk,Bronze
+37739044,124,2,6980,2,1,2,212,5,At Risk,Bronze
+37857061,76,3,8700,3,2,3,323,8,Potential Loyalists,Silver
+37897172,97,3,14940,2,2,4,224,8,Cannot Lose Them,Silver
+38056815,37,2,4780,4,1,1,411,6,New Customers,Silver
+38070392,90,3,29940,2,2,5,225,9,Cannot Lose Them,Gold
+38119865,158,4,21520,1,2,4,124,7,Cannot Lose Them,Silver
+38137830,38,3,16140,4,2,4,424,10,High Value New Customers,Gold
+38174132,43,5,11450,4,3,3,433,10,Loyal Customers,Gold
+38203618,30,1,5980,4,1,2,412,7,New Customers,Silver
+38609788,2,2,11960,5,1,3,513,9,New Customers,Gold
+38702896,235,1,4980,1,1,1,111,3,At Risk,Bronze
+38798252,55,2,5400,3,1,2,312,6,Potential Loyalists,Silver
+38916371,6,4,32800,5,2,5,525,12,High Value New Customers,Platinum
+39181299,19,1,7180,5,1,2,512,8,New Customers,Silver
+39196346,16,3,17940,5,2,4,524,11,High Value New Customers,Gold
+39462607,136,1,11100,2,1,3,213,6,213,Silver
+39478464,49,3,11100,4,2,3,423,9,New Customers,Gold
+39493765,176,1,9100,1,1,3,113,5,113,Bronze
+39497042,41,4,8000,4,2,2,422,8,New Customers,Silver
+39535140,82,2,6200,3,1,2,312,6,Potential Loyalists,Silver
+39705473,74,1,5300,3,1,2,312,6,Potential Loyalists,Silver
+39912009,31,5,24950,4,3,5,435,12,Loyal Customers,Platinum
+39920707,8,2,2000,5,1,1,511,7,New Customers,Silver
+40042947,28,2,11980,4,1,3,413,8,New Customers,Silver
+40509576,16,2,14360,5,1,4,514,10,High Value New Customers,Gold
+40542742,7,2,10400,5,1,3,513,9,New Customers,Gold
+40831517,119,3,10770,2,2,3,223,7,About To Sleep,Silver
+40877478,55,2,9980,3,1,3,313,7,Potential Loyalists,Silver
+40907194,47,2,11980,4,1,3,413,8,New Customers,Silver
+40911969,37,2,12180,4,1,3,413,8,New Customers,Silver
+40968458,238,1,4980,1,1,1,111,3,At Risk,Bronze
+41313579,38,4,4800,4,2,1,421,7,New Customers,Silver
+41413237,31,1,7180,4,1,2,412,7,New Customers,Silver
+41460381,65,4,15264,3,2,4,324,9,324,Gold
+41515025,9,4,3920,5,2,1,521,8,New Customers,Silver
+41812842,11,3,14940,5,2,4,524,11,High Value New Customers,Gold
+41865954,52,4,23920,3,2,5,325,10,325,Gold
+41999620,42,3,4260,4,2,1,421,7,New Customers,Silver
+42076004,95,1,5100,2,1,2,212,5,At Risk,Bronze
+42123172,27,7,14350,4,4,4,444,12,Champions,Platinum
+42232730,41,2,21560,4,1,5,415,10,High Value New Customers,Gold
+42236708,5,6,33480,5,3,5,535,13,Loyal Customers,Platinum
+42294120,60,4,19920,3,2,4,324,9,324,Gold
+42354439,56,2,13160,3,1,4,314,8,314,Silver
+42364136,55,8,22240,3,4,5,345,12,Loyal Customers,Platinum
+42373022,45,1,5500,4,1,2,412,7,New Customers,Silver
+42375033,89,1,9100,2,1,3,213,6,213,Silver
+42464834,106,2,6800,2,1,2,212,5,At Risk,Bronze
+42522552,72,2,2160,3,1,1,311,5,Potential Loyalists,Bronze
+42530270,93,2,9980,2,1,3,213,6,213,Silver
+42599054,88,1,7580,2,1,2,212,5,At Risk,Bronze
+42624136,22,5,45900,4,3,5,435,12,Loyal Customers,Platinum
+42668897,36,3,22140,4,2,5,425,11,High Value New Customers,Gold
+42669478,112,5,55500,2,3,5,235,10,235,Gold
+42673199,13,3,21540,5,2,4,524,11,High Value New Customers,Gold
+42826695,155,1,7990,1,1,2,112,4,At Risk,Bronze
+43022400,3,4,11920,5,2,3,523,10,New Customers,Gold
+43049959,2,4,22000,5,2,5,525,12,High Value New Customers,Platinum
+43094185,109,2,9400,2,1,3,213,6,213,Silver
+43138987,6,4,26320,5,2,5,525,12,High Value New Customers,Platinum
+43178236,67,3,18000,3,2,4,324,9,324,Gold
+43423685,1,4,13520,5,2,4,524,11,High Value New Customers,Gold
+43502425,13,2,20012,5,1,4,514,10,High Value New Customers,Gold
+43510857,43,3,19740,4,2,4,424,10,High Value New Customers,Gold
+43666607,11,2,4100,5,1,1,511,7,New Customers,Silver
+43747379,18,3,8940,5,2,3,523,10,New Customers,Gold
+43776637,2,5,29900,5,3,5,535,13,Loyal Customers,Platinum
+43817644,20,3,33300,5,2,5,525,12,High Value New Customers,Platinum
+43896197,63,3,14940,3,2,4,324,9,324,Gold
+43923333,137,3,17970,2,2,4,224,8,Cannot Lose Them,Silver
+44062204,82,2,10760,3,1,3,313,7,Potential Loyalists,Silver
+44146850,33,4,31312,4,2,5,425,11,High Value New Customers,Gold
+44260719,22,5,18950,4,3,4,434,11,Loyal Customers,Gold
+44323356,65,4,20400,3,2,4,324,9,324,Gold
+44373202,44,3,4740,4,2,1,421,7,New Customers,Silver
+44426303,155,2,9960,1,1,3,113,5,113,Bronze
+44699881,118,2,13560,2,1,4,214,7,Cannot Lose Them,Silver
+44703697,11,5,24900,5,3,5,535,13,Loyal Customers,Platinum
+44760063,58,2,11960,3,1,3,313,7,Potential Loyalists,Silver
+44809215,149,2,14600,1,1,4,114,6,Cannot Lose Them,Silver
+44901759,120,2,7000,2,1,2,212,5,At Risk,Bronze
+45016869,0,3,10470,5,2,3,523,10,New Customers,Gold
+45162734,114,2,11000,2,1,3,213,6,213,Silver
+45437720,44,7,19950,4,4,4,444,12,Champions,Platinum
+45765450,12,3,9540,5,2,3,523,10,New Customers,Gold
+45844803,163,1,4906,1,1,1,111,3,At Risk,Bronze
+45932023,121,2,12360,2,1,4,214,7,Cannot Lose Them,Silver
+45963238,162,2,5200,1,1,2,112,4,At Risk,Bronze
+46140671,23,3,21900,4,2,5,425,11,High Value New Customers,Gold
+46303448,74,3,31200,3,2,5,325,10,325,Gold
+46434145,6,4,20720,5,2,4,524,11,High Value New Customers,Gold
+46518137,124,1,1560,2,1,1,211,4,At Risk,Bronze
+46536130,136,3,11070,2,2,3,223,7,About To Sleep,Silver
+46766529,76,3,21000,3,2,4,324,9,324,Gold
+46775139,156,3,19740,1,2,4,124,7,Cannot Lose Them,Silver
+46780122,84,2,11000,3,1,3,313,7,Potential Loyalists,Silver
+46916967,0,1,2490,5,1,1,511,7,New Customers,Silver
+47113990,129,3,20700,2,2,4,224,8,Cannot Lose Them,Silver
+47335358,4,5,13900,5,3,4,534,12,Loyal Customers,Platinum
+47344384,77,4,15920,3,2,4,324,9,324,Gold
+47380526,83,4,19960,3,2,4,324,9,324,Gold
+47418597,19,2,5800,5,1,2,512,8,New Customers,Silver
+47477350,29,5,27500,4,3,5,435,12,Loyal Customers,Platinum
+47545727,124,4,7200,2,2,2,222,6,About To Sleep,Silver
+47547508,128,2,20760,2,1,4,214,7,Cannot Lose Them,Silver
+47631395,67,5,27900,3,3,5,335,11,Loyal Customers,Gold
+47730210,45,1,9180,4,1,3,413,8,New Customers,Silver
+48025495,77,2,300,3,1,1,311,5,Potential Loyalists,Bronze
+48103158,4,4,10000,5,2,3,523,10,New Customers,Gold
+48542574,122,3,14970,2,2,4,224,8,Cannot Lose Them,Silver
+48742299,0,6,66600,5,3,5,535,13,Loyal Customers,Platinum
+48759312,67,5,7450,3,3,2,332,8,Potential Loyalists,Silver
+48819696,129,3,15300,2,2,4,224,8,Cannot Lose Them,Silver
+48820146,114,3,7740,2,2,2,222,6,About To Sleep,Silver
+49167948,242,1,7180,1,1,2,112,4,At Risk,Bronze
+49227251,27,3,4800,4,2,1,421,7,New Customers,Silver
+49463647,196,2,22200,1,1,5,115,7,Cannot Lose Them,Silver
+49649549,8,4,3520,5,2,1,521,8,New Customers,Silver
+49969528,27,2,5960,4,1,2,412,7,New Customers,Silver
+49991507,4,3,35970,5,2,5,525,12,High Value New Customers,Platinum
+50339234,71,4,11732,3,2,3,323,8,Potential Loyalists,Silver
+50394726,155,1,600,1,1,1,111,3,At Risk,Bronze
+50625074,116,2,11960,2,1,3,213,6,213,Silver
+50680192,37,1,11000,4,1,3,413,8,New Customers,Silver
+50877595,90,2,6700,2,1,2,212,5,At Risk,Bronze
+50907007,141,3,33300,2,2,5,225,9,Cannot Lose Them,Gold
+51023847,20,3,14970,5,2,4,524,11,High Value New Customers,Gold
+51160776,217,1,11000,1,1,3,113,5,113,Bronze
+51178363,205,1,2980,1,1,1,111,3,At Risk,Bronze
+51304009,45,4,27960,4,2,5,425,11,High Value New Customers,Gold
+51313051,13,3,33300,5,2,5,525,12,High Value New Customers,Platinum
+51498093,9,1,5580,5,1,2,512,8,New Customers,Silver
+51575941,8,6,20280,5,3,4,534,12,Loyal Customers,Platinum
+51633895,145,2,4000,2,1,1,211,4,At Risk,Bronze
+51675683,230,2,12000,1,1,3,113,5,113,Bronze
+51684723,6,3,21540,5,2,4,524,11,High Value New Customers,Gold
+51752271,115,2,11000,2,1,3,213,6,213,Silver
+51813913,11,3,6450,5,2,2,522,9,New Customers,Gold
+51863845,57,1,420,3,1,1,311,5,Potential Loyalists,Bronze
+52059480,151,2,9980,1,1,3,113,5,113,Bronze
+52067394,22,3,2820,4,2,1,421,7,New Customers,Silver
+52075157,81,3,21540,3,2,4,324,9,324,Gold
+52116150,18,2,6760,5,1,2,512,8,New Customers,Silver
+52180216,222,1,1800,1,1,1,111,3,At Risk,Bronze
+52297033,32,4,10200,4,2,3,423,9,New Customers,Gold
+52308782,19,5,19900,5,3,4,534,12,Loyal Customers,Platinum
+52326977,69,3,4140,3,2,1,321,6,Potential Loyalists,Silver
+52441227,1,1,2580,5,1,1,511,7,New Customers,Silver
+52491122,17,2,11960,5,1,3,513,9,New Customers,Gold
+52629278,135,5,29950,2,3,5,235,10,235,Gold
+52732703,13,6,37200,5,3,5,535,13,Loyal Customers,Platinum
+52760747,1,4,18800,5,2,4,524,11,High Value New Customers,Gold
+52863920,198,2,22000,1,1,5,115,7,Cannot Lose Them,Silver
+52923583,70,2,2000,3,1,1,311,5,Potential Loyalists,Bronze
+52946669,229,1,2650,1,1,1,111,3,At Risk,Bronze
+52953466,70,3,7470,3,2,2,322,7,Potential Loyalists,Silver
+53249946,14,1,1624,5,1,1,511,7,New Customers,Silver
+53363052,117,1,7180,2,1,2,212,5,At Risk,Bronze
+53675020,12,3,16740,5,2,4,524,11,High Value New Customers,Gold
+53858511,8,4,11800,5,2,3,523,10,New Customers,Gold
+53977919,27,3,16740,4,2,4,424,10,High Value New Customers,Gold
+54064492,30,2,9960,4,1,3,413,8,New Customers,Silver
+54066848,141,1,9180,2,1,3,213,6,213,Silver
+54094339,65,2,13160,3,1,4,314,8,314,Silver
+54150352,95,2,3380,2,1,1,211,4,At Risk,Bronze
+54154203,177,3,8940,1,2,3,123,6,123,Silver
+54251905,12,4,8000,5,2,2,522,9,New Customers,Gold
+54290924,31,5,35900,4,3,5,435,12,Loyal Customers,Platinum
+54375561,171,4,10800,1,2,3,123,6,123,Silver
+54421974,18,2,1040,5,1,1,511,7,New Customers,Silver
+54599649,258,1,7380,1,1,2,112,4,At Risk,Bronze
+54781961,37,3,22566,4,2,5,425,11,High Value New Customers,Gold
+54981333,231,2,5780,1,1,2,112,4,At Risk,Bronze
+55041656,105,2,5580,2,1,2,212,5,At Risk,Bronze
+55068920,10,5,6300,5,3,2,532,10,New Customers,Gold
+55418733,2,3,33300,5,2,5,525,12,High Value New Customers,Platinum
+55426923,119,3,23484,2,2,5,225,9,Cannot Lose Them,Gold
+55570580,111,7,77700,2,4,5,245,11,High Risk High Value,Gold
+55594711,73,1,3162,3,1,1,311,5,Potential Loyalists,Bronze
+55667150,130,2,11160,2,1,3,213,6,213,Silver
+55765055,144,3,8940,2,2,3,223,7,About To Sleep,Silver
+55970003,57,3,16740,3,2,4,324,9,324,Gold
+56052630,34,2,5560,4,1,2,412,7,New Customers,Silver
+56099077,140,1,1040,2,1,1,211,4,At Risk,Bronze
+56270048,15,3,21540,5,2,4,524,11,High Value New Customers,Gold
+56604839,52,4,13960,3,2,4,324,9,324,Gold
+56607737,225,2,14360,1,1,4,114,6,Cannot Lose Them,Silver
+56847236,0,2,18360,5,1,4,514,10,High Value New Customers,Gold
+56908719,262,1,5980,1,1,2,112,4,At Risk,Bronze
+56970638,51,2,9560,3,1,3,313,7,Potential Loyalists,Silver
+57336840,177,3,5400,1,2,2,122,5,At Risk,Bronze
+57338726,16,4,19920,5,2,4,524,11,High Value New Customers,Gold
+57412404,59,2,9400,3,1,3,313,7,Potential Loyalists,Silver
+57461608,62,2,7000,3,1,2,312,6,Potential Loyalists,Silver
+57636631,64,2,6200,3,1,2,312,6,Potential Loyalists,Silver
+57648642,170,1,7380,1,1,2,112,4,At Risk,Bronze
+57862472,22,3,9300,4,2,3,423,9,New Customers,Gold
+58035424,20,4,10800,5,2,3,523,10,New Customers,Gold
+58217246,206,1,6580,1,1,2,112,4,At Risk,Bronze
+58239097,128,1,7380,2,1,2,212,5,At Risk,Bronze
+58295345,13,7,32900,5,4,5,545,14,Champions,Platinum
+58356356,10,4,10320,5,2,3,523,10,New Customers,Gold
+58445728,229,1,6180,1,1,2,112,4,At Risk,Bronze
+58452083,79,1,690,3,1,1,311,5,Potential Loyalists,Bronze
+58484682,5,5,21900,5,3,5,535,13,Loyal Customers,Platinum
+58507722,62,2,11000,3,1,3,313,7,Potential Loyalists,Silver
+58519965,136,1,5800,2,1,2,212,5,At Risk,Bronze
+58794039,37,3,9900,4,2,3,423,9,New Customers,Gold
+59016478,47,1,3490,4,1,1,411,6,New Customers,Silver
+59157402,33,1,3100,4,1,1,411,6,New Customers,Silver
+59197687,17,5,45900,5,3,5,535,13,Loyal Customers,Platinum
+59240777,4,6,7320,5,3,2,532,10,New Customers,Gold
+59404266,178,2,12180,1,1,3,113,5,113,Bronze
+59775520,33,6,2940,4,3,1,431,8,New Customers,Silver
+59810682,10,1,3490,5,1,1,511,7,New Customers,Silver
+59874443,59,2,6760,3,1,2,312,6,Potential Loyalists,Silver
+59917650,50,2,11296,3,1,3,313,7,Potential Loyalists,Silver
+60315278,48,3,3060,4,2,1,421,7,New Customers,Silver
+60414566,43,1,2650,4,1,1,411,6,New Customers,Silver
+60481401,1,4,13520,5,2,4,524,11,High Value New Customers,Gold
+60654307,92,3,9300,2,2,3,223,7,About To Sleep,Silver
+60672089,106,1,11990,2,1,3,213,6,213,Silver
+60679385,177,4,5360,1,2,2,122,5,At Risk,Bronze
+60736622,138,4,75040,2,2,5,225,9,Cannot Lose Them,Gold
+60822434,63,3,27300,3,2,5,325,10,325,Gold
+60866651,158,3,16740,1,2,4,124,7,Cannot Lose Them,Silver
+61043170,100,3,8070,2,2,3,223,7,About To Sleep,Silver
+61392847,59,4,22320,3,2,5,325,10,325,Gold
+61427977,6,4,13960,5,2,4,524,11,High Value New Customers,Gold
+61473853,180,2,12100,1,1,3,113,5,113,Bronze
+61490753,47,3,3420,4,2,1,421,7,New Customers,Silver
+61524158,35,5,25500,4,3,5,435,12,Loyal Customers,Platinum
+61640595,74,6,20280,3,3,4,334,10,Loyal Customers,Gold
+61674284,56,2,11120,3,1,3,313,7,Potential Loyalists,Silver
+62021585,25,4,7440,4,2,2,422,8,New Customers,Silver
+62235684,214,1,5980,1,1,2,112,4,At Risk,Bronze
+62243407,28,1,6180,4,1,2,412,7,New Customers,Silver
+62425327,28,3,21540,4,2,4,424,10,High Value New Customers,Gold
+62448369,4,3,8940,5,2,3,523,10,New Customers,Gold
+62613196,52,4,26320,3,2,5,325,10,325,Gold
+62735299,152,2,13960,1,1,4,114,6,Cannot Lose Them,Silver
+62735344,10,4,11920,5,2,3,523,10,New Customers,Gold
+62741760,117,2,17980,2,1,4,214,7,Cannot Lose Them,Silver
+62743855,96,1,3380,2,1,1,211,4,At Risk,Bronze
+63093696,104,4,11920,2,2,3,223,7,About To Sleep,Silver
+63259901,80,6,30600,3,3,5,335,11,Loyal Customers,Gold
+63266145,48,1,1950,4,1,1,411,6,New Customers,Silver
+63335242,122,2,15960,2,1,4,214,7,Cannot Lose Them,Silver
+63341383,37,3,2070,4,2,1,421,7,New Customers,Silver
+63600414,22,1,5580,4,1,2,412,7,New Customers,Silver
+64089075,20,5,23000,5,3,5,535,13,Loyal Customers,Platinum
+64096625,0,3,2100,5,2,1,521,8,New Customers,Silver
+64199822,139,2,10600,2,1,3,213,6,213,Silver
+64280433,83,1,5396,3,1,2,312,6,Potential Loyalists,Silver
+64327413,30,6,18600,4,3,4,434,11,Loyal Customers,Gold
+64330327,195,1,3100,1,1,1,111,3,At Risk,Bronze
+64363579,251,1,6780,1,1,2,112,4,At Risk,Bronze
+64474460,44,3,19560,4,2,4,424,10,High Value New Customers,Gold
+64493994,36,2,5960,4,1,2,412,7,New Customers,Silver
+64538087,130,5,17450,2,3,4,234,9,234,Gold
+64541408,117,1,2550,2,1,1,211,4,At Risk,Bronze
+64604307,64,3,20940,3,2,4,324,9,324,Gold
+64670295,265,1,4980,1,1,1,111,3,At Risk,Bronze
+64821792,125,2,11160,2,1,3,213,6,213,Silver
+65123860,97,1,3490,2,1,1,211,4,At Risk,Bronze
+65415657,3,6,43080,5,3,5,535,13,Loyal Customers,Platinum
+65461995,222,1,5980,1,1,2,112,4,At Risk,Bronze
+65489961,55,4,25680,3,2,5,325,10,325,Gold
+65491653,2,2,6760,5,1,2,512,8,New Customers,Silver
+65992151,86,5,17000,3,3,4,334,10,Loyal Customers,Gold
+66144867,10,4,36720,5,2,5,525,12,High Value New Customers,Platinum
+66208240,98,3,14940,2,2,4,224,8,Cannot Lose Them,Silver
+66519859,20,3,14700,5,2,4,524,11,High Value New Customers,Gold
+66638917,20,2,5560,5,1,2,512,8,New Customers,Silver
+67131607,43,1,1180,4,1,1,411,6,New Customers,Silver
+67151078,31,1,6180,4,1,2,412,7,New Customers,Silver
+67182647,71,4,12400,3,2,4,324,9,324,Gold
+67317287,4,1,1000,5,1,1,511,7,New Customers,Silver
+67418195,55,3,16140,3,2,4,324,9,324,Gold
+67674825,115,3,10140,2,2,3,223,7,About To Sleep,Silver
+67730240,16,2,5200,5,1,2,512,8,New Customers,Silver
+67732421,43,3,21900,4,2,5,425,11,High Value New Customers,Gold
+67734976,74,2,9960,3,1,3,313,7,Potential Loyalists,Silver
+67982365,185,2,10200,1,1,3,113,5,113,Bronze
+68096550,210,1,5200,1,1,2,112,4,At Risk,Bronze
+68149765,20,2,6760,5,1,2,512,8,New Customers,Silver
+68159326,8,9,11160,5,5,3,553,13,Loyal Customers,Platinum
+68162392,11,2,13960,5,1,4,514,10,High Value New Customers,Gold
+68243217,84,1,3590,3,1,1,311,5,Potential Loyalists,Bronze
+68280793,236,1,3380,1,1,1,111,3,At Risk,Bronze
+68446959,183,2,11960,1,1,3,113,5,113,Bronze
+68455110,32,6,29880,4,3,5,435,12,Loyal Customers,Platinum
+68723156,35,1,3490,4,1,1,411,6,New Customers,Silver
+68942875,111,2,11980,2,1,3,213,6,213,Silver
+68959314,27,2,15160,4,1,4,414,9,High Value New Customers,Gold
+68959920,155,1,2380,1,1,1,111,3,At Risk,Bronze
+68974260,8,2,5000,5,1,1,511,7,New Customers,Silver
+69113632,109,2,4200,2,1,1,211,4,At Risk,Bronze
+69371023,23,7,43260,4,4,5,445,13,Champions,Platinum
+69376098,109,1,2990,2,1,1,211,4,At Risk,Bronze
+69561939,256,1,6180,1,1,2,112,4,At Risk,Bronze
+69586840,98,2,6360,2,1,2,212,5,At Risk,Bronze
+69728328,22,5,9000,4,3,3,433,10,Loyal Customers,Gold
+69845855,172,1,5800,1,1,2,112,4,At Risk,Bronze
+69857947,28,3,33300,4,2,5,425,11,High Value New Customers,Gold
+69940113,44,1,4980,4,1,1,411,6,New Customers,Silver
+69990915,126,2,3200,2,1,1,211,4,At Risk,Bronze
+70074612,7,2,5720,5,1,2,512,8,New Customers,Silver
+70160612,6,7,54796,5,4,5,545,14,Champions,Platinum
+70326795,43,8,88800,4,4,5,445,13,Champions,Platinum
+70533928,128,2,11732,2,1,3,213,6,213,Silver
+70540068,185,2,9560,1,1,3,113,5,113,Bronze
+70591490,67,2,7000,3,1,2,312,6,Potential Loyalists,Silver
+70809079,32,3,29940,4,2,5,425,11,High Value New Customers,Gold
+71037188,161,1,1800,1,1,1,111,3,At Risk,Bronze
+71114241,83,2,3100,3,1,1,311,5,Potential Loyalists,Bronze
+71130502,7,2,19980,5,1,4,514,10,High Value New Customers,Gold
+71218572,36,5,15500,4,3,4,434,11,Loyal Customers,Gold
+71320164,151,1,6490,1,1,2,112,4,At Risk,Bronze
+71333535,64,7,10220,3,4,3,343,10,Loyal Customers,Gold
+71446261,62,6,31080,3,3,5,335,11,Loyal Customers,Gold
+71602389,67,2,10200,3,1,3,313,7,Potential Loyalists,Silver
+71643669,10,5,55500,5,3,5,535,13,Loyal Customers,Platinum
+71669416,0,2,5560,5,1,2,512,8,New Customers,Silver
+71734525,37,1,2200,4,1,1,411,6,New Customers,Silver
+71947674,29,5,27500,4,3,5,435,12,Loyal Customers,Platinum
+72010900,205,1,5980,1,1,2,112,4,At Risk,Bronze
+72055283,125,2,21960,2,1,5,215,8,Cannot Lose Them,Silver
+72155725,24,3,16944,4,2,4,424,10,High Value New Customers,Gold
+72208276,97,3,16740,2,2,4,224,8,Cannot Lose Them,Silver
+72257964,213,2,9980,1,1,3,113,5,113,Bronze
+72357603,207,4,20720,1,2,4,124,7,Cannot Lose Them,Silver
+72387757,95,1,700,2,1,1,211,4,At Risk,Bronze
+72389005,131,1,9980,2,1,3,213,6,213,Silver
+72395314,23,3,8970,4,2,3,423,9,New Customers,Gold
+72536399,171,3,4800,1,2,1,121,4,At Risk,Bronze
+72747359,119,2,6900,2,1,2,212,5,At Risk,Bronze
+72864961,77,5,34900,3,3,5,335,11,Loyal Customers,Gold
+72952203,8,3,20214,5,2,4,524,11,High Value New Customers,Gold
+73339847,26,5,12980,4,3,4,434,11,Loyal Customers,Gold
+73366984,3,1,5648,5,1,2,512,8,New Customers,Silver
+73450118,150,1,4980,1,1,1,111,3,At Risk,Bronze
+73534464,98,2,5560,2,1,2,212,5,At Risk,Bronze
+73722467,8,3,16500,5,2,4,524,11,High Value New Customers,Gold
+73779124,58,2,11160,3,1,3,313,7,Potential Loyalists,Silver
+73878829,37,5,14500,4,3,4,434,11,Loyal Customers,Gold
+73953828,15,3,14970,5,2,4,524,11,High Value New Customers,Gold
+74085515,11,2,11980,5,1,3,513,9,New Customers,Gold
+74230163,142,2,9980,2,1,3,213,6,213,Silver
+74517804,219,2,500,1,1,1,111,3,At Risk,Bronze
+74519088,188,2,11980,1,1,3,113,5,113,Bronze
+74559111,117,3,4170,2,2,1,221,5,At Risk,Bronze
+74566460,14,4,45264,5,2,5,525,12,High Value New Customers,Platinum
+74588621,23,7,17850,4,4,4,444,12,Champions,Platinum
+74682626,131,3,8340,2,2,3,223,7,About To Sleep,Silver
+74692955,4,7,35868,5,4,5,545,14,Champions,Platinum
+74784496,14,4,44400,5,2,5,525,12,High Value New Customers,Platinum
+74952520,9,4,19920,5,2,4,524,11,High Value New Customers,Gold
+75134712,73,5,12900,3,3,4,334,10,Loyal Customers,Gold
+75174314,205,3,22140,1,2,5,125,8,Cannot Lose Them,Silver
+75673901,80,2,17980,3,1,4,314,8,314,Silver
+75709449,9,2,22200,5,1,5,515,11,High Value New Customers,Gold
+75824696,77,1,7580,3,1,2,312,6,Potential Loyalists,Silver
+76003966,8,1,5990,5,1,2,512,8,New Customers,Silver
+76161009,53,3,18570,3,2,4,324,9,324,Gold
+76585970,114,5,25900,2,3,5,235,10,235,Gold
+77043917,45,1,11100,4,1,3,413,8,New Customers,Silver
+77056010,238,2,10860,1,1,3,113,5,113,Bronze
+77137463,39,3,4650,4,2,1,421,7,New Customers,Silver
+77148972,263,1,7380,1,1,2,112,4,At Risk,Bronze
+77282880,72,6,33480,3,3,5,335,11,Loyal Customers,Gold
+77364242,70,1,7000,3,1,2,312,6,Potential Loyalists,Silver
+77440758,177,3,27540,1,2,5,125,8,Cannot Lose Them,Silver
+77597491,59,3,21900,3,2,5,325,10,325,Gold
+77629680,165,3,19740,1,2,4,124,7,Cannot Lose Them,Silver
+77758278,104,1,9100,2,1,3,213,6,213,Silver
+77792184,198,1,2580,1,1,1,111,3,At Risk,Bronze
+77801450,105,1,4990,2,1,1,211,4,At Risk,Bronze
+77879975,153,2,5160,1,1,2,112,4,At Risk,Bronze
+77963118,161,2,5700,1,1,2,112,4,At Risk,Bronze
+77990161,176,1,1460,1,1,1,111,3,At Risk,Bronze
+78108555,22,8,48400,4,4,5,445,13,Champions,Platinum
+78143684,196,2,6200,1,1,2,112,4,At Risk,Bronze
+78206062,186,1,980,1,1,1,111,3,At Risk,Bronze
+78585756,103,6,39480,2,3,5,235,10,235,Gold
+78722650,55,3,27540,3,2,5,325,10,325,Gold
+78746042,153,1,560,1,1,1,111,3,At Risk,Bronze
+78752940,66,3,21540,3,2,4,324,9,324,Gold
+78884710,19,4,47960,5,2,5,525,12,High Value New Customers,Platinum
+79101202,117,3,11340,2,2,3,223,7,About To Sleep,Silver
+79115313,61,1,4980,3,1,1,311,5,Potential Loyalists,Bronze
+79145863,6,4,11920,5,2,3,523,10,New Customers,Gold
+79336129,159,2,11000,1,1,3,113,5,113,Bronze
+79490292,97,2,6980,2,1,2,212,5,At Risk,Bronze
+79587722,48,2,5400,4,1,2,412,7,New Customers,Silver
+79641918,56,2,12000,3,1,3,313,7,Potential Loyalists,Silver
+79710676,8,4,19960,5,2,4,524,11,High Value New Customers,Gold
+79747505,103,2,11960,2,1,3,213,6,213,Silver
+79748321,11,5,35900,5,3,5,535,13,Loyal Customers,Platinum
+79971043,249,1,5580,1,1,2,112,4,At Risk,Bronze
+80091756,159,2,6200,1,1,2,112,4,At Risk,Bronze
+80225576,37,1,1360,4,1,1,411,6,New Customers,Silver
+80262000,6,5,55500,5,3,5,535,13,Loyal Customers,Platinum
+80289394,8,3,19740,5,2,4,524,11,High Value New Customers,Gold
+80340504,58,2,9000,3,1,3,313,7,Potential Loyalists,Silver
+80463441,233,1,7380,1,1,2,112,4,At Risk,Bronze
+80507859,111,2,7000,2,1,2,212,5,At Risk,Bronze
+80615239,21,4,19960,4,2,4,424,10,High Value New Customers,Gold
+80700206,103,2,5560,2,1,2,212,5,At Risk,Bronze
+80718283,209,2,15960,1,1,4,114,6,Cannot Lose Them,Silver
+80774380,35,3,7470,4,2,2,422,8,New Customers,Silver
+80809032,157,2,4200,1,1,1,111,3,At Risk,Bronze
+80855016,16,6,35940,5,3,5,535,13,Loyal Customers,Platinum
+81037751,157,1,6380,1,1,2,112,4,At Risk,Bronze
+81335479,55,2,4000,3,1,1,311,5,Potential Loyalists,Bronze
+81535584,36,2,22200,4,1,5,415,10,High Value New Customers,Gold
+81628656,24,1,2700,4,1,1,411,6,New Customers,Silver
+81808188,223,1,5980,1,1,2,112,4,At Risk,Bronze
+81893634,54,3,17940,3,2,4,324,9,324,Gold
+81961443,233,1,5580,1,1,2,112,4,At Risk,Bronze
+81977680,58,2,14760,3,1,4,314,8,314,Silver
+82137556,218,1,5990,1,1,2,112,4,At Risk,Bronze
+82355303,74,1,3380,3,1,1,311,5,Potential Loyalists,Bronze
+82438067,46,3,17940,4,2,4,424,10,High Value New Customers,Gold
+82471173,20,5,15500,5,3,4,534,12,Loyal Customers,Platinum
+82500306,17,4,22000,5,2,5,525,12,High Value New Customers,Platinum
+82503737,1,6,20280,5,3,4,534,12,Loyal Customers,Platinum
+82538041,164,2,11980,1,1,3,113,5,113,Bronze
+82562635,27,1,2780,4,1,1,411,6,New Customers,Silver
+82611352,1,4,13520,5,2,4,524,11,High Value New Customers,Gold
+82785519,258,1,2690,1,1,1,111,3,At Risk,Bronze
+82901378,51,3,9300,3,2,3,323,8,Potential Loyalists,Silver
+83149727,86,6,35940,3,3,5,335,11,Loyal Customers,Gold
+83393173,128,1,5990,2,1,2,212,5,At Risk,Bronze
+83447966,15,10,51800,5,5,5,555,15,Champions,Platinum
+83514799,4,1,7180,5,1,2,512,8,New Customers,Silver
+83601675,36,3,27540,4,2,5,425,11,High Value New Customers,Gold
+83675423,23,3,14970,4,2,4,424,10,High Value New Customers,Gold
+83953719,61,4,27920,3,2,5,325,10,325,Gold
+83975242,29,1,5778,4,1,2,412,7,New Customers,Silver
+84044517,179,1,2590,1,1,1,111,3,At Risk,Bronze
+84114415,159,3,9300,1,2,3,123,6,123,Silver
+84168282,169,1,3980,1,1,1,111,3,At Risk,Bronze
+84347936,14,2,6360,5,1,2,512,8,New Customers,Silver
+84436404,0,4,44400,5,2,5,525,12,High Value New Customers,Platinum
+84491869,91,2,6200,2,1,2,212,5,At Risk,Bronze
+84503528,34,4,22592,4,2,5,425,11,High Value New Customers,Gold
+84625234,47,4,12400,4,2,4,424,10,High Value New Customers,Gold
+84683767,104,3,33300,2,2,5,225,9,Cannot Lose Them,Gold
+84738673,93,3,33000,2,2,5,225,9,Cannot Lose Them,Gold
+84822158,13,5,27500,5,3,5,535,13,Loyal Customers,Platinum
+84839270,202,1,2890,1,1,1,111,3,At Risk,Bronze
+84862533,95,6,45480,2,3,5,235,10,235,Gold
+84863522,26,1,2460,4,1,1,411,6,New Customers,Silver
+84867052,115,4,15920,2,2,4,224,8,Cannot Lose Them,Silver
+84867398,1,5,14900,5,3,4,534,12,Loyal Customers,Platinum
+84888512,71,3,3750,3,2,1,321,6,Potential Loyalists,Silver
+84981649,39,3,8100,4,2,3,423,9,New Customers,Gold
+85129002,92,2,9980,2,1,3,213,6,213,Silver
+85372595,180,3,7650,1,2,2,122,5,At Risk,Bronze
+85419196,149,2,1280,1,1,1,111,3,At Risk,Bronze
+85505511,171,4,8000,1,2,2,122,5,At Risk,Bronze
+85674888,92,1,1550,2,1,1,211,4,At Risk,Bronze
+85687791,113,4,23920,2,2,5,225,9,Cannot Lose Them,Gold
+85884486,25,5,32900,4,3,5,435,12,Loyal Customers,Platinum
+85974412,206,1,5100,1,1,2,112,4,At Risk,Bronze
+86055495,38,2,10600,4,1,3,413,8,New Customers,Silver
+86056168,48,4,44000,4,2,5,425,11,High Value New Customers,Gold
+86076744,120,3,2550,2,2,1,221,5,At Risk,Bronze
+86078699,96,2,13160,2,1,4,214,7,Cannot Lose Them,Silver
+86131619,24,4,2560,4,2,1,421,7,New Customers,Silver
+86155356,155,2,13180,1,1,4,114,6,Cannot Lose Them,Silver
+86205843,47,1,5500,4,1,2,412,7,New Customers,Silver
+86221208,45,5,32900,4,3,5,435,12,Loyal Customers,Platinum
+86253551,47,3,10470,4,2,3,423,9,New Customers,Gold
+86313043,35,6,20940,4,3,4,434,11,Loyal Customers,Gold
+86731291,119,3,9300,2,2,3,223,7,About To Sleep,Silver
+86731987,218,1,6000,1,1,2,112,4,At Risk,Bronze
+87233179,15,4,22000,5,2,5,525,12,High Value New Customers,Platinum
+87335782,83,1,7990,3,1,2,312,6,Potential Loyalists,Silver
+87448383,36,5,21500,4,3,4,434,11,Loyal Customers,Gold
+87521806,269,1,1290,1,1,1,111,3,At Risk,Bronze
+87660983,57,3,10140,3,2,3,323,8,Potential Loyalists,Silver
+87706785,148,2,6360,1,1,2,112,4,At Risk,Bronze
+87709977,121,4,22592,2,2,5,225,9,Cannot Lose Them,Gold
+87735808,175,1,7074,1,1,2,112,4,At Risk,Bronze
+87769242,175,1,3590,1,1,1,111,3,At Risk,Bronze
+87897147,80,2,5560,3,1,2,312,6,Potential Loyalists,Silver
+87949160,24,4,11920,4,2,3,423,9,New Customers,Gold
+88157875,60,6,31800,3,3,5,335,11,Loyal Customers,Gold
+88223836,84,3,22500,3,2,5,325,10,325,Gold
+88322590,3,3,21540,5,2,4,524,11,High Value New Customers,Gold
+88421485,134,3,12600,2,2,4,224,8,Cannot Lose Them,Silver
+88610207,10,3,30600,5,2,5,525,12,High Value New Customers,Platinum
+88663806,64,7,7140,3,4,2,342,9,342,Gold
+88973076,67,1,11732,3,1,3,313,7,Potential Loyalists,Silver
+89402108,224,3,7650,1,2,2,122,5,At Risk,Bronze
+89421563,48,2,2640,4,1,1,411,6,New Customers,Silver
+89459784,27,5,32900,4,3,5,435,12,Loyal Customers,Platinum
+89466257,64,5,39140,3,3,5,335,11,Loyal Customers,Gold
+89551751,11,2,18360,5,1,4,514,10,High Value New Customers,Gold
+89677157,69,4,28720,3,2,5,325,10,325,Gold
+89828981,5,2,3780,5,1,1,511,7,New Customers,Silver
+89899082,38,1,7828,4,1,2,412,7,New Customers,Silver
+90003367,50,4,28720,3,2,5,325,10,325,Gold
+90338470,28,4,39920,4,2,5,425,11,High Value New Customers,Gold
+90424966,53,2,3100,3,1,1,311,5,Potential Loyalists,Bronze
+90900699,126,3,16500,2,2,4,224,8,Cannot Lose Them,Silver
+91076807,29,3,9270,4,2,3,423,9,New Customers,Gold
+91197986,7,4,12400,5,2,4,524,11,High Value New Customers,Gold
+91504638,175,3,27540,1,2,5,125,8,Cannot Lose Them,Silver
+91512215,108,1,2490,2,1,1,211,4,At Risk,Bronze
+91524796,82,2,6760,3,1,2,312,6,Potential Loyalists,Silver
+91561471,20,4,28000,5,2,5,525,12,High Value New Customers,Platinum
+91592163,248,1,2580,1,1,1,111,3,At Risk,Bronze
+91669332,178,1,11990,1,1,3,113,5,113,Bronze
+91756346,198,1,4000,1,1,1,111,3,At Risk,Bronze
+91756950,113,2,14360,2,1,4,214,7,Cannot Lose Them,Silver
+91763078,33,4,4320,4,2,1,421,7,New Customers,Silver
+91781807,113,3,15900,2,2,4,224,8,Cannot Lose Them,Silver
+91841741,1,3,22500,5,2,5,525,12,High Value New Customers,Platinum
+91929436,139,2,5400,2,1,2,212,5,At Risk,Bronze
+91964708,41,4,9520,4,2,3,423,9,New Customers,Gold
+91970108,194,1,9180,1,1,3,113,5,113,Bronze
+92465778,7,2,19960,5,1,4,514,10,High Value New Customers,Gold
+92488093,32,2,10600,4,1,3,413,8,New Customers,Silver
+92519435,257,1,5980,1,1,2,112,4,At Risk,Bronze
+92713858,47,4,8720,4,2,3,423,9,New Customers,Gold
+92727952,134,2,5300,2,1,2,212,5,At Risk,Bronze
+92900294,9,1,11100,5,1,3,513,9,New Customers,Gold
+93054617,69,2,5400,3,1,2,312,6,Potential Loyalists,Silver
+93094444,91,5,14950,2,3,4,234,9,234,Gold
+93363944,59,4,2320,3,2,1,321,6,Potential Loyalists,Silver
+93401890,8,1,2790,5,1,1,511,7,New Customers,Silver
+93427155,192,1,3980,1,1,1,111,3,At Risk,Bronze
+93597618,106,1,5648,2,1,2,212,5,At Risk,Bronze
+93626225,1,10,99900,5,5,5,555,15,Champions,Platinum
+93760761,145,2,9960,2,1,3,213,6,213,Silver
+93873429,13,2,12000,5,1,3,513,9,New Customers,Gold
+93887738,131,1,3490,2,1,1,211,4,At Risk,Bronze
+94015399,135,3,14940,2,2,4,224,8,Cannot Lose Them,Silver
+94113201,4,1,6180,5,1,2,512,8,New Customers,Silver
+94336108,122,5,27900,2,3,5,235,10,235,Gold
+94453894,53,3,21900,3,2,5,325,10,325,Gold
+94463588,83,4,19920,3,2,4,324,9,324,Gold
+94632310,188,1,1160,1,1,1,111,3,At Risk,Bronze
+94780184,263,1,2900,1,1,1,111,3,At Risk,Bronze
+94803962,258,1,6180,1,1,2,112,4,At Risk,Bronze
+94828431,166,3,9540,1,2,3,123,6,123,Silver
+95054310,89,3,17340,2,2,4,224,8,Cannot Lose Them,Silver
+95405398,12,3,6300,5,2,2,522,9,New Customers,Gold
+95432311,24,2,9960,4,1,3,413,8,New Customers,Silver
+95592350,79,3,33300,3,2,5,325,10,325,Gold
+95754103,62,3,8940,3,2,3,323,8,Potential Loyalists,Silver
+95808454,101,4,14400,2,2,4,224,8,Cannot Lose Them,Silver
+95925500,54,1,5100,3,1,2,312,6,Potential Loyalists,Silver
+96001367,42,2,13160,4,1,4,414,9,High Value New Customers,Gold
+96010532,69,3,7470,3,2,2,322,7,Potential Loyalists,Silver
+96094802,27,3,4170,4,2,1,421,7,New Customers,Silver
+96125000,21,2,11120,4,1,3,413,8,New Customers,Silver
+96240921,22,3,33300,4,2,5,425,11,High Value New Customers,Gold
+96348851,33,2,22200,4,1,5,415,10,High Value New Customers,Gold
+96414579,111,2,7000,2,1,2,212,5,At Risk,Bronze
+96447831,95,4,27816,2,2,5,225,9,Cannot Lose Them,Gold
+96700442,170,3,22140,1,2,5,125,8,Cannot Lose Them,Silver
+96712748,38,4,44400,4,2,5,425,11,High Value New Customers,Gold
+96808638,86,3,8799,3,2,3,323,8,Potential Loyalists,Silver
+96985825,37,4,12800,4,2,4,424,10,High Value New Customers,Gold
+97009468,48,2,11160,4,1,3,413,8,New Customers,Silver
+97043253,31,3,9300,4,2,3,423,9,New Customers,Gold
+97371150,86,3,18000,3,2,4,324,9,324,Gold
+97446387,31,1,2780,4,1,1,411,6,New Customers,Silver
+97578232,99,5,24900,2,3,5,235,10,235,Gold
+97679450,29,4,5360,4,2,2,422,8,New Customers,Silver
+97750622,49,3,18300,4,2,4,424,10,High Value New Customers,Gold
+98269250,14,2,11160,5,1,3,513,9,New Customers,Gold
+98423853,216,2,10600,1,1,3,113,5,113,Bronze
+98454420,98,3,21540,2,2,4,224,8,Cannot Lose Them,Silver
+98575820,14,2,3600,5,1,1,511,7,New Customers,Silver
+98669896,147,1,2980,1,1,1,111,3,At Risk,Bronze
+98709059,33,2,5000,4,1,1,411,6,New Customers,Silver
+98761418,110,2,6760,2,1,2,212,5,At Risk,Bronze
+98767142,69,3,16740,3,2,4,324,9,324,Gold
+98799862,75,1,11100,3,1,3,313,7,Potential Loyalists,Silver
+98875006,135,1,2500,2,1,1,211,4,At Risk,Bronze
+99198177,68,5,36500,3,3,5,335,11,Loyal Customers,Gold
+99230127,27,5,14900,4,3,4,434,11,Loyal Customers,Gold
+99235800,152,2,11960,1,1,3,113,5,113,Bronze
+99447531,54,1,6580,3,1,2,312,6,Potential Loyalists,Silver
+99453640,15,5,55500,5,3,5,535,13,Loyal Customers,Platinum
+99733880,204,1,2980,1,1,1,111,3,At Risk,Bronze
+99772524,143,4,4400,2,2,1,221,5,At Risk,Bronze
+99926256,265,1,4980,1,1,1,111,3,At Risk,Bronze
+99962600,177,2,9980,1,1,3,113,5,113,Bronze
+99973635,212,1,5980,1,1,2,112,4,At Risk,Bronze

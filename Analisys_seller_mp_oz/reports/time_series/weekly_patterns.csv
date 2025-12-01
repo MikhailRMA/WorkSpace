@@ -1,0 +1,8 @@
+day_of_week,revenue_sum,revenue_mean,revenue_count,order_id_nunique,quantity_sum
+Monday,1850026,5068.56,365,361,922
+Tuesday,1490610,4717.12,316,314,796
+Wednesday,1614665,4937.81,327,325,802
+Thursday,1719045,4968.34,346,346,865
+Friday,1675967,5002.89,335,334,845
+Saturday,1743471,4829.56,361,361,921
+Sunday,1616939,5116.9,316,313,790
