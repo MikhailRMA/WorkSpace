@@ -9,7 +9,8 @@ from datetime import datetime
 st.set_page_config(
     page_title="Brand Detector - OZON Style",
     page_icon="https://cdn1.ozone.ru/s3/common-image-storage/bx/tag-logo-blue_m.png",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 # CSS стили OZON
@@ -163,7 +164,6 @@ def apply_ozon_style():
             margin-right: 10px;
             font-weight: bold;
         }
-        
     </style>
     """, unsafe_allow_html=True)
 
@@ -218,18 +218,18 @@ class BrandDetector:
         processed_count = 0
         
         for idx in result_df.index:
-            original_brand = result_df.loc[idx, 'бренд']
+            original_brand = result_df.loc[idx, 'Бренд']
             
             if pd.notna(original_brand) and str(original_brand).strip():
                 continue
                 
-            name_text = str(result_df.loc[idx, 'название'])
-            desc_text = str(result_df.loc[idx, 'описание'])
+            name_text = str(result_df.loc[idx, 'Наименование'])
+            desc_text = str(result_df.loc[idx, 'Аннотация'])
             combined_text = f"{name_text} {desc_text}"
             
             brand = self.find_brand(combined_text, log_matches, idx)
             if brand:
-                result_df.loc[idx, 'бренд'] = brand
+                result_df.loc[idx, 'Бренд'] = brand
                 processed_count += 1
                 
         self.performance_metrics['processed_rows'] = processed_count
@@ -238,8 +238,8 @@ class BrandDetector:
         return result_df
     
     def calculate_quality_metrics(self, original_df, processed_df):
-        original_filled = original_df['бренд'].notna().sum()
-        processed_filled = processed_df['бренд'].notna().sum()
+        original_filled = original_df['Бренд'].notna().sum()
+        processed_filled = processed_df['Бренд'].notna().sum()
         new_filled = processed_filled - original_filled
         
         metrics = {
@@ -264,6 +264,8 @@ def init_session_state():
         st.session_state.uploaded_filename = None
     if 'show_results' not in st.session_state:
         st.session_state.show_results = False
+    if 'file_processed' not in st.session_state:
+        st.session_state.file_processed = False
 
 def clear_session_data():
     """Очистка данных сессии"""
@@ -271,6 +273,7 @@ def clear_session_data():
     st.session_state.processed_data = None
     st.session_state.uploaded_filename = None
     st.session_state.show_results = False
+    st.session_state.file_processed = False
     if 'detector' in st.session_state:
         st.session_state.detector.logs = []
 
@@ -285,33 +288,35 @@ def show_instructions():
         <div class="ozon-card">
             <div class="card-header">
                 <span class="card-icon">1️⃣</span>
-                <h3 class="card-title">Загрузка данных</h3>
-            </div>
-            <p>Загрузите Excel или CSV файл с обязательными колонками:</p>
+                <h3 class="card-title">Добавьте бренды в словарь</h3>
+            </div>        
             <ul>
-                <li><strong>название</strong> - название товара</li>
-                <li><strong>описание</strong> - описание товара</li>
-                <li><strong>бренд</strong> - бренд (может быть пустым)</li>
-            </ul>
-            <p><em>просто переименуйте ваши столбцы и загрузите файл, порядок размещения неважен</em></p>
-        </div>
-        """, unsafe_allow_html=True)
+                <li>Перейдите во вкладку "Управление словарем"</li>
+                <li>Добавьте ваш бренд и ключевые слова</li>
+                <li>Например: `Lacoste`, `lacoste`, `лакост`, `крокодил`</li>
+            </ul> 
+             
+            
+        </div>    
+            """, unsafe_allow_html=True)
+           
+        
+        
     
     with col2:
         st.markdown("""
         <div class="ozon-card">
             <div class="card-header">
                 <span class="card-icon">2️⃣</span>
-                <h3 class="card-title">Автоматическое определение</h3>
-            </div>
-            <p>Приложение анализирует текст и находит упоминания брендов по ключевым словам:</p>
+                <h3 class="card-title">Загрузите файл и обработайте</h3>
+            </div>        
             <ul>
-                <li>Ищет в названии и описании</li>
-                <li>Использует интеллектуальный поиск</li>
-                <li>Учитывает различные написания</li>
-            </ul>
-            <em>Перед работой добавьте в словарь ваш Бренд и его возможные вариации написания в столбцах(название, описание)</em>
-        </div>
+                <li>Загрузите CSV/Excel файл с содержанием обязательных колонок: Наименование, Аннотация, Бренд</li>
+                <li>Нажмите кнопку "Заполнить бренды автоматически"</li>
+            </ul>  
+            <p><em>Просто переименуйте ваши столбцы согласно наименованию выше и загрузите файл, порядок размещения неважен</em></p><br>
+            <p><em>Колонка "Бренд" может быть пустой, одна из колонок "Наименование" или "Аннотация" может быть пустой, наличие всех трех колонок обязательно</p><br>     
+        </div>    
         """, unsafe_allow_html=True)
     
     with col3:
@@ -319,13 +324,13 @@ def show_instructions():
         <div class="ozon-card">
             <div class="card-header">
                 <span class="card-icon">3️⃣</span>
-                <h3 class="card-title">Результаты и аналитика</h3>
+                <h3 class="card-title">Скачайте результаты</h3>
             </div>
             <p>Получите готовые данные с заполненными брендами:</p>
             <ul>
-                <li>Скачайте обработанный файл</li>
+                <li>Получите обработанный файл с заполненными брендами</li>
+                <li>Скачайте в формате Excel или CSV</li>
                 <li>Просмотрите аналитику эффективности</li>
-                <li>Настройте словарь под ваши нужды</li>
             </ul>
             <em>Экспортируйте словарь перед закрытием страницы, чтобы в новой сессии импортировать его, если предстоит работать с теми же брендами. На данный момент в базе не сохраняются автоматически ваши словари</em>
         </div>
@@ -333,85 +338,42 @@ def show_instructions():
 
 def show_example_section():
     """Показ примера использования в спойлере"""
-    with st.expander("📋 **Пример использования (раскройте для просмотра)**", expanded=False):
-        st.markdown("""
-        ### 🎯 Как это работает на практике
-        
-        **Всего 3 простых шага:**
-        """)
-        
-        # Шаг 1
-        col1, col2 = st.columns([1, 3])
-        with col1:
-            st.markdown('<div class="step-number">1</div>', unsafe_allow_html=True)
-        with col2:
-            st.markdown("""
-            **Добавьте бренды в словарь**
-            - Перейдите во вкладку "Управление словарем"
-            - Добавьте ваш бренд и ключевые слова
-            - Например: `Lacoste`, `lacoste`, `лакост`, `крокодил`
-            """)
-        
-        # Шаг 2
-        col1, col2 = st.columns([1, 3])
-        with col1:
-            st.markdown('<div class="step-number">2</div>', unsafe_allow_html=True)
-        with col2:
-            st.markdown("""
-            **Загрузите файл и обработайте**
-            - Загрузите CSV/Excel файл с колонками: название, описание, бренд
-            - Нажмите кнопку "Заполнить бренды автоматически"
-            """)
-        
-        # Шаг 3
-        col1, col2 = st.columns([1, 3])
-        with col1:
-            st.markdown('<div class="step-number">3</div>', unsafe_allow_html=True)
-        with col2:
-            st.markdown("""
-            **Скачайте результаты**
-            - Получите обработанный файл с заполненными брендами
-            - Скачайте в формате Excel или CSV
-            """)
-        
-        st.markdown("---")
-        
-        # Пример таблиц
-        st.markdown("### 📊 Пример преобразования данных")
+    with st.expander("📊 Пример преобразования данных", expanded=False):
+   
         
         col1, col2 = st.columns(2)
         
         with col1:
             st.markdown("#### **До обработки**")
             example_before = pd.DataFrame({
-                'название': [
+                'Наименование': [
                     'Кроссовки Nike Air Max', 
                     'Смартфон Samsung Galaxy', 
                     'Ноутбук Apple MacBook'
                 ],
-                'описание': [
+                'Аннотация': [
                     'Спортивные кроссовки для бега', 
                     'Новый флагман с камерой 108 Мп', 
                     '13 дюймов, процессор M2'
                 ],
-                'бренд': ['', '', '']
+                'Бренд': ['', '', '']
             })
             st.dataframe(example_before, use_container_width=True)
         
         with col2:
             st.markdown("#### **После обработки**")
             example_after = pd.DataFrame({
-                'название': [
+                'Наименование': [
                     'Кроссовки Nike Air Max', 
                     'Смартфон Samsung Galaxy', 
                     'Ноутбук Apple MacBook'
                 ],
-                'описание': [
+                'Аннотация': [
                     'Спортивные кроссовки для бега', 
                     'Новый флагман с камерой 108 Мп', 
                     '13 дюймов, процессор M2'
                 ],
-                'бренд': ['Nike', 'Samsung', 'Apple']
+                'Бренд': ['Nike', 'Samsung', 'Apple']
             })
             st.dataframe(example_after, use_container_width=True)
         
@@ -422,6 +384,29 @@ def show_example_section():
         """)
 
 def main_page():
+
+ # Яндекс.Метрика
+    metrika_code = """
+    <script>
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    
+        ym(105560408, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+        });
+     
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/105560408" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    """
+    
+    st.markdown(metrika_code, unsafe_allow_html=True)
+
+
     """Главная страница - загрузка и обработка данных"""
     
     # Заголовок и инструкции
@@ -450,7 +435,7 @@ def show_file_uploader():
     uploaded_file = st.file_uploader(
         "Выберите Excel или CSV файл", 
         type=['xlsx', 'xls', 'csv'],
-        help="Файл должен содержать колонки: название, описание, бренд"
+        help="Файл должен содержать колонки: Наименование, Аннотация, Бренд"
     )
     
     if uploaded_file:
@@ -470,9 +455,10 @@ def process_uploaded_file(uploaded_file):
         st.session_state.uploaded_filename = uploaded_file.name
         st.session_state.processed_data = None
         st.session_state.show_results = False
+        st.session_state.file_processed = True
         
-        # Показываем данные
-        show_data_preview(df)
+        # Принудительный перезапуск для отображения кнопки обработки
+        st.rerun()
         
     except Exception as e:
         st.error(f"❌ Ошибка при загрузке файла: {str(e)}")
@@ -501,7 +487,7 @@ def show_existing_data():
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        if st.button("🚀 Заполнить бренды автоматически", use_container_width=True):
+        if st.button("🚀 Заполнить бренды автоматически", use_container_width=True, key="process_button"):
             with st.spinner("🔍 Анализирую данные..."):
                 # Сбрасываем логи перед новой обработкой
                 st.session_state.detector.logs = []
@@ -514,13 +500,7 @@ def show_existing_data():
                 st.session_state.processed_data = processed_df
                 st.session_state.show_results = True
                 
-                st.markdown(f"""
-                <div class="ozon-alert-success">
-                    <strong>✅ Обработка завершена успешно!</strong><br>
-                    Заполнено {metrics['improvement']} новых брендов<br>
-                    Общее покрытие: {metrics['new_coverage']:.1f}%
-                </div>
-                """, unsafe_allow_html=True)
+                # Принудительный перезапуск для отображения результатов
                 st.rerun()
 
 def show_data_preview(df):
@@ -534,7 +514,7 @@ def show_data_preview(df):
     col1, col2, col3 = st.columns(3)
     
     total_rows = len(df)
-    filled_brands = df['бренд'].notna().sum()
+    filled_brands = df['Бренд'].notna().sum()
     empty_brands = total_rows - filled_brands
     coverage = (filled_brands / total_rows) * 100
     
@@ -547,6 +527,9 @@ def show_data_preview(df):
 
 def show_results():
     """Показ результатов обработки"""
+    if st.session_state.processed_data is None or not st.session_state.show_results:
+        return
+        
     processed_df = st.session_state.processed_data
     original_df = st.session_state.uploaded_data
     
@@ -554,10 +537,10 @@ def show_results():
     
     # Вычисляем метрики
     total_processed = len(processed_df)
-    filled_processed = processed_df['бренд'].notna().sum()
+    filled_processed = processed_df['Бренд'].notna().sum()
     
     if original_df is not None:
-        filled_original = original_df['бренд'].notna().sum()
+        filled_original = original_df['Бренд'].notna().sum()
         new_filled = filled_processed - filled_original
         coverage_before = (filled_original / total_processed) * 100
     else:
@@ -587,7 +570,7 @@ def show_results():
     with col2:
         # Топ брендов
         if filled_processed > 0:
-            brand_counts = processed_df['бренд'].value_counts().head(5)
+            brand_counts = processed_df['Бренд'].value_counts().head(5)
             brands_html = ""
             for brand, count in brand_counts.items():
                 if pd.notna(brand):
@@ -866,18 +849,12 @@ def main():
     # Боковая панель навигации
     with st.sidebar:
         st.markdown("""
-        <div class="ozon-sidebar-header" >
-            <h1 class="sidebar-title">Brand Detector</h1>
+        <div class="ozon-sidebar-header">
+            <h1 class="sidebar-title">Информация</h1>
         </div>
         """, unsafe_allow_html=True)
         
-        st.markdown("""
-        <div class="ozon-card">
-        <p>Автоматическое определение и запись брендов в товарных данных</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.write("---")
+       
         
         page = st.radio(
             "Навигация",
@@ -910,6 +887,13 @@ def main():
             Брендов: {len(detector.brand_dict)}<br>
             Ключевых слов: {sum(len(keywords) for keywords in detector.brand_dict.values())}<br>
             Логов: {len(detector.logs)}
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("---")
+        st.markdown("""
+        <div class="text-center" style="color: var(--ozon-text-muted); padding: 1rem;">
+            <p>With ❤️ by <strong>mroshchupkin and DS</strong></p>
         </div>
         """, unsafe_allow_html=True)
     
