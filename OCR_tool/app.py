@@ -1,17 +1,19 @@
 import streamlit as st
-import fitz  # PyMuPDF
-import pytesseract
-from PIL import Image
 import os
 import tempfile
 import base64
 from datetime import datetime
 import zipfile
 import io
+from pdf2image import convert_from_path, convert_from_bytes
+import pytesseract
+from PIL import Image
 
-# Настройки страницы
+# Настройка пути к Tesseract для Streamlit Cloud
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+
 st.set_page_config(
-    page_title="PDF OCR Extractor | OZON Style",
+    page_title="PDF OCR Extractor",
     page_icon="📄",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -285,19 +287,19 @@ if 'total_pages' not in st.session_state:
 if 'processed_pages' not in st.session_state:
     st.session_state.processed_pages = 0
 
-# Функция для извлечения текста из PDF
+# Функция для извлечения текста с использованием pdf2image
 def extract_text_from_pdf(pdf_path, dpi=300, lang="rus", progress_bar=None, status_text=None):
-    """Извлекает текст из PDF с помощью OCR"""
+    """Извлекает текст из PDF с помощью OCR через pdf2image"""
     extracted_text = ""
     page_texts = []
     
     try:
-        # Открываем PDF
-        pdf = fitz.open(pdf_path)
-        total_pages = len(pdf)
+        # Конвертируем PDF в изображения
+        images = convert_from_path(pdf_path, dpi=dpi)
+        total_pages = len(images)
         st.session_state.total_pages = total_pages
         
-        for page_num in range(total_pages):
+        for page_num, image in enumerate(images):
             if progress_bar:
                 progress = (page_num + 1) / total_pages
                 progress_bar.progress(progress)
@@ -305,19 +307,12 @@ def extract_text_from_pdf(pdf_path, dpi=300, lang="rus", progress_bar=None, stat
             if status_text:
                 status_text.text(f"📄 Обработка страницы {page_num + 1} из {total_pages}")
             
-            st.session_state.processed_pages = page_num + 1
-            
             try:
-                # Конвертируем страницу в изображение
-                page = pdf.load_page(page_num)
-                pix = page.get_pixmap(dpi=dpi)
-                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-                
-                # Применяем OCR
-                text = pytesseract.image_to_string(img, lang=lang)
+                # Применяем OCR к изображению
+                text = pytesseract.image_to_string(image, lang=lang)
                 page_texts.append(text)
                 
-                # Добавляем в общий текст с нумерацией
+                # Добавляем в общий текст
                 extracted_text += f"\n{'='*50}\n📄 СТРАНИЦА {page_num + 1}\n{'='*50}\n\n{text}\n"
                 
             except Exception as page_error:
@@ -325,11 +320,11 @@ def extract_text_from_pdf(pdf_path, dpi=300, lang="rus", progress_bar=None, stat
                 extracted_text += f"\n{'='*50}\n📄 СТРАНИЦА {page_num + 1} - ОШИБКА\n{'='*50}\n\nОшибка обработки: {page_error}\n"
                 continue
         
-        pdf.close()
         return extracted_text, page_texts
         
     except Exception as e:
         return f"❌ Ошибка при обработке PDF: {e}", []
+
 
 # Функция для создания загружаемого файла
 def get_download_link(text, filename):
