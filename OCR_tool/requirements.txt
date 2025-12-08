@@ -1,0 +1,33 @@
+streamlit>=1.28.0
+selenium>=4.15.0
+webdriver-manager# Основные зависимости
+streamlit>=1.28.0
+pymupdf>=1.23.0
+pytesseract>=0.3.10
+pillow>=10.0.0
+
+# Для работы с PDF и изображениями
+PyMuPDF==1.23.8
+pdf2image>=1.16.3
+reportlab>=4.0.0
+
+# Для обработки данных
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Для архивации
+pyzipper>=0.3.6
+
+# Дополнительные утилиты
+python-magic>=0.4.27
+python-magic-bin>=0.4.14 ; platform_system == "Windows"
+
+# Для лучшей работы с изображениями
+opencv-python-headless>=4.8.0
+scikit-image>=0.22.0
+
+# Для манипуляций с путями
+pathlib>=1.0.1
+
+# Для временных файлов
+tempfile>=0.1.0>=4.0.0
