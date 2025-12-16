@@ -1,0 +1,32 @@
+2025-12-16 16:52:26,029 - INFO - Logger initialized
+2025-12-16 16:52:26,029 - INFO - Starting data processing...
+2025-12-16 16:52:26,029 - ERROR - Processing failed: Input file not found: c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\data\Выгурзка_25.09.25_без_дубликатов.xlsx
+Traceback (most recent call last):
+  File "c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\excel_splitter.py", line 185, in run
+    self._validate_input()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\excel_splitter.py", line 42, in _validate_input
+    raise FileNotFoundError(f"Input file not found: {self.INPUT_FILE}")
+FileNotFoundError: Input file not found: c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\data\Выгурзка_25.09.25_без_дубликатов.xlsx
+2025-12-16 16:57:41,304 - INFO - Logger initialized
+2025-12-16 16:57:41,304 - INFO - Starting data processing...
+2025-12-16 16:57:41,304 - INFO - Input validation passed
+2025-12-16 16:57:41,304 - INFO - Output folder ready: c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка
+2025-12-16 16:57:41,305 - INFO - Loading input data...
+2025-12-16 16:57:48,204 - INFO - Data loaded successfully
+2025-12-16 16:57:48,204 - INFO - Grouping dates by seller IDs...
+2025-12-16 16:57:48,211 - INFO - Found 4 big dates and 6 small date groups
+2025-12-16 16:57:48,211 - INFO - Saving grouped data...
+2025-12-16 16:58:03,760 - INFO - Saved 3 SKU parts to c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\2025-09-29
+2025-12-16 16:58:22,028 - INFO - Saved 4 SKU parts to c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\2025-10-02
+2025-12-16 16:58:43,040 - INFO - Saved 3 SKU parts to c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\2025-10-05
+2025-12-16 16:58:58,691 - INFO - Saved 2 SKU parts to c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\2025-10-09
+2025-12-16 16:59:01,551 - INFO - Saved 1 SKU parts to c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\2025-09-26_to_2025-09-30
+2025-12-16 16:59:04,866 - INFO - Saved 1 SKU parts to c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\2025-10-01_to_2025-10-01
+2025-12-16 16:59:07,255 - INFO - Saved 1 SKU parts to c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\2025-10-03_to_2025-10-03
+2025-12-16 16:59:12,958 - INFO - Saved 1 SKU parts to c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\2025-10-06_to_2025-10-06
+2025-12-16 16:59:17,568 - INFO - Saved 1 SKU parts to c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\2025-10-07_to_2025-10-08
+2025-12-16 16:59:23,700 - INFO - Saved 1 SKU parts to c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\2025-10-10_to_2025-10-10
+2025-12-16 16:59:23,716 - INFO - Report saved to: c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\Внешние_заявители_группировка\report.xlsx
+2025-12-16 16:59:23,717 - INFO - Config saved to: c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\results\processing_config.json
+2025-12-16 16:59:23,717 - INFO - Processing completed successfully!

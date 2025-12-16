@@ -1,0 +1,108 @@
+2025-12-16 15:54:21,107 - INFO - ============================================================
+2025-12-16 15:54:21,107 - INFO - ������������� ������� ����������
+2025-12-16 15:54:21,107 - INFO - ������ �������: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data
+2025-12-16 15:54:21,107 - INFO - ���� ������������: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\processing_config.json
+2025-12-16 15:54:21,107 - INFO - �������������� ������: c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка
+2025-12-16 15:54:21,107 - INFO - ������� ����: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\data\�����_��������_������.xlsx
+2025-12-16 15:54:21,107 - INFO - �������� �����: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\�������_���������_����������
+2025-12-16 15:54:21,107 - INFO - ������ ���������...
+2025-12-16 15:54:26,886 - ERROR - ������ ���������: [WinError 3] ������� �� ������� ����� ��������� ����: 'c:\\Users\\majkl\\github_repo\\WorkSpace\\preprocessing_excel_data\\results\\Внешние_заявители_группировка'
+Traceback (most recent call last):
+  File "c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\temp.py", line 147, in run
+    grouped_data = self._load_grouped_data()
+  File "c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\temp.py", line 105, in _load_grouped_data
+    available_files = "\n".join(os.listdir(self.GROUPED_FOLDER))
+                                ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] ������� �� ������� ����� ��������� ����: 'c:\\Users\\majkl\\github_repo\\WorkSpace\\preprocessing_excel_data\\results\\Внешние_заявители_группировка'
+2025-12-16 15:54:43,528 - INFO - ============================================================
+2025-12-16 15:54:43,529 - INFO - ������������� ������� ����������
+2025-12-16 15:54:43,529 - INFO - ������ �������: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data
+2025-12-16 15:54:43,529 - INFO - ���� ������������: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\processing_config.json
+2025-12-16 15:54:43,529 - INFO - �������������� ������: c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка
+2025-12-16 15:54:43,529 - INFO - ������� ����: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\data\�����_��������_������.xlsx
+2025-12-16 15:54:43,529 - INFO - �������� �����: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\�������_���������_����������
+2025-12-16 15:54:43,529 - INFO - ������ ���������...
+2025-12-16 15:54:49,282 - ERROR - ������ ���������: [WinError 3] ������� �� ������� ����� ��������� ����: 'c:\\Users\\majkl\\github_repo\\WorkSpace\\preprocessing_excel_data\\results\\Внешние_заявители_группировка'
+Traceback (most recent call last):
+  File "c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\filter_tikets.py", line 147, in run
+    grouped_data = self._load_grouped_data()
+  File "c:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\scripts\filter_tikets.py", line 105, in _load_grouped_data
+    available_files = "\n".join(os.listdir(self.GROUPED_FOLDER))
+                                ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 3] ������� �� ������� ����� ��������� ����: 'c:\\Users\\majkl\\github_repo\\WorkSpace\\preprocessing_excel_data\\results\\Внешние_заявители_группировка'
+2025-12-16 15:56:12,575 - INFO - ============================================================
+2025-12-16 15:56:12,576 - INFO - Инициализация скрипта фильтрации
+2025-12-16 15:56:12,576 - INFO - Корень проекта: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data
+2025-12-16 15:56:12,576 - INFO - Файл конфигурации: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\processing_config.json
+2025-12-16 15:56:12,576 - INFO - Группированные данные: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка
+2025-12-16 15:56:12,576 - INFO - Входной файл: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\data\Общая_выгрузка_тикеты.xlsx
+2025-12-16 15:56:12,576 - INFO - Выходная папка: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация
+2025-12-16 15:56:12,577 - INFO - Начало обработки...
+2025-12-16 15:56:18,262 - INFO - Сохранено 2708 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\пустые_типы.csv
+2025-12-16 15:56:18,276 - INFO - Сохранено 8188 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\рф_тикеты.csv
+2025-12-16 15:56:18,283 - INFO - Сохранено 5443 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\глобал_снг_тикеты.csv
+2025-12-16 15:56:18,296 - INFO - Сохранено 8188 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-18\рф_тикеты.csv
+2025-12-16 15:56:18,303 - INFO - Сохранено 5443 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-18\глобал_снг_тикеты.csv
+2025-12-16 15:56:18,316 - INFO - Сохранено 8188 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-19_to_2025-09-21\рф_тикеты.csv
+2025-12-16 15:56:18,322 - INFO - Сохранено 5443 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-19_to_2025-09-21\глобал_снг_тикеты.csv
+2025-12-16 15:56:18,335 - INFO - Сохранено 8188 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-19_to_2025-09-21\рф_тикеты.csv
+2025-12-16 15:56:18,341 - INFO - Сохранено 5443 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-19_to_2025-09-21\глобал_снг_тикеты.csv
+2025-12-16 15:56:18,354 - INFO - Сохранено 8188 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-22_to_2025-09-24\рф_тикеты.csv
+2025-12-16 15:56:18,360 - INFO - Сохранено 5443 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-22_to_2025-09-24\глобал_снг_тикеты.csv
+2025-12-16 15:56:18,374 - INFO - Сохранено 8188 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-22_to_2025-09-24\рф_тикеты.csv
+2025-12-16 15:56:18,380 - INFO - Сохранено 5443 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-22_to_2025-09-24\глобал_снг_тикеты.csv
+2025-12-16 15:56:18,393 - INFO - Сохранено 8188 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-22_to_2025-09-24\рф_тикеты.csv
+2025-12-16 15:56:18,399 - INFO - Сохранено 5443 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-22_to_2025-09-24\глобал_снг_тикеты.csv
+2025-12-16 15:56:18,412 - INFO - Сохранено 8188 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-25_to_2025-09-25\рф_тикеты.csv
+2025-12-16 15:56:18,419 - INFO - Сохранено 5443 тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_фильтрация\2025-09-25_to_2025-09-25\глобал_снг_тикеты.csv
+2025-12-16 15:56:18,419 - INFO - Обработка успешно завершена!
+2025-12-16 15:59:28,529 - INFO - ============================================================
+2025-12-16 15:59:28,530 - INFO - Инициализация скрипта фильтрации
+2025-12-16 15:59:28,530 - INFO - Корень проекта: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data
+2025-12-16 15:59:28,530 - INFO - Файл конфигурации: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\processing_config.json
+2025-12-16 15:59:28,530 - INFO - Группированные данные: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка
+2025-12-16 15:59:28,530 - INFO - Входной файл: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\data\Общая_выгрузка_тикеты.xlsx
+2025-12-16 15:59:28,530 - INFO - Начало обработки...
+2025-12-16 15:59:34,260 - INFO - Сохранено 2708 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\пустые_типы.csv
+2025-12-16 15:59:34,273 - INFO - Сохранено 8188 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\рф_тикеты.csv
+2025-12-16 15:59:34,280 - INFO - Сохранено 5443 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\глобал_снг_тикеты.csv
+2025-12-16 15:59:34,293 - INFO - Сохранено 8188 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-18\рф_тикеты.csv
+2025-12-16 15:59:34,299 - INFO - Сохранено 5443 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-18\глобал_снг_тикеты.csv
+2025-12-16 15:59:34,313 - INFO - Сохранено 8188 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-19_to_2025-09-21\рф_тикеты.csv
+2025-12-16 15:59:34,320 - INFO - Сохранено 5443 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-19_to_2025-09-21\глобал_снг_тикеты.csv
+2025-12-16 15:59:34,333 - INFO - Сохранено 8188 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-19_to_2025-09-21\рф_тикеты.csv
+2025-12-16 15:59:34,339 - INFO - Сохранено 5443 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-19_to_2025-09-21\глобал_снг_тикеты.csv
+2025-12-16 15:59:34,353 - INFO - Сохранено 8188 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\рф_тикеты.csv
+2025-12-16 15:59:34,359 - INFO - Сохранено 5443 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\глобал_снг_тикеты.csv
+2025-12-16 15:59:34,372 - INFO - Сохранено 8188 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\рф_тикеты.csv
+2025-12-16 15:59:34,378 - INFO - Сохранено 5443 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\глобал_снг_тикеты.csv
+2025-12-16 15:59:34,391 - INFO - Сохранено 8188 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\рф_тикеты.csv
+2025-12-16 15:59:34,398 - INFO - Сохранено 5443 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\глобал_снг_тикеты.csv
+2025-12-16 15:59:34,412 - INFO - Сохранено 8188 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-25_to_2025-09-25\рф_тикеты.csv
+2025-12-16 15:59:34,418 - INFO - Сохранено 5443 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-25_to_2025-09-25\глобал_снг_тикеты.csv
+2025-12-16 15:59:34,419 - INFO - Обработка успешно завершена!
+2025-12-16 16:06:13,174 - INFO - ============================================================
+2025-12-16 16:06:13,175 - INFO - Инициализация скрипта фильтрации
+2025-12-16 16:06:13,175 - INFO - Корень проекта: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data
+2025-12-16 16:06:13,175 - INFO - Файл конфигурации: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\processing_config.json
+2025-12-16 16:06:13,175 - INFO - Группированные данные: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка
+2025-12-16 16:06:13,175 - INFO - Входной файл: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\data\Общая_выгрузка_тикеты.xlsx
+2025-12-16 16:06:18,982 - INFO - Начало обработки...
+2025-12-16 16:06:18,988 - INFO - Сохранено 2708 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\пустые_типы.csv
+2025-12-16 16:06:19,001 - INFO - Сохранено 8188 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\рф_тикеты.csv
+2025-12-16 16:06:19,007 - INFO - Сохранено 5443 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\глобал_снг_тикеты.csv
+2025-12-16 16:06:19,017 - INFO - Сохранено 5311 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-18\рф_тикеты.csv
+2025-12-16 16:06:19,021 - INFO - Сохранено 1365 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-18\глобал_снг_тикеты.csv
+2025-12-16 16:06:19,028 - INFO - Сохранено 1516 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-19_to_2025-09-21\рф_тикеты.csv
+2025-12-16 16:06:19,033 - INFO - Сохранено 1974 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-19_to_2025-09-21\глобал_снг_тикеты.csv
+2025-12-16 16:06:19,041 - INFO - Сохранено 1516 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-19_to_2025-09-21\рф_тикеты.csv
+2025-12-16 16:06:19,045 - INFO - Сохранено 1974 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-19_to_2025-09-21\глобал_снг_тикеты.csv
+2025-12-16 16:06:19,052 - INFO - Сохранено 935 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\рф_тикеты.csv
+2025-12-16 16:06:19,055 - INFO - Сохранено 1435 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\глобал_снг_тикеты.csv
+2025-12-16 16:06:19,062 - INFO - Сохранено 935 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\рф_тикеты.csv
+2025-12-16 16:06:19,065 - INFO - Сохранено 1435 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\глобал_снг_тикеты.csv
+2025-12-16 16:06:19,072 - INFO - Сохранено 935 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\рф_тикеты.csv
+2025-12-16 16:06:19,076 - INFO - Сохранено 1435 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-22_to_2025-09-24\глобал_снг_тикеты.csv
+2025-12-16 16:06:19,084 - INFO - Сохранено 426 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-25_to_2025-09-25\рф_тикеты.csv
+2025-12-16 16:06:19,088 - INFO - Сохранено 669 уникальных тикетов в C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка\2025-09-25_to_2025-09-25\глобал_снг_тикеты.csv
+2025-12-16 16:06:19,088 - INFO - Обработка успешно завершена!

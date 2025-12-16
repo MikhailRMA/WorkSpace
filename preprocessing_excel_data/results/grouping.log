@@ -1,0 +1,12 @@
+2025-12-16 16:54:44,242 - INFO - ==================================================
+2025-12-16 16:54:44,243 - INFO - Initializing DataGrouper
+2025-12-16 16:54:44,243 - INFO - Project root: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data
+2025-12-16 16:54:44,243 - INFO - Data directory: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\data
+2025-12-16 16:54:44,243 - INFO - Input file: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\data\Выгурзка_25.09.25_без_дубликатов.xlsx
+2025-12-16 16:54:44,243 - INFO - Output folder: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка
+2025-12-16 16:56:38,543 - INFO - ==================================================
+2025-12-16 16:56:38,543 - INFO - Initializing DataGrouper
+2025-12-16 16:56:38,544 - INFO - Project root: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data
+2025-12-16 16:56:38,544 - INFO - Data directory: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\data
+2025-12-16 16:56:38,544 - INFO - Input file: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\data\Выгурзка_25.09.25_без_дубликатов.xlsx
+2025-12-16 16:56:38,544 - INFO - Output folder: C:\Users\majkl\github_repo\WorkSpace\preprocessing_excel_data\results\Внешние_заявители_группировка

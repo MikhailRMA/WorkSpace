@@ -1,0 +1,11 @@
+2025-12-16 15:23:20,829 - INFO - Output folder created at: C:/Users/majkl/github_repo/WorkSpace/preprocessing_excel_data\results/Внешние_заявители_группировка
+2025-12-16 15:23:20,829 - INFO - Loading data from: C:/Users/majkl/github_repo/WorkSpace/preprocessing_excel_data\data/Выгурзка_25.09.25_без_дубликатов.xlsx
+2025-12-16 15:23:22,595 - INFO - Data loaded successfully
+2025-12-16 15:23:22,596 - INFO - Grouping dates by seller counts...
+2025-12-16 15:23:22,598 - INFO - Found 1 big dates and 3 small date groups
+2025-12-16 15:23:34,219 - INFO - Saved 2 SKU parts to C:/Users/majkl/github_repo/WorkSpace/preprocessing_excel_data\results/Внешние_заявители_группировка\2025-09-18
+2025-12-16 15:23:40,585 - INFO - Saved 1 SKU parts to C:/Users/majkl/github_repo/WorkSpace/preprocessing_excel_data\results/Внешние_заявители_группировка\2025-09-19_to_2025-09-21
+2025-12-16 15:23:46,616 - INFO - Saved 1 SKU parts to C:/Users/majkl/github_repo/WorkSpace/preprocessing_excel_data\results/Внешние_заявители_группировка\2025-09-22_to_2025-09-24
+2025-12-16 15:23:47,994 - INFO - Saved 1 SKU parts to C:/Users/majkl/github_repo/WorkSpace/preprocessing_excel_data\results/Внешние_заявители_группировка\2025-09-25_to_2025-09-25
+2025-12-16 15:23:48,003 - INFO - Report saved to: C:/Users/majkl/github_repo/WorkSpace/preprocessing_excel_data\results/Внешние_заявители_группировка\report.xlsx
+2025-12-16 15:23:48,003 - INFO - Processing completed successfully! Results saved to: C:/Users/majkl/github_repo/WorkSpace/preprocessing_excel_data\results/Внешние_заявители_группировка
