@@ -13,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# CSS стили OZON
+# CSS стили OZON (без изменений)
 def apply_ozon_style():
     st.markdown("""
     <style>
@@ -217,16 +217,39 @@ class BrandDetector:
         result_df = df.copy()
         processed_count = 0
         
+        # Определяем, какие столбцы есть в данных
+        name_col = None
+        if 'Name' in df.columns:
+            name_col = 'Name'
+        elif 'Наименование' in df.columns:
+            name_col = 'Наименование'
+        # Если нет ни одного, поиск по имени не будет выполняться
+        
+        desc_col = 'Аннотация' if 'Аннотация' in df.columns else None
+        hashtag_col = '#Хештеги' if '#Хештеги' in df.columns else None
+        # также проверим вариант без решётки
+        if hashtag_col is None and 'Хештеги' in df.columns:
+            hashtag_col = 'Хештеги'
+        
         for idx in result_df.index:
             original_brand = result_df.loc[idx, 'Бренд']
             
             if pd.notna(original_brand) and str(original_brand).strip():
                 continue
                 
-            name_text = str(result_df.loc[idx, 'Наименование'])
-            desc_text = str(result_df.loc[idx, 'Аннотация'])
-            combined_text = f"{name_text} {desc_text}"
+            # Собираем текст из доступных столбцов
+            texts = []
+            if name_col and pd.notna(result_df.loc[idx, name_col]):
+                texts.append(str(result_df.loc[idx, name_col]))
+            if desc_col and pd.notna(result_df.loc[idx, desc_col]):
+                texts.append(str(result_df.loc[idx, desc_col]))
+            if hashtag_col and pd.notna(result_df.loc[idx, hashtag_col]):
+                texts.append(str(result_df.loc[idx, hashtag_col]))
             
+            combined_text = ' '.join(texts)
+            if not combined_text.strip():
+                continue
+                
             brand = self.find_brand(combined_text, log_matches, idx)
             if brand:
                 result_df.loc[idx, 'Бренд'] = brand
@@ -268,7 +291,6 @@ def init_session_state():
         st.session_state.file_processed = False
 
 def clear_session_data():
-    """Очистка данных сессии"""
     st.session_state.uploaded_data = None
     st.session_state.processed_data = None
     st.session_state.uploaded_filename = None
@@ -278,7 +300,6 @@ def clear_session_data():
         st.session_state.detector.logs = []
 
 def show_instructions():
-    """Показ инструкций для пользователя"""
     st.markdown('<div class="section-header">📋 Как работает приложение</div>', unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
@@ -295,13 +316,8 @@ def show_instructions():
                 <li>Добавьте ваш бренд и ключевые слова</li>
                 <li>Например: `Lacoste`, `lacoste`, `лакост`, `крокодил`</li>
             </ul> 
-             
-            
         </div>    
-            """, unsafe_allow_html=True)
-           
-        
-        
+        """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
@@ -311,11 +327,10 @@ def show_instructions():
                 <h3 class="card-title">Загрузите файл и обработайте</h3>
             </div>        
             <ul>
-                <li>Загрузите CSV/Excel файл с содержанием обязательных колонок: Наименование, Аннотация, Бренд</li>
+                <li>Загрузите CSV/Excel файл с содержанием обязательных колонок: <strong>Name</strong> (или Наименование), <strong>Аннотация</strong>, <strong>#Хештеги</strong> (опционально) и <strong>Бренд</strong></li>
                 <li>Нажмите кнопку "Заполнить бренды автоматически"</li>
             </ul>  
-            <p><em>Просто переименуйте ваши столбцы согласно наименованию выше и загрузите файл, порядок размещения неважен</em></p><br>
-            <p><em>Колонка "Бренд" может быть пустой, одна из колонок "Наименование" или "Аннотация" может быть пустой, наличие всех трех колонок обязательно</p><br>     
+            <p><em>Порядок столбцов неважен. Если столбец #Хештеги отсутствует, поиск будет вестись по двум первым.</em></p><br>     
         </div>    
         """, unsafe_allow_html=True)
     
@@ -332,30 +347,20 @@ def show_instructions():
                 <li>Скачайте в формате Excel или CSV</li>
                 <li>Просмотрите аналитику эффективности</li>
             </ul>
-            <em>Экспортируйте словарь перед закрытием страницы, чтобы в новой сессии импортировать его, если предстоит работать с теми же брендами. На данный момент в базе не сохраняются автоматически ваши словари</em>
+            <em>Экспортируйте словарь перед закрытием страницы, чтобы в новой сессии импортировать его.</em>
         </div>
         """, unsafe_allow_html=True)
 
 def show_example_section():
-    """Показ примера использования в спойлере"""
     with st.expander("📊 Пример преобразования данных", expanded=False):
-   
-        
         col1, col2 = st.columns(2)
         
         with col1:
             st.markdown("#### **До обработки**")
             example_before = pd.DataFrame({
-                'Наименование': [
-                    'Кроссовки Nike Air Max', 
-                    'Смартфон Samsung Galaxy', 
-                    'Ноутбук Apple MacBook'
-                ],
-                'Аннотация': [
-                    'Спортивные кроссовки для бега', 
-                    'Новый флагман с камерой 108 Мп', 
-                    '13 дюймов, процессор M2'
-                ],
+                'Name': ['Кроссовки Nike Air Max', 'Смартфон Samsung Galaxy', 'Ноутбук Apple MacBook'],
+                'Аннотация': ['Спортивные кроссовки для бега', 'Новый флагман с камерой 108 Мп', '13 дюймов, процессор M2'],
+                '#Хештеги': ['#nike #running', '#samsung #galaxy', '#apple #macbook'],
                 'Бренд': ['', '', '']
             })
             st.dataframe(example_before, use_container_width=True)
@@ -363,16 +368,9 @@ def show_example_section():
         with col2:
             st.markdown("#### **После обработки**")
             example_after = pd.DataFrame({
-                'Наименование': [
-                    'Кроссовки Nike Air Max', 
-                    'Смартфон Samsung Galaxy', 
-                    'Ноутбук Apple MacBook'
-                ],
-                'Аннотация': [
-                    'Спортивные кроссовки для бега', 
-                    'Новый флагман с камерой 108 Мп', 
-                    '13 дюймов, процессор M2'
-                ],
+                'Name': ['Кроссовки Nike Air Max', 'Смартфон Samsung Galaxy', 'Ноутбук Apple MacBook'],
+                'Аннотация': ['Спортивные кроссовки для бега', 'Новый флагман с камерой 108 Мп', '13 дюймов, процессор M2'],
+                '#Хештеги': ['#nike #running', '#samsung #galaxy', '#apple #macbook'],
                 'Бренд': ['Nike', 'Samsung', 'Apple']
             })
             st.dataframe(example_after, use_container_width=True)
@@ -380,12 +378,11 @@ def show_example_section():
         st.markdown("""
         ---
         **💡 Совет:** Приложение автоматически найдет упоминания брендов в тексте 
-        и заполнит пустые ячейки в столбце "бренд"
+        и заполнит пустые ячейки в столбце "Бренд".
         """)
 
 def main_page():
-
- # Яндекс.Метрика
+    # Яндекс.Метрика (можно убрать для локальной версии, но оставим)
     metrika_code = """
     <script>
         (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
@@ -403,68 +400,53 @@ def main_page():
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/105560408" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     """
-    
     st.markdown(metrika_code, unsafe_allow_html=True)
 
-
-    """Главная страница - загрузка и обработка данных"""
-    
-    # Заголовок и инструкции
     st.markdown('<div style="display: flex; align-items: center; justify-content: center; gap: 12px;"><img src="https://cdn1.ozone.ru/s3/common-image-storage/bx/kettlebell-logo-blue_m.png" alt="Коробка Ozon" style="height: 80px; width: 80px; object-fit: contain;"><h1 style="color: #005BFF; font-size: 2.5rem; text-align: center; font-weight: 800; margin: 0; line-height: 1;">OZON Brand Detector</h1></div>', unsafe_allow_html=True)
     st.markdown('<p class="main-subtitle">Автоматическое определение брендов в товарных данных</p>', unsafe_allow_html=True)
     
     show_instructions()
-    
-    # Добавляем пример использования
     show_example_section()
     
-    # Если уже есть загруженные данные, показываем их
     if st.session_state.uploaded_data is not None:
         show_existing_data()
     else:
         show_file_uploader()
     
-    # Если есть обработанные данные, показываем результаты
     if st.session_state.show_results and st.session_state.processed_data is not None:
         show_results()
 
 def show_file_uploader():
-    """Показ загрузчика файлов"""
     st.markdown('<div class="section-header">📁 Загрузка данных</div>', unsafe_allow_html=True)
     
     uploaded_file = st.file_uploader(
         "Выберите Excel или CSV файл", 
         type=['xlsx', 'xls', 'csv'],
-        help="Файл должен содержать колонки: Наименование, Аннотация, Бренд"
+        help="Файл должен содержать колонки: Name (или Наименование), Аннотация, #Хештеги (опционально), Бренд"
     )
     
     if uploaded_file:
         process_uploaded_file(uploaded_file)
 
 def process_uploaded_file(uploaded_file):
-    """Обработка загруженного файла"""
     try:
-        # Загрузка файла
         if uploaded_file.name.endswith('.csv'):
             df = pd.read_csv(uploaded_file)
         else:
             df = pd.read_excel(uploaded_file)
         
-        # Сохраняем данные в сессии
         st.session_state.uploaded_data = df
         st.session_state.uploaded_filename = uploaded_file.name
         st.session_state.processed_data = None
         st.session_state.show_results = False
         st.session_state.file_processed = True
         
-        # Принудительный перезапуск для отображения кнопки обработки
         st.rerun()
         
     except Exception as e:
         st.error(f"❌ Ошибка при загрузке файла: {str(e)}")
 
 def show_existing_data():
-    """Показ уже загруженных данных"""
     st.markdown('<div class="section-header">📁 Загруженные данные</div>', unsafe_allow_html=True)
     
     st.markdown(f"""
@@ -474,42 +456,31 @@ def show_existing_data():
     </div>
     """, unsafe_allow_html=True)
     
-    # Кнопка для загрузки нового файла
     if st.button("📁 Загрузить другой файл"):
         clear_session_data()
         st.rerun()
     
-    # Показываем превью данных
     show_data_preview(st.session_state.uploaded_data)
     
-    # Обработка
     st.markdown('<div class="section-header">⚡ Обработка данных</div>', unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         if st.button("🚀 Заполнить бренды автоматически", use_container_width=True, key="process_button"):
             with st.spinner("🔍 Анализирую данные..."):
-                # Сбрасываем логи перед новой обработкой
                 st.session_state.detector.logs = []
-                
                 processed_df = st.session_state.detector.fill_brands(st.session_state.uploaded_data)
                 metrics = st.session_state.detector.calculate_quality_metrics(
                     st.session_state.uploaded_data, processed_df
                 )
-                
                 st.session_state.processed_data = processed_df
                 st.session_state.show_results = True
-                
-                # Принудительный перезапуск для отображения результатов
                 st.rerun()
 
 def show_data_preview(df):
-    """Показ превью данных и статистики"""
-    # Предпросмотр данных
     st.markdown("### 👀 Предпросмотр данных")
     st.dataframe(df.head(), use_container_width=True)
     
-    # Статистика
     st.markdown("### 📊 Статистика данных")
     col1, col2, col3 = st.columns(3)
     
@@ -526,7 +497,6 @@ def show_data_preview(df):
         st.metric("Пустых брендов", empty_brands)
 
 def show_results():
-    """Показ результатов обработки"""
     if st.session_state.processed_data is None or not st.session_state.show_results:
         return
         
@@ -535,7 +505,6 @@ def show_results():
     
     st.markdown('<div class="section-header">📈 Результаты обработки</div>', unsafe_allow_html=True)
     
-    # Вычисляем метрики
     total_processed = len(processed_df)
     filled_processed = processed_df['Бренд'].notna().sum()
     
@@ -568,7 +537,6 @@ def show_results():
         """, unsafe_allow_html=True)
     
     with col2:
-        # Топ брендов
         if filled_processed > 0:
             brand_counts = processed_df['Бренд'].value_counts().head(5)
             brands_html = ""
@@ -588,17 +556,14 @@ def show_results():
             </div>
             """, unsafe_allow_html=True)
     
-    # Предпросмотр обработанных данных
     st.markdown("### 👁️ Предпросмотр обработанных данных")
     st.dataframe(st.session_state.processed_data.head(10), use_container_width=True)
     
-    # Скачивание результата
     st.markdown('<div class="section-header">💾 Скачать результаты</div>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     
     with col1:
-        # Скачивание Excel
         output = io.BytesIO()
         with pd.ExcelWriter(output, engine='openpyxl') as writer:
             st.session_state.processed_data.to_excel(writer, index=False, sheet_name='Обработанные данные')
@@ -613,7 +578,6 @@ def show_results():
         )
     
     with col2:
-        # Скачивание CSV
         csv_data = st.session_state.processed_data.to_csv(index=False, encoding='utf-8-sig')
         st.download_button(
             label="📥 Скачать CSV файл",
@@ -624,12 +588,10 @@ def show_results():
         )
 
 def dictionary_management():
-    """Управление словарем брендов"""
     st.markdown('<div class="section-header">📚 Управление словарем брендов</div>', unsafe_allow_html=True)
     
     detector = st.session_state.detector
     
-    # Информация о словаре
     col1, col2 = st.columns(2)
     
     with col1:
@@ -666,14 +628,11 @@ def dictionary_management():
         </div>
         """, unsafe_allow_html=True)
     
-    # Текущий словарь
     st.markdown("### 🏷️ Текущий словарь брендов")
-    st.markdown("""    <div><p>Экспортируйте словарь перед закрытием страницы, чтобы в новой сессии импортировать его, если предстоит работать с теми же брендами. На данный момент в базе не сохраняются автоматически ваши словари</p></div> """, unsafe_allow_html=True)
-    st.markdown(""" <div><em>Если хотите, чтобы ваш словарь был в приложении или просто готовы поделиться с коллегами, присылайте файл словаря на почту mroshchupkin@ozon.ru с указанием темы письма "Словарь брендов"</em> </div>""", unsafe_allow_html=True)
+    st.markdown("""    <div><p>Экспортируйте словарь перед закрытием страницы, чтобы в новой сессии импортировать его.</p></div> """, unsafe_allow_html=True)
     if not detector.brand_dict:
         st.info("ℹ️ Словарь брендов пуст. Добавьте первый бренд.")
     else:
-        # Отображение в виде таблицы для редактирования
         brand_data = []
         for brand, keywords in detector.brand_dict.items():
             brand_data.append({
@@ -681,11 +640,9 @@ def dictionary_management():
                 'Ключевые слова': ', '.join(keywords),
                 'Количество ключевых слов': len(keywords)
             })
-        
         df_brands = pd.DataFrame(brand_data)
         st.dataframe(df_brands, use_container_width=True)
     
-    # Добавление/редактирование брендов
     st.markdown("### ✏️ Добавить или изменить бренд")
     
     col1, col2 = st.columns([1, 2])
@@ -733,13 +690,11 @@ def dictionary_management():
             else:
                 st.warning("⚠️ Введите название существующего бренда")
     
-    # Импорт/экспорт словаря
     st.markdown("### 🔄 Импорт/экспорт словаря")
     
     col1, col2 = st.columns(2)
     
     with col1:
-        # Экспорт
         dict_json = json.dumps(detector.brand_dict, ensure_ascii=False, indent=2)
         st.download_button(
             label="📤 Экспорт словаря (JSON)",
@@ -750,7 +705,6 @@ def dictionary_management():
         )
     
     with col2:
-        # Импорт
         uploaded_dict = st.file_uploader("Импорт JSON словаря", type=['json'])
         if uploaded_dict:
             try:
@@ -762,7 +716,6 @@ def dictionary_management():
                 st.error(f"❌ Ошибка при импорте: {str(e)}")
 
 def analytics_and_logs():
-    """Аналитика и логирование"""
     st.markdown('<div class="section-header">📊 Аналитика и логирование</div>', unsafe_allow_html=True)
     
     detector = st.session_state.detector
@@ -778,12 +731,10 @@ def analytics_and_logs():
         """)
         return
     
-    # Метрики производительности
     st.markdown("### 📈 Метрики обработки")
     
     if detector.performance_metrics:
         col1, col2, col3, col4 = st.columns(4)
-        
         metrics = detector.performance_metrics
         
         with col1:
@@ -796,21 +747,17 @@ def analytics_and_logs():
         with col4:
             st.metric("Всего логов", len(detector.logs))
     
-    # Визуализация сработавших ключевых слов
     st.markdown("### 🔍 Эффективность ключевых слов")
     
     if detector.logs:
-        # Анализ логов
         log_df = pd.DataFrame(detector.logs)
         keyword_usage = log_df['keyword'].value_counts().reset_index()
         keyword_usage.columns = ['keyword', 'count']
         
-        # Таблица использования ключевых слов
         if not keyword_usage.empty:
             st.markdown("#### Топ-10 самых частых ключевых слов")
             st.dataframe(keyword_usage.head(10), use_container_width=True)
         
-        # Распределение по брендам
         brand_usage = log_df['brand'].value_counts().reset_index()
         brand_usage.columns = ['brand', 'count']
         
@@ -818,7 +765,6 @@ def analytics_and_logs():
             st.markdown("#### Распределение найденных брендов")
             st.dataframe(brand_usage, use_container_width=True)
     
-    # Детальные логи
     st.markdown("### 📝 Детальные логи обработки")
     
     log_df = pd.DataFrame(detector.logs)
@@ -827,7 +773,6 @@ def analytics_and_logs():
         st.dataframe(log_df[['timestamp', 'row_index', 'brand', 'keyword', 'text_snippet']], 
                     use_container_width=True)
         
-        # Поиск по логам
         search_term = st.text_input("🔍 Поиск по логам (бренд, ключевое слово, текст)")
         if search_term:
             filtered_logs = log_df[
@@ -839,22 +784,15 @@ def analytics_and_logs():
             st.dataframe(filtered_logs, use_container_width=True)
 
 def main():
-    """Главная функция приложения"""
-    # Применяем стили OZON
     apply_ozon_style()
-    
-    # Инициализация состояния
     init_session_state()
     
-    # Боковая панель навигации
     with st.sidebar:
         st.markdown("""
         <div class="ozon-sidebar-header">
             <h1 class="sidebar-title">Информация</h1>
         </div>
         """, unsafe_allow_html=True)
-        
-       
         
         page = st.radio(
             "Навигация",
@@ -863,10 +801,8 @@ def main():
         
         st.write("---")
         
-        # Статистика в сайдбаре
         detector = st.session_state.detector
         
-        # Информация о загруженном файле
         if st.session_state.uploaded_filename:
             st.markdown(f"""
             <div class="uploaded-file-info">
@@ -880,7 +816,6 @@ def main():
                 clear_session_data()
                 st.rerun()
         
-        # Общая статистика
         st.markdown(f"""
         <div class="ozon-status">
             <strong>Статистика:</strong><br>
@@ -897,7 +832,6 @@ def main():
         </div>
         """, unsafe_allow_html=True)
     
-    # Отображение выбранной страницы
     if page == "Главная":
         main_page()
     elif page == "Управление словарем":
